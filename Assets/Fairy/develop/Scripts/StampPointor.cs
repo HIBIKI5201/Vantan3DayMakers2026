@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StampPointor : MonoBehaviour
 {
-    public Transform _stampPointer;
-    public GameObject _stampPrefab;
-    public float _rotationSpeed;
-    public HoverDetector _stampArea;
-
-    private GameObject _clonedStamp;
+    [SerializeField] private Transform _stampPointer;
+    [SerializeField] private GameObject _stampPrefab;
+    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private HoverDetector _stampArea;
+    [SerializeField] private InkManager _inkManager;
+    public bool IsCreateStamp = false;
+    public RectTransform ClonedStamp { get; private set; }
     public void Update()
     {
         RectTransform rect = _stampPointer.GetComponent<RectTransform>();
@@ -31,23 +33,29 @@ public class StampPointor : MonoBehaviour
 
     private void CreateStamp(Vector2 localPoint)
     {
-        if (Input.GetMouseButtonUp(0)&& _stampArea.IsHover)
+        if (Input.GetMouseButtonUp(0) && _stampArea.IsHover && IsCreateStamp)
         {
-            GameObject newStamp = Instantiate(_stampPrefab, _stampPointer.parent);
-            _stampPointer.transform.SetAsLastSibling();
+            RemoveStampObject();
+            GameObject newStamp = Instantiate(_stampPrefab,GameManager.Instance._stageCreate.transform);
             if (newStamp.TryGetComponent(out RectTransform rectTransform))
             {
                 rectTransform.localPosition = localPoint;
                 rectTransform.eulerAngles = _stampPointer.eulerAngles;
+                ClonedStamp = rectTransform;
             }
-            RemoveStampObject();
-            _clonedStamp = newStamp;
+            if(newStamp.TryGetComponent(out Image image))
+            {
+                Color color = image.color;
+                color.a = _inkManager.GetAlpha();
+                image.color = color; ;
+            }
+            _inkManager.RemoveValue();
             GameManager.Instance.OnStamp();
         }
     }
     public void RemoveStampObject()
     {
-        if (_clonedStamp == null) return;
-        Destroy(_clonedStamp);
+        if (ClonedStamp == null) return;
+        ClonedStamp = null;
     }
 }

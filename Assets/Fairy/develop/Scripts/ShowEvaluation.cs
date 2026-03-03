@@ -7,14 +7,14 @@ public class ShowEvaluation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private TextMeshProUGUI _postText;
-    [SerializeField] private PromotionValue[] _promotionValues;
+    [SerializeField] private PostData[] _postDatas;
 
     public void ShowWindow(Post post, float time, int score)
     {
         _mainPanel.SetActive(true);
         _timeText.text = time.ToString("N2") + "秒";
         _scoreText.text = "スコア" + score.ToString();
-        var result = Array.Find(_promotionValues, (PromotionValue x) => x.PostType == post);
+        var result = Array.Find(_postDatas, (PostData x) => x.PostType == post);
         if (result != null)
         {
             _postText.text = result.PostName;

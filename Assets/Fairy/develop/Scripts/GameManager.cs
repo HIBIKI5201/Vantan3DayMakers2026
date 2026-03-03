@@ -29,6 +29,7 @@ public enum Post
 public class GameManager : MonoBehaviour
 {
     // �V���O���g��
+    [Header("パラメーター")]
     public static GameManager Instance { get; private set; }
 
     // �Q�[����ԕύX�ʒm�C�x���g
@@ -39,24 +40,26 @@ public class GameManager : MonoBehaviour
 
     public int Score { get; private set; }
 
-    public Post RankLevel { get; private set; }
+    public PostData RankLevel { get; private set; }
     public float ClearTime { get; private set; }
+    public float GameTimer { get; private set; }
 
-    [SerializeField] private PromotionValue[] _promotionValues;
-    [SerializeField] private ShowEvaluation _showEvaluation;
+    [Header("アタッチ")]
+    [SerializeField] private PostData[] _postDatas;
     [SerializeField] private StampPointor _stampPointor;
-    [SerializeField] private TextMeshProUGUI _timeText;
+    [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private InGameUIManager _uiManager;
     [SerializeField] private Vector2 _offScreen;
+    [SerializeField] private float _nextDelay;
     [SerializeField] private GameObject _stagePrefab;
     [SerializeField] private Transform _stageParent;
+    [SerializeField] private RectTransform _stampArea;
     private CountdownManager countdownManager;
     //private InGameUIManager _inGameUIManager;
 
-    private RectTransform _stageCreate;
+    public RectTransform _stageCreate { get; private set; }
     private bool IsAddTime;
-    /// <summary>
-    /// ������
-    /// </summary>
+
     private async void Awake()
     {
         if (Instance != null && Instance != this)
@@ -71,23 +74,27 @@ public class GameManager : MonoBehaviour
         await UniTask.DelayFrame(1);
 
         countdownManager = FindFirstObjectByType<CountdownManager>();
-        //_inGameUIManager = FindFirstObjectByType<InGameUIManager>();
 
         CurrentState = GameState.Ready;
+        RankLevel = FindPostData(Post.Staff);
+        ClearTime = RankLevel.TimeLimit;
 
         NextStage();
+
+        _uiManager.UpdateTimerUI(ClearTime);
+        _uiManager.UpdatePostUI(RankLevel.PostName);
+        _uiManager.UpdateScoreUI(Score);
+
         if (countdownManager != null)
             await countdownManager.StartCountdownAsync();
 
-        _showEvaluation.HiddenWindow();
 
-        _timeText.text = ClearTime.ToString("N2") + "秒";
         IsAddTime = false;
         StartGame();
     }
     private void Start()
     {
-        Array.Sort(_promotionValues, (a, b) =>
+        Array.Sort(_postDatas, (a, b) =>
         {
             if (a == null) return -1;
             if (b == null) return 1;
@@ -99,8 +106,6 @@ public class GameManager : MonoBehaviour
     {
         //if (Input.GetKeyDown(KeyCode.E))  ポーズ一旦削除
         //{
-        //    Debug.Log("E�����ꂽ");
-
         //    if (CurrentState == GameState.Playing)
         //        PauseGame();
         //    else if (CurrentState == GameState.Paused)
@@ -108,8 +113,13 @@ public class GameManager : MonoBehaviour
         //}
         if (IsAddTime)
         {
-            ClearTime += Time.deltaTime;
-            _timeText.text = ClearTime.ToString("N2") + "秒";
+            ClearTime -= Time.deltaTime;
+            GameTimer += Time.deltaTime;
+            _uiManager.UpdateTimerUI(ClearTime);
+            if(ClearTime <= 0f)
+            {
+                SceneController.LoadScene(SceneName.Result);//ゲームオーバー
+            }
         }
     }
 
@@ -123,8 +133,20 @@ public class GameManager : MonoBehaviour
     public void OnStamp()
     {
         IsAddTime = false;
-        AddScore(100);
-        _showEvaluation.ShowWindow(RankLevel, ClearTime, Score);
+        Vector2 sPos = _stampPointor.ClonedStamp.anchoredPosition;
+        Vector2 aPos = _stampArea.anchoredPosition;
+        float rRot = _stampPointor.ClonedStamp.eulerAngles.z;
+        float aRot = _stampArea.eulerAngles.z;
+
+        int scoreAmount = _scoreManager.CalculationScore(sPos, rRot,sPos,aRot,ClearTime);
+        AddScore(scoreAmount + 100);
+        CheckRankUp(scoreAmount + 100);
+
+        IsAddTime = false;
+        _stampPointor.IsCreateStamp = false;
+
+        NextStage();
+        //_showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
     }
     /// <summary>
     /// Score追加
@@ -132,51 +154,66 @@ public class GameManager : MonoBehaviour
     public void AddScore(int amount)
     {
         Score += amount;
-        //_inGameUIManager.UpdateScoreUI(Score);
-        CheckRankUp();
+        _uiManager.UpdateScoreUI(Score);
+
     }
 
     /// <summary>
     /// 昇進チェック
     /// </summary>
-    void CheckRankUp()
+    void CheckRankUp(int amount)
     {
-        if (_promotionValues.Length == 0) return;
-        PromotionValue previous = _promotionValues[0];
-        foreach (var data in _promotionValues)
+        if (_postDatas.Length == 0) return;
+
+        if(amount >= RankLevel.PromotionScore)
         {
-            if (Score < data.PromotionScore)
+            if(RankLevel.PostType == Post.President)
             {
-                previous = data;
+                SceneController.LoadScene(SceneName.Result);//クリア
+                return;
             }
-            else
-                break;
+            int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
+            RankLevel = FindPostData((Post)next);
+            _uiManager.UpdatePostUI(RankLevel.PostName);
+            ClearTime = RankLevel.TimeLimit;
         }
-        Debug.Log(previous.PostName);
-        RankLevel = previous.PostType;
+        else
+        {
+            SceneController.LoadScene(SceneName.Result);//ゲームオーバー
+        }
+        Debug.Log(RankLevel.ToString());
+
     }
     public void NextStage()
     {
-        if(_stageCreate != null)
+        if (_stageCreate != null)
         {
             GameObject deleteStage = _stageCreate.gameObject;
-            _stageCreate.DOAnchorPosY(_offScreen.y,1f)
+            _stageCreate.DOAnchorPosY(_offScreen.y, 1f)
                 .OnComplete(() =>
                 {
                     Destroy(deleteStage);
-                });
+                }).SetDelay(_nextDelay);
         }
 
         _stampPointor.RemoveStampObject();
-        GameObject newStage =  Instantiate(_stagePrefab,_stageParent);
-        if(newStage.TryGetComponent(out StageCreate stageCreate))
+        GameObject newStage = Instantiate(_stagePrefab, _stageParent);
+        if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
-            stageCreate.Create(0, RankLevel);
+            
+            stageCreate.Create(RankLevel.BowAmount, RankLevel.PostType);
+            
         }
-        if(newStage.TryGetComponent(out RectTransform rectTransform))
+        if (newStage.TryGetComponent(out RectTransform rectTransform))
         {
-            rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0,0);
-            rectTransform.DOAnchorPosX(0, 1f);
+            rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0, 0);
+            rectTransform.DOAnchorPosX(0, 1f)
+                .OnComplete(() =>
+                {
+                    _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
+                    _stampPointor.IsCreateStamp = true;
+                    IsAddTime = true;
+                }).SetDelay(_nextDelay);
             _stageCreate = rectTransform;
         }
     }
@@ -185,9 +222,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        //Time.timeScale = 1f;
         ChangeState(GameState.Playing);
         IsAddTime = true;
+        _stampPointor.IsCreateStamp = true;
     }
 
     /// <summary>
@@ -200,7 +237,7 @@ public class GameManager : MonoBehaviour
         //Time.timeScale = 0f;
         ChangeState(GameState.Paused);
     }
-    
+
     /// <summary>
     /// �ĊJ
     /// </summary>
@@ -217,5 +254,16 @@ public class GameManager : MonoBehaviour
     {
         //Time.timeScale = 0f;
         ChangeState(GameState.GameOver);
+    }
+
+    private PostData FindPostData(Post post)
+    {
+        PostData data = Array.Find(_postDatas, (PostData x) => x.PostType == post);
+        if (data == null)
+        {
+            Debug.LogError("ScoreData Null");
+            return null;
+        }
+        return data;
     }
 }

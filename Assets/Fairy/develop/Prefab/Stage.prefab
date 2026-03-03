@@ -811,14 +811,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageCreate
   _frameDatas:
   - PostType: 1
+    BowAmount: 90
     MainFrame: {fileID: 5371300976753998530}
   - PostType: 2
+    BowAmount: 60
     MainFrame: {fileID: 4586500254776560204}
   - PostType: 3
+    BowAmount: 45
     MainFrame: {fileID: 4068273540138000005}
   - PostType: 4
+    BowAmount: 30
     MainFrame: {fileID: 5145267770281862852}
   - PostType: 5
+    BowAmount: 0
     MainFrame: {fileID: 6448323041483625694}
   _stampPrefab: {fileID: 4124751007862745314, guid: 2af344bcd36456741a8fef0b34732f72, type: 3}
 --- !u!1 &9130257528452884504
