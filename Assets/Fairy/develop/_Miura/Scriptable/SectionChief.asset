@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69a6fa3fb16d034a90e4b6b53e01cb8, type: 3}
   m_Name: SectionChief
   m_EditorClassIdentifier: Assembly-CSharp::PromotionValue
-  PostName: 1
+  PostType: 2
+  PostName: "\u4FC2\u9577"
   PromotionScore: 100

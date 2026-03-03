@@ -4,6 +4,7 @@ using UnityEngine;
 public class PromotionValue : ScriptableObject
 {
     [Header("昇進役職名")]
-    public Post PostName;
+    public Post PostType;
+    public string PostName;
     public int PromotionScore;
 }
