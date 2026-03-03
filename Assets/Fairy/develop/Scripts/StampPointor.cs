@@ -42,8 +42,10 @@ public class StampPointor : MonoBehaviour
             if (newStamp.TryGetComponent(out RectTransform rectTransform))
             {
                 rectTransform.localPosition = localPoint;
-                //rectTransform.localEulerAngles
+                rectTransform.eulerAngles = _stampPointer.eulerAngles;
             }
+
+            Debug.Log(_pressureTime);
         }
     }
 }

@@ -581,6 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CreateStamp
   _stampPointer: {fileID: 610827162}
   _stampPrefab: {fileID: 4124751007862745314, guid: 2af344bcd36456741a8fef0b34732f72, type: 3}
+  _rotationSpeed: 10
 --- !u!1 &630688750
 GameObject:
   m_ObjectHideFlags: 0
