@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         float rRot = _stampPointor.ClonedStamp.eulerAngles.z;
         float aRot = _stampArea.eulerAngles.z;
 
-        int scoreAmount = _scoreManager.CalculationScore(sPos, rRot,sPos,aRot);
+        int scoreAmount = _scoreManager.CalculationScore(sPos, rRot,sPos,aRot,ClearTime);
         AddScore(scoreAmount);
         _showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
     }
