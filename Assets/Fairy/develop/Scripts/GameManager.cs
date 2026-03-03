@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public enum GameState
@@ -29,6 +30,7 @@ public enum Post
 public class GameManager : MonoBehaviour
 {
     // �V���O���g��
+    [Header("パラメーター")]
     public static GameManager Instance { get; private set; }
 
     // �Q�[����ԕύX�ʒm�C�x���g
@@ -42,17 +44,20 @@ public class GameManager : MonoBehaviour
     public Post RankLevel { get; private set; }
     public float ClearTime { get; private set; }
 
+    [Header("アタッチ")]
     [SerializeField] private PromotionValue[] _promotionValues;
     [SerializeField] private ShowEvaluation _showEvaluation;
     [SerializeField] private StampPointor _stampPointor;
+    [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private Vector2 _offScreen;
     [SerializeField] private GameObject _stagePrefab;
     [SerializeField] private Transform _stageParent;
+    [SerializeField] private RectTransform _stampArea;
     private CountdownManager countdownManager;
     //private InGameUIManager _inGameUIManager;
 
-    private RectTransform _stageCreate;
+    public RectTransform _stageCreate { get; private set; }
     private bool IsAddTime;
     /// <summary>
     /// ������
@@ -123,16 +128,24 @@ public class GameManager : MonoBehaviour
     public void OnStamp()
     {
         IsAddTime = false;
-        AddScore(100);
-        _showEvaluation.ShowWindow(RankLevel, ClearTime, Score);
+        Vector2 sPos = _stampPointor.ClonedStamp.anchoredPosition;
+        Vector2 aPos = _stampArea.anchoredPosition;
+        float rRot = _stampPointor.ClonedStamp.eulerAngles.z;
+        float aRot = _stampArea.eulerAngles.z;
+
+        int scoreAmount = _scoreManager.CalculationScore(sPos, rRot,sPos,aRot);
+        AddScore(scoreAmount);
+        _showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
     }
     /// <summary>
     /// Score追加
     /// </summary>
     public void AddScore(int amount)
     {
+        Debug.Log("Amount");
         Score += amount;
         //_inGameUIManager.UpdateScoreUI(Score);
+
         CheckRankUp();
     }
 
@@ -157,10 +170,10 @@ public class GameManager : MonoBehaviour
     }
     public void NextStage()
     {
-        if(_stageCreate != null)
+        if (_stageCreate != null)
         {
             GameObject deleteStage = _stageCreate.gameObject;
-            _stageCreate.DOAnchorPosY(_offScreen.y,1f)
+            _stageCreate.DOAnchorPosY(_offScreen.y, 1f)
                 .OnComplete(() =>
                 {
                     Destroy(deleteStage);
@@ -168,15 +181,20 @@ public class GameManager : MonoBehaviour
         }
 
         _stampPointor.RemoveStampObject();
-        GameObject newStage =  Instantiate(_stagePrefab,_stageParent);
-        if(newStage.TryGetComponent(out StageCreate stageCreate))
+        GameObject newStage = Instantiate(_stagePrefab, _stageParent);
+        if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
             stageCreate.Create(0, RankLevel);
+            
         }
-        if(newStage.TryGetComponent(out RectTransform rectTransform))
+        if (newStage.TryGetComponent(out RectTransform rectTransform))
         {
-            rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0,0);
-            rectTransform.DOAnchorPosX(0, 1f);
+            rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0, 0);
+            rectTransform.DOAnchorPosX(0, 1f)
+                .OnComplete(() =>
+                {
+                    _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
+                });
             _stageCreate = rectTransform;
         }
     }
@@ -200,7 +218,7 @@ public class GameManager : MonoBehaviour
         //Time.timeScale = 0f;
         ChangeState(GameState.Paused);
     }
-    
+
     /// <summary>
     /// �ĊJ
     /// </summary>
