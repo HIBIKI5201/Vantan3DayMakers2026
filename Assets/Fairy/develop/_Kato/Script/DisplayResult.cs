@@ -12,9 +12,9 @@ public class DisplayResult : MonoBehaviour
     void Awake()
     {
         _gameManager = GameManager.Instance;
-        _name.text = $"";
-        _post.text = $"";
-        _score.text = $"{_gameManager.Score}";
-        _time.text = $"";
+        _name.text = $"未実装";
+        _post.text = $"{_gameManager.RankLevel.PostName}";
+        _score.text = $"スコア：{_gameManager.Score}";
+        _time.text = $"クリアタイム：{_gameManager.GameTimer}";
     }
 }

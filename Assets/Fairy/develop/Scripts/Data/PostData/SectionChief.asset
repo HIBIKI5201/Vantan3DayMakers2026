@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b737dcfbeb04ec46a020cf0a4b129af, type: 3}
-  m_Name: President
+  m_Name: SectionChief
   m_EditorClassIdentifier: Assembly-CSharp::ScoreData
-  Post: 5
-  GameOverScore: 0
+  PostType: 2
+  PostName: "\u8AB2\u9577"
+  PromotionScore: 100
   TolerancePosition: 10
   ToleranceRotation: 10
   PerfectTime: 60
   TimeLimit: 120
+  BowAmount: 60

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b737dcfbeb04ec46a020cf0a4b129af, type: 3}
   m_Name: Manager
   m_EditorClassIdentifier: Assembly-CSharp::ScoreData
-  Post: 3
-  GameOverScore: 0
+  PostType: 3
+  PostName: "\u90E8\u9577"
+  PromotionScore: 400
   TolerancePosition: 10
   ToleranceRotation: 10
   PerfectTime: 60

@@ -40,18 +40,17 @@ public class GameManager : MonoBehaviour
 
     public int Score { get; private set; }
 
-    public Post RankLevel { get; private set; }
+    public PostData RankLevel { get; private set; }
     public float ClearTime { get; private set; }
     public float GameTimer { get; private set; }
 
     [Header("アタッチ")]
-    [SerializeField] private PromotionValue[] _promotionValues;
-    [SerializeField] private ScoreData[] _scoreDatas;
-    [SerializeField] private ShowEvaluation _showEvaluation;
+    [SerializeField] private PostData[] _postDatas;
     [SerializeField] private StampPointor _stampPointor;
     [SerializeField] private ScoreManager _scoreManager;
-    [SerializeField] private TextMeshProUGUI _timeText;
+    [SerializeField] private InGameUIManager _uiManager;
     [SerializeField] private Vector2 _offScreen;
+    [SerializeField] private float _nextDelay;
     [SerializeField] private GameObject _stagePrefab;
     [SerializeField] private Transform _stageParent;
     [SerializeField] private RectTransform _stampArea;
@@ -77,21 +76,25 @@ public class GameManager : MonoBehaviour
         countdownManager = FindFirstObjectByType<CountdownManager>();
 
         CurrentState = GameState.Ready;
-        RankLevel = Post.Staff;
+        RankLevel = FindPostData(Post.Staff);
+        ClearTime = RankLevel.TimeLimit;
 
         NextStage();
+
+        _uiManager.UpdateTimerUI(ClearTime);
+        _uiManager.UpdatePostUI(RankLevel.PostName);
+        _uiManager.UpdateScoreUI(Score);
+
         if (countdownManager != null)
             await countdownManager.StartCountdownAsync();
 
-        _showEvaluation.HiddenWindow();
 
-        _timeText.text = ClearTime.ToString("N2") + "秒";
         IsAddTime = false;
         StartGame();
     }
     private void Start()
     {
-        Array.Sort(_promotionValues, (a, b) =>
+        Array.Sort(_postDatas, (a, b) =>
         {
             if (a == null) return -1;
             if (b == null) return 1;
@@ -112,7 +115,11 @@ public class GameManager : MonoBehaviour
         {
             ClearTime -= Time.deltaTime;
             GameTimer += Time.deltaTime;
-            _timeText.text = ClearTime.ToString("N2") + "秒";
+            _uiManager.UpdateTimerUI(ClearTime);
+            if(ClearTime <= 0f)
+            {
+                SceneController.LoadScene(SceneName.Result);//ゲームオーバー
+            }
         }
     }
 
@@ -135,8 +142,8 @@ public class GameManager : MonoBehaviour
         AddScore(scoreAmount + 100);
         CheckRankUp(scoreAmount + 100);
 
-        _stampPointor.enabled = false;
         IsAddTime = false;
+        _stampPointor.IsCreateStamp = false;
 
         NextStage();
         //_showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
@@ -147,7 +154,7 @@ public class GameManager : MonoBehaviour
     public void AddScore(int amount)
     {
         Score += amount;
-        //_inGameUIManager.UpdateScoreUI(Score);
+        _uiManager.UpdateScoreUI(Score);
 
     }
 
@@ -156,27 +163,23 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void CheckRankUp(int amount)
     {
-        if (_promotionValues.Length == 0) return;
-        PromotionValue data = Array.Find(_promotionValues, (PromotionValue x) => x.PostType == RankLevel);
-        if (data == null)
-        {
-            Debug.LogError("ScoreData Null");
-            return;
-        }
+        if (_postDatas.Length == 0) return;
 
-        if(amount >= data.PromotionScore)
+        if(amount >= RankLevel.PromotionScore)
         {
-            if(RankLevel == Post.President)
+            if(RankLevel.PostType == Post.President)
             {
-                Debug.Log("GameClear");
+                SceneController.LoadScene(SceneName.Result);//クリア
                 return;
             }
-            int next = ((int)RankLevel + 1) % System.Enum.GetValues(typeof(Post)).Length;
-            RankLevel = (Post)next;
+            int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
+            RankLevel = FindPostData((Post)next);
+            _uiManager.UpdatePostUI(RankLevel.PostName);
+            ClearTime = RankLevel.TimeLimit;
         }
         else
         {
-            Debug.Log("GameOver");
+            SceneController.LoadScene(SceneName.Result);//ゲームオーバー
         }
         Debug.Log(RankLevel.ToString());
 
@@ -190,21 +193,15 @@ public class GameManager : MonoBehaviour
                 .OnComplete(() =>
                 {
                     Destroy(deleteStage);
-                });
+                }).SetDelay(_nextDelay);
         }
 
         _stampPointor.RemoveStampObject();
         GameObject newStage = Instantiate(_stagePrefab, _stageParent);
         if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
-            ScoreData data = Array.Find(_scoreDatas, (ScoreData x) => x.Post == RankLevel);
-            if (data == null)
-            {
-                Debug.LogError("ScoreData Null");
-                return;
-            }
             
-            stageCreate.Create(data.BowAmount, RankLevel);
+            stageCreate.Create(RankLevel.BowAmount, RankLevel.PostType);
             
         }
         if (newStage.TryGetComponent(out RectTransform rectTransform))
@@ -214,9 +211,9 @@ public class GameManager : MonoBehaviour
                 .OnComplete(() =>
                 {
                     _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
-                    _stampPointor.enabled = true;
+                    _stampPointor.IsCreateStamp = true;
                     IsAddTime = true;
-                });
+                }).SetDelay(_nextDelay);
             _stageCreate = rectTransform;
         }
     }
@@ -225,9 +222,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        //Time.timeScale = 1f;
         ChangeState(GameState.Playing);
         IsAddTime = true;
+        _stampPointor.IsCreateStamp = true;
     }
 
     /// <summary>
@@ -257,5 +254,16 @@ public class GameManager : MonoBehaviour
     {
         //Time.timeScale = 0f;
         ChangeState(GameState.GameOver);
+    }
+
+    private PostData FindPostData(Post post)
+    {
+        PostData data = Array.Find(_postDatas, (PostData x) => x.PostType == post);
+        if (data == null)
+        {
+            Debug.LogError("ScoreData Null");
+            return null;
+        }
+        return data;
     }
 }
