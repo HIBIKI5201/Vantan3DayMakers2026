@@ -11,6 +11,14 @@ public enum GameState
     GameOver
 }
 
+public enum Post
+{
+    Staff,
+    SectionChief,
+    Manager,
+    Director,
+    President
+}
 /// <summary>
 /// �Q�[���S�̂̏�Ԃ��Ǘ�����N���X�B
 /// UI�≉�o�̐���͍s��Ȃ��B
@@ -34,6 +42,7 @@ public class GameManager : MonoBehaviour
     public int RankLevel { get; private set; }
 
     private CountdownManager countdownManager;
+    private InGameUIManager _inGameUIManager;
 
     /// <summary>
     /// ������
@@ -54,6 +63,7 @@ public class GameManager : MonoBehaviour
         await UniTask.DelayFrame(1);
 
         countdownManager = FindFirstObjectByType<CountdownManager>();
+        _inGameUIManager = FindFirstObjectByType<InGameUIManager>();
 
         CurrentState = GameState.Ready;
 
@@ -97,8 +107,8 @@ public class GameManager : MonoBehaviour
     public void AddScore(int amount)
     {
         Score += amount;
+        _inGameUIManager.UpdateScoreUI(Score);
         CheckRankUp();
-        // ここにUI連携処理
     }
 
     /// <summary>
@@ -129,7 +139,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("PauseGame�Ă΂ꂽ");
 
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         ChangeState(GameState.Paused);
     }
 
@@ -147,7 +157,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         ChangeState(GameState.GameOver);
     }
 }

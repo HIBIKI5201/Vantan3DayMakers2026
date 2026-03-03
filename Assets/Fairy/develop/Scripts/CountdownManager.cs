@@ -1,11 +1,11 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
+using TMPro;
 
 public class CountdownManager : MonoBehaviour
 {
-    [SerializeField] private Text countdownText;
+    [SerializeField] private TextMeshProUGUI countdownText;
 
     public async UniTask StartCountdownAsync()
     {
