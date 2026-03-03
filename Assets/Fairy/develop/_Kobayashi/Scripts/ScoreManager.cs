@@ -1,17 +1,17 @@
 using UnityEngine;
-
+/// <summary>
+/// スコアの計算
+/// </summary>
 public class ScoreManager : MonoBehaviour
 {
     [Header("スコア設定")]
-    [SerializeField, Tooltip("最大スコア")] private int _maxScore = 45;
+    [SerializeField, Tooltip("最大スコア")] private int _maxScore = 50;
     [SerializeField, Tooltip("最大スコア時の判定度")] private float _perfectJudgement = 0.2f;
-    [SerializeField, Tooltip("最大スコアの時間")] private float _perfectTime = 5f;
     [SerializeField, Tooltip("評価の減衰率"),Range(0,20)] private int _attenuationRate = 10;
 
     //評価軸
     [Tooltip("正しい位置")] private Vector2 _correctPosition;
     [Tooltip("正しい角度")] private float _correctRotation;
-    [Tooltip("最短時間")] private float _minTime;
 
     [Tooltip("位置の猶予")] private float _gracePeriodPos;
     [Tooltip("角度の猶予")] private float _gracePeriodRot;
@@ -29,14 +29,13 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     /// <param name="stampPos">ハンコの位置</param>
     /// <param name="stampRot">ハンコの角度</param>
-    /// <param name="time">押すまでの時間</param>
     /// <returns></returns>
-    public int CalculationScore(Vector2 stampPos,float stampRot,float time)
+    public int CalculationScore(Vector2 stampPos,float stampRot)
     {
-        //ゲーマネから正解の情報を取得
+        //todo;ゲーマネから正解の情報を取得
 
 
-        //猶予を現在の状態をみて調整
+        //todo;猶予を現在の状態をみて調整
 
 
         int score = 0;
@@ -46,7 +45,7 @@ public class ScoreManager : MonoBehaviour
         if(distance <= _gracePeriodPos * _perfectJudgement)
         {
             //位置スコア最大
-            score += _maxScore / 3;
+            score += _maxScore / 2;
         }
         else if (distance <= _gracePeriodPos)
         {
@@ -62,7 +61,7 @@ public class ScoreManager : MonoBehaviour
         if (angle <= _gracePeriodRot * _perfectJudgement)
         {
             //角度スコア最大
-            score += _maxScore / 3;
+            score += _maxScore / 2;
         }
         else if(angle <= _gracePeriodRot)
         {
@@ -72,14 +71,6 @@ public class ScoreManager : MonoBehaviour
             //それに応じたスコアを加算
             score += Mathf.RoundToInt((_maxScore / 3f) * accuracy);
         }
-
-        //時間計算
-        if(time <= _perfectTime)
-        {
-            //時間スコア最大
-            score += _maxScore / 3;
-        }
-        //else if(time <= )
 
             return score;
     }
