@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69a6fa3fb16d034a90e4b6b53e01cb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b737dcfbeb04ec46a020cf0a4b129af, type: 3}
   m_Name: Director
-  m_EditorClassIdentifier: Assembly-CSharp::PromotionValue
-  PostType: 4
-  PostName: 3
-  PromotionScore: 700
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreData
+  Post: 4
+  GameOverScore: 0
+  TolerancePosition: 10
+  ToleranceRotation: 10
+  PerfectTime: 60
+  TimeLimit: 120
+  BowAmount: 30

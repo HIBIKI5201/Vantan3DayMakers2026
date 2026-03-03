@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StampPointor : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class StampPointor : MonoBehaviour
     [SerializeField] private GameObject _stampPrefab;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private HoverDetector _stampArea;
-
+    [SerializeField] private InkManager _inkManager;
     public RectTransform ClonedStamp { get; private set; }
     public void Update()
     {
@@ -31,6 +32,7 @@ public class StampPointor : MonoBehaviour
 
     private void CreateStamp(Vector2 localPoint)
     {
+        Debug.Log(_stampArea.IsHover);
         if (Input.GetMouseButtonUp(0) && _stampArea.IsHover)
         {
             RemoveStampObject();
@@ -41,12 +43,19 @@ public class StampPointor : MonoBehaviour
                 rectTransform.eulerAngles = _stampPointer.eulerAngles;
                 ClonedStamp = rectTransform;
             }
+            if(newStamp.TryGetComponent(out Image image))
+            {
+                Color color = image.color;
+                color.a = _inkManager.GetAlpha();
+                image.color = color; ;
+            }
+            _inkManager.RemoveValue();
             GameManager.Instance.OnStamp();
         }
     }
     public void RemoveStampObject()
     {
         if (ClonedStamp == null) return;
-        Destroy(ClonedStamp.gameObject);
+        ClonedStamp = null;
     }
 }
