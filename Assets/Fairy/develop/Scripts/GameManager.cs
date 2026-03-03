@@ -46,10 +46,9 @@ public class GameManager : MonoBehaviour
 
     [Header("アタッチ")]
     [SerializeField] private PostData[] _postDatas;
-    [SerializeField] private ShowEvaluation _showEvaluation;
     [SerializeField] private StampPointor _stampPointor;
     [SerializeField] private ScoreManager _scoreManager;
-    [SerializeField] private TextMeshProUGUI _timeText;
+    [SerializeField] private InGameUIManager _uiManager;
     [SerializeField] private Vector2 _offScreen;
     [SerializeField] private GameObject _stagePrefab;
     [SerializeField] private Transform _stageParent;
@@ -79,12 +78,14 @@ public class GameManager : MonoBehaviour
         RankLevel = FindPostData(Post.Staff);
 
         NextStage();
+
         if (countdownManager != null)
             await countdownManager.StartCountdownAsync();
 
-        _showEvaluation.HiddenWindow();
 
-        _timeText.text = ClearTime.ToString("N2") + "秒";
+        _uiManager.UpdateTimerUI(ClearTime);
+        _uiManager.UpdatePostUI(RankLevel.PostName);
+        _uiManager.UpdateScoreUI(Score);
         IsAddTime = false;
         StartGame();
     }
@@ -111,7 +112,7 @@ public class GameManager : MonoBehaviour
         {
             ClearTime -= Time.deltaTime;
             GameTimer += Time.deltaTime;
-            _timeText.text = ClearTime.ToString("N2") + "秒";
+            _uiManager.UpdateTimerUI(ClearTime);
         }
     }
 
@@ -146,7 +147,7 @@ public class GameManager : MonoBehaviour
     public void AddScore(int amount)
     {
         Score += amount;
-        //_inGameUIManager.UpdateScoreUI(Score);
+        _uiManager.UpdateScoreUI(Score);
 
     }
 
@@ -166,6 +167,7 @@ public class GameManager : MonoBehaviour
             }
             int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
             RankLevel = FindPostData((Post)next);
+            _uiManager.UpdatePostUI(RankLevel.PostName);
         }
         else
         {
