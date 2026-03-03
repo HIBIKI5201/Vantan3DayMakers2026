@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -13,7 +12,7 @@ public enum SceneName : byte
 
 public static class SceneController
 {
-    public static SceneName CurrentScene;
+    public static SceneName CurrentScene { get; private set; }
 
     /// <summary>
     /// SceneØ‚è‘Ö‚¦ˆ—
@@ -21,6 +20,7 @@ public static class SceneController
     /// <param name="scene">Scene‚ÌØ‚è‘Ö‚¦æ</param>
     public static void LoadScene(SceneName scene)
     {
+        CurrentScene = scene;
         SceneManager.LoadScene($"{scene}");
     }
 }
