@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 172352253717811771}
   - component: {fileID: 7068505060084644799}
   - component: {fileID: 8010334480331091024}
+  - component: {fileID: 5302174269997068216}
   m_Layer: 5
   m_Name: Stamp
   m_TagString: Untagged
@@ -75,3 +76,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5302174269997068216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4124751007862745314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e717c8296d1f184ba13e4fc85eec3e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StampEffect
