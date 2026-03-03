@@ -13,6 +13,7 @@ public enum GameState
 
 public enum Post
 {
+    None,
     Staff,
     SectionChief,
     Manager,
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     // �X�R�A
     public int Score { get; private set; }
+    // 
 
     // ���i���x��
     public int RankLevel { get; private set; }
