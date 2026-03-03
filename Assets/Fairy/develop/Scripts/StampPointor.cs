@@ -5,8 +5,9 @@ public class StampPointor : MonoBehaviour
     public Transform _stampPointer;
     public GameObject _stampPrefab;
     public float _rotationSpeed;
+    public HoverDetector _stampArea;
 
-    private float _pressureTime;
+    private GameObject _clonedStamp;
     public void Update()
     {
         RectTransform rect = _stampPointer.GetComponent<RectTransform>();
@@ -21,7 +22,6 @@ public class StampPointor : MonoBehaviour
 
         rect.localPosition = localPoint;
 
-        Debug.Log(Input.mousePosition);
         CreateStamp(localPoint);
 
         Vector3 rotation = _stampPointer.localEulerAngles;
@@ -31,11 +31,7 @@ public class StampPointor : MonoBehaviour
 
     private void CreateStamp(Vector2 localPoint)
     {
-        if (Input.GetMouseButton(0))
-        {
-            _pressureTime += Time.deltaTime;
-        }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0)&& _stampArea.IsHover)
         {
             GameObject newStamp = Instantiate(_stampPrefab, _stampPointer.parent);
             _stampPointer.transform.SetAsLastSibling();
@@ -44,8 +40,13 @@ public class StampPointor : MonoBehaviour
                 rectTransform.localPosition = localPoint;
                 rectTransform.eulerAngles = _stampPointer.eulerAngles;
             }
-
-            Debug.Log(_pressureTime);
+            RemoveStampObject();
+            _clonedStamp = newStamp;
         }
+    }
+    private void RemoveStampObject()
+    {
+        if (_clonedStamp == null) return;
+        Destroy(_clonedStamp);
     }
 }

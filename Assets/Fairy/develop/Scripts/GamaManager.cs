@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     // ¸iƒŒƒxƒ‹
     public int RankLevel { get; private set; }
-
+        
     private CountdownManager countdownManager;
 
     /// <summary>
