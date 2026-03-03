@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -10,59 +9,27 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource seSource;
     [SerializeField] private AudioMixer audioMixer;
-
-    [Header("Pool Setting")]
-    [SerializeField] private int poolSize = 8; // 同時に鳴らせる汎用SEの数
-    private List<AudioSource> sePool = new List<AudioSource>();
     private void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        AudioMixerGroup seGroup = audioMixer.FindMatchingGroups("SE")[0];
-
-        // 汎用SE用のプールを生成
-        for (int i = 0; i < poolSize; i++)
-        {
-            AudioSource newSource = gameObject.AddComponent<AudioSource>();
-            newSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SE")[0];
-            sePool.Add(newSource);
-        }
     }
     // 他のクラスから AudioManager.PlaySE(クリップ) で呼べるようにする
     public static void PlaySE(AudioClip clip)
     {
         if (Instance == null || clip == null) return;
-
-        // 空いている（鳴っていない）Sourceを探す
-        foreach (var source in Instance.sePool)
-        {
-            if (!source.isPlaying)
-            {
-                source.clip = clip;
-                source.Play();
-                return;
-            }
-        } // 全て埋まっていたら、一番古いものを上書きするか、諦める（今回は諦める）
-    }
-    public static void PlaySystemSE(AudioClip clip)
-    {
-        if (Instance == null || clip == null) return;
-
-        // これにより、連打しても音が重ならず、常に最初から再生されます
-        Instance.seSource.Stop();
-
-        Instance.seSource.clip = clip;
-        Instance.seSource.Play();
+        Instance.seSource.PlayOneShot(clip);
     }
     // 【追加】今鳴っているSEをすべて止める
-    public static void StopSE(AudioClip clip)
+    public static void StopSE()
     {
-        if (Instance == null || clip == null) return;
-        Instance.seSource.Stop(); // 前の音を止める
-        Instance.seSource.clip = clip;
-        Instance.seSource.Play();
+        if (Instance == null) return;
+        Instance.seSource.Stop();
     }
     public static void SetBGMVolume(float value)
     {

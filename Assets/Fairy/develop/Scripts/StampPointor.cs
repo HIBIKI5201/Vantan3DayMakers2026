@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class StampPointor : MonoBehaviour
 {
-    [SerializeField] private Transform _stampPointer;
-    [SerializeField] private GameObject _stampPrefab;
-    [SerializeField] private float _rotationSpeed;
-    [SerializeField] private HoverDetector _stampArea;
+    public Transform _stampPointer;
+    public GameObject _stampPrefab;
+    public float _rotationSpeed;
+    public HoverDetector _stampArea;
 
-    public RectTransform ClonedStamp { get; private set; }
+    private GameObject _clonedStamp;
     public void Update()
     {
         RectTransform rect = _stampPointer.GetComponent<RectTransform>();
@@ -31,22 +31,23 @@ public class StampPointor : MonoBehaviour
 
     private void CreateStamp(Vector2 localPoint)
     {
-        if (Input.GetMouseButtonUp(0) && _stampArea.IsHover)
+        if (Input.GetMouseButtonUp(0)&& _stampArea.IsHover)
         {
-            RemoveStampObject();
-            GameObject newStamp = Instantiate(_stampPrefab,GameManager.Instance._stageCreate.transform);
+            GameObject newStamp = Instantiate(_stampPrefab, _stampPointer.parent);
+            _stampPointer.transform.SetAsLastSibling();
             if (newStamp.TryGetComponent(out RectTransform rectTransform))
             {
                 rectTransform.localPosition = localPoint;
                 rectTransform.eulerAngles = _stampPointer.eulerAngles;
-                ClonedStamp = rectTransform;
             }
+            RemoveStampObject();
+            _clonedStamp = newStamp;
             GameManager.Instance.OnStamp();
         }
     }
     public void RemoveStampObject()
     {
-        if (ClonedStamp == null) return;
-        Destroy(ClonedStamp.gameObject);
+        if (_clonedStamp == null) return;
+        Destroy(_clonedStamp);
     }
 }
