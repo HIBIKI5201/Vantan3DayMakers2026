@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public enum GameState
@@ -43,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     public Post RankLevel { get; private set; }
     public float ClearTime { get; private set; }
+    public float GameTimer { get; private set; }
 
     [Header("アタッチ")]
     [SerializeField] private PromotionValue[] _promotionValues;
@@ -59,9 +59,7 @@ public class GameManager : MonoBehaviour
 
     public RectTransform _stageCreate { get; private set; }
     private bool IsAddTime;
-    /// <summary>
-    /// ������
-    /// </summary>
+
     private async void Awake()
     {
         if (Instance != null && Instance != this)
@@ -76,7 +74,6 @@ public class GameManager : MonoBehaviour
         await UniTask.DelayFrame(1);
 
         countdownManager = FindFirstObjectByType<CountdownManager>();
-        //_inGameUIManager = FindFirstObjectByType<InGameUIManager>();
 
         CurrentState = GameState.Ready;
 
@@ -104,8 +101,6 @@ public class GameManager : MonoBehaviour
     {
         //if (Input.GetKeyDown(KeyCode.E))  ポーズ一旦削除
         //{
-        //    Debug.Log("E�����ꂽ");
-
         //    if (CurrentState == GameState.Playing)
         //        PauseGame();
         //    else if (CurrentState == GameState.Paused)
@@ -113,7 +108,8 @@ public class GameManager : MonoBehaviour
         //}
         if (IsAddTime)
         {
-            ClearTime += Time.deltaTime;
+            ClearTime -= Time.deltaTime;
+            GameTimer += Time.deltaTime;
             _timeText.text = ClearTime.ToString("N2") + "秒";
         }
     }
