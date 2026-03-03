@@ -42,9 +42,10 @@ public class StampPointor : MonoBehaviour
             }
             RemoveStampObject();
             _clonedStamp = newStamp;
+            GameManager.Instance.OnStamp();
         }
     }
-    private void RemoveStampObject()
+    public void RemoveStampObject()
     {
         if (_clonedStamp == null) return;
         Destroy(_clonedStamp);

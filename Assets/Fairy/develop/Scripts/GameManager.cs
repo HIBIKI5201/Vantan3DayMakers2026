@@ -1,7 +1,8 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public enum GameState
 {
@@ -36,22 +37,28 @@ public class GameManager : MonoBehaviour
     // ���݂̃Q�[�����
     public GameState CurrentState { get; private set; }
 
-    // �X�R�A
     public int Score { get; private set; }
-    // 
 
-    // ���i���x��
-    public int RankLevel { get; private set; }
+    public Post RankLevel { get; private set; }
+    public float ClearTime { get; private set; }
 
+    [SerializeField] private PromotionValue[] _promotionValues;
+    [SerializeField] private ShowEvaluation _showEvaluation;
+    [SerializeField] private StampPointor _stampPointor;
+    [SerializeField] private TextMeshProUGUI _timeText;
+    [SerializeField] private Vector2 _offScreen;
+    [SerializeField] private GameObject _stagePrefab;
+    [SerializeField] private Transform _stageParent;
     private CountdownManager countdownManager;
-    private InGameUIManager _inGameUIManager;
+    //private InGameUIManager _inGameUIManager;
 
+    private RectTransform _stageCreate;
+    private bool IsAddTime;
     /// <summary>
     /// ������
     /// </summary>
     private async void Awake()
     {
-        // �V���O���g���ۏ�
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -61,77 +68,126 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // 1�t���[���҂��Ă��瑼�I�u�W�F�N�g����
         await UniTask.DelayFrame(1);
 
         countdownManager = FindFirstObjectByType<CountdownManager>();
-        _inGameUIManager = FindFirstObjectByType<InGameUIManager>();
+        //_inGameUIManager = FindFirstObjectByType<InGameUIManager>();
 
         CurrentState = GameState.Ready;
 
-        // �J�E���g�_�E�����s
+        NextStage();
         if (countdownManager != null)
             await countdownManager.StartCountdownAsync();
 
+        _showEvaluation.HiddenWindow();
+
+        _timeText.text = ClearTime.ToString("N2") + "秒";
+        IsAddTime = false;
         StartGame();
     }
+    private void Start()
+    {
+        Array.Sort(_promotionValues, (a, b) =>
+        {
+            if (a == null) return -1;
+            if (b == null) return 1;
+            return a.PromotionScore.CompareTo(b.PromotionScore);
+        });
+    }
 
-    /// <summary>
-    /// ���͊Ď��i�VInputSystem�g�p�j
-    /// </summary>
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("E�����ꂽ");
+        //if (Input.GetKeyDown(KeyCode.E))  ポーズ一旦削除
+        //{
+        //    Debug.Log("E�����ꂽ");
 
-            if (CurrentState == GameState.Playing)
-                PauseGame();
-            else if (CurrentState == GameState.Paused)
-                ResumeGame();
+        //    if (CurrentState == GameState.Playing)
+        //        PauseGame();
+        //    else if (CurrentState == GameState.Paused)
+        //        ResumeGame();
+        //}
+        if (IsAddTime)
+        {
+            ClearTime += Time.deltaTime;
+            _timeText.text = ClearTime.ToString("N2") + "秒";
         }
     }
 
-    /// <summary>
-    /// ��ԕύX����
-    /// ��Ԃ��X�V���A�C�x���g�ʒm����
-    /// </summary>
+
     private void ChangeState(GameState newState)
     {
         CurrentState = newState;
         Debug.Log("State changed to: " + newState);
         OnGameStateChanged?.Invoke(newState);
     }
-
+    public void OnStamp()
+    {
+        IsAddTime = false;
+        AddScore(100);
+        _showEvaluation.ShowWindow(RankLevel, ClearTime, Score);
+    }
     /// <summary>
-    /// �X�R�A���Z
+    /// Score追加
     /// </summary>
     public void AddScore(int amount)
     {
         Score += amount;
-        _inGameUIManager.UpdateScoreUI(Score);
+        //_inGameUIManager.UpdateScoreUI(Score);
         CheckRankUp();
     }
 
     /// <summary>
-    /// ���i����
+    /// 昇進チェック
     /// </summary>
     void CheckRankUp()
     {
-        if (Score > 100 && RankLevel == 0)
+        if (_promotionValues.Length == 0) return;
+        PromotionValue previous = _promotionValues[0];
+        foreach (var data in _promotionValues)
         {
-            RankLevel = 1;
-            Debug.Log("���i�I");
+            if (Score < data.PromotionScore)
+            {
+                previous = data;
+            }
+            else
+                break;
+        }
+        Debug.Log(previous.PostName);
+        RankLevel = previous.PostType;
+    }
+    public void NextStage()
+    {
+        if(_stageCreate != null)
+        {
+            GameObject deleteStage = _stageCreate.gameObject;
+            _stageCreate.DOAnchorPosY(_offScreen.y,1f)
+                .OnComplete(() =>
+                {
+                    Destroy(deleteStage);
+                });
+        }
+
+        _stampPointor.RemoveStampObject();
+        GameObject newStage =  Instantiate(_stagePrefab,_stageParent);
+        if(newStage.TryGetComponent(out StageCreate stageCreate))
+        {
+            stageCreate.Create(0, RankLevel);
+        }
+        if(newStage.TryGetComponent(out RectTransform rectTransform))
+        {
+            rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0,0);
+            rectTransform.DOAnchorPosX(0, 1f);
+            _stageCreate = rectTransform;
         }
     }
-
     /// <summary>
     /// �Q�[���J�n
     /// </summary>
     public void StartGame()
     {
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         ChangeState(GameState.Playing);
+        IsAddTime = true;
     }
 
     /// <summary>
@@ -144,13 +200,13 @@ public class GameManager : MonoBehaviour
         //Time.timeScale = 0f;
         ChangeState(GameState.Paused);
     }
-
+    
     /// <summary>
     /// �ĊJ
     /// </summary>
     public void ResumeGame()
     {
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         ChangeState(GameState.Playing);
     }
 
