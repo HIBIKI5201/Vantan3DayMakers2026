@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class VolumeSelector : MonoBehaviour
@@ -61,10 +61,10 @@ public class VolumeSelector : MonoBehaviour
             UpdateButtonVisuals(seButtons, vol);
 
             // playTestSound が true の時だけ音を鳴らす
-            if (playTestSound && vol > 0.01f && testSE != null)
+            if (playTestSound && !isBgm && vol > 0.01f && testSE != null)
             {
-                AudioManager.StopSE();//止める
-                AudioManager.PlaySE(testSE);
+                // 他の汎用SE（スタンプ音など）を止めずに、確認音だけを鳴らし直す
+                AudioManager.PlaySystemSE(testSE);
             }
         }
     }
