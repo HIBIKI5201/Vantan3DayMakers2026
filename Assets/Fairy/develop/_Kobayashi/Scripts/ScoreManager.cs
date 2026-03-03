@@ -35,8 +35,13 @@ public class ScoreManager : MonoBehaviour
     /// <param name="stampRot">ハンコの角度</param>
     /// <param name="remainingTime">押されたときの余りの時間</param>
     /// <returns></returns>
-    public int CalculationScore(Vector2 stampPos,float stampRot,float remainingTime)
+    public int CalculationScore(Vector2 stampPos, float stampRot, Vector2 correcPos, float correcRot, float remainingTime)
     {
+        //todo;ゲーマネから正解の情報を取得
+        _correctPosition = correcPos;
+
+        //todo;猶予を現在の状態をみて調整
+        _correctRotation = correcRot; 
         //todo,ゲーマネから正解の情報を取得
         //(例)
         //_correctPosition = _gameManager.正解のポジション
