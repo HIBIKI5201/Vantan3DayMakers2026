@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     [Header("アタッチ")]
     [SerializeField] private PromotionValue[] _promotionValues;
+    [SerializeField] private ScoreData[] _scoreDatas;
     [SerializeField] private ShowEvaluation _showEvaluation;
     [SerializeField] private StampPointor _stampPointor;
     [SerializeField] private ScoreManager _scoreManager;
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
         countdownManager = FindFirstObjectByType<CountdownManager>();
 
         CurrentState = GameState.Ready;
+        RankLevel = Post.Staff;
 
         NextStage();
         if (countdownManager != null)
@@ -130,39 +132,54 @@ public class GameManager : MonoBehaviour
         float aRot = _stampArea.eulerAngles.z;
 
         int scoreAmount = _scoreManager.CalculationScore(sPos, rRot,sPos,aRot,ClearTime);
-        AddScore(scoreAmount);
-        _showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
+        AddScore(scoreAmount + 100);
+        CheckRankUp(scoreAmount + 100);
+
+        _stampPointor.enabled = false;
+        IsAddTime = false;
+
+        NextStage();
+        //_showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
     }
     /// <summary>
     /// Score追加
     /// </summary>
     public void AddScore(int amount)
     {
-        Debug.Log("Amount");
         Score += amount;
         //_inGameUIManager.UpdateScoreUI(Score);
 
-        CheckRankUp();
     }
 
     /// <summary>
     /// 昇進チェック
     /// </summary>
-    void CheckRankUp()
+    void CheckRankUp(int amount)
     {
         if (_promotionValues.Length == 0) return;
-        PromotionValue previous = _promotionValues[0];
-        foreach (var data in _promotionValues)
+        PromotionValue data = Array.Find(_promotionValues, (PromotionValue x) => x.PostType == RankLevel);
+        if (data == null)
         {
-            if (Score < data.PromotionScore)
-            {
-                previous = data;
-            }
-            else
-                break;
+            Debug.LogError("ScoreData Null");
+            return;
         }
-        Debug.Log(previous.PostName);
-        RankLevel = previous.PostType;
+
+        if(amount >= data.PromotionScore)
+        {
+            if(RankLevel == Post.President)
+            {
+                Debug.Log("GameClear");
+                return;
+            }
+            int next = ((int)RankLevel + 1) % System.Enum.GetValues(typeof(Post)).Length;
+            RankLevel = (Post)next;
+        }
+        else
+        {
+            Debug.Log("GameOver");
+        }
+        Debug.Log(RankLevel.ToString());
+
     }
     public void NextStage()
     {
@@ -180,7 +197,14 @@ public class GameManager : MonoBehaviour
         GameObject newStage = Instantiate(_stagePrefab, _stageParent);
         if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
-            stageCreate.Create(0, RankLevel);
+            ScoreData data = Array.Find(_scoreDatas, (ScoreData x) => x.Post == RankLevel);
+            if (data == null)
+            {
+                Debug.LogError("ScoreData Null");
+                return;
+            }
+            
+            stageCreate.Create(data.BowAmount, RankLevel);
             
         }
         if (newStage.TryGetComponent(out RectTransform rectTransform))
@@ -190,6 +214,8 @@ public class GameManager : MonoBehaviour
                 .OnComplete(() =>
                 {
                     _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
+                    _stampPointor.enabled = true;
+                    IsAddTime = true;
                 });
             _stageCreate = rectTransform;
         }
