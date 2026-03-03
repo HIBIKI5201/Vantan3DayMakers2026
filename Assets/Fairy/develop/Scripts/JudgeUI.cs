@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class JudgeUI : MonoBehaviour
 {
-    [SerializeField] private Text judgeText;
+    [SerializeField] private TextMeshProUGUI judgeText;
 
     public void ShowJudge(string message)
     {
