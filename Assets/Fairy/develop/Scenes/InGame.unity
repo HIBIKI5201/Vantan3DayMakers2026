@@ -961,12 +961,7 @@ MonoBehaviour:
   _scoreText: {fileID: 1521363574}
   _timeText: {fileID: 1617313891}
   _postText: {fileID: 1740522730}
-  _promotionValues:
-  - {fileID: 11400000, guid: 3c4a3952f7c83dd4cb0399238082bd58, type: 2}
-  - {fileID: 11400000, guid: 45dcc9b1b6e9f6c4c9868516c33be91d, type: 2}
-  - {fileID: 11400000, guid: 531b102af62da1440905da7869ce4893, type: 2}
-  - {fileID: 11400000, guid: ae97c6e5db288ad4db7b3fd929a00734, type: 2}
-  - {fileID: 11400000, guid: 5ac60faf198c31f468bb8f151d97c0e7, type: 2}
+  _postDatas: []
 --- !u!1 &949020278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,13 +1036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f8078a4b8f3bd4bb48aabf47c0ac35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  _promotionValues:
-  - {fileID: 11400000, guid: 3c4a3952f7c83dd4cb0399238082bd58, type: 2}
-  - {fileID: 11400000, guid: 45dcc9b1b6e9f6c4c9868516c33be91d, type: 2}
-  - {fileID: 11400000, guid: 531b102af62da1440905da7869ce4893, type: 2}
-  - {fileID: 11400000, guid: ae97c6e5db288ad4db7b3fd929a00734, type: 2}
-  - {fileID: 11400000, guid: 5ac60faf198c31f468bb8f151d97c0e7, type: 2}
-  _scoreDatas:
+  _postDatas:
   - {fileID: 11400000, guid: 2e46c1d089e003347935e5796dbd6bc0, type: 2}
   - {fileID: 11400000, guid: bcc7fb1d56743a548930d8655660505a, type: 2}
   - {fileID: 11400000, guid: 04f2e4f73be5a9f40aa4ce5337dac0bf, type: 2}

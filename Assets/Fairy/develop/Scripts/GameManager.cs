@@ -40,13 +40,12 @@ public class GameManager : MonoBehaviour
 
     public int Score { get; private set; }
 
-    public Post RankLevel { get; private set; }
+    public PostData RankLevel { get; private set; }
     public float ClearTime { get; private set; }
     public float GameTimer { get; private set; }
 
     [Header("アタッチ")]
-    [SerializeField] private PromotionValue[] _promotionValues;
-    [SerializeField] private ScoreData[] _scoreDatas;
+    [SerializeField] private PostData[] _postDatas;
     [SerializeField] private ShowEvaluation _showEvaluation;
     [SerializeField] private StampPointor _stampPointor;
     [SerializeField] private ScoreManager _scoreManager;
@@ -77,7 +76,7 @@ public class GameManager : MonoBehaviour
         countdownManager = FindFirstObjectByType<CountdownManager>();
 
         CurrentState = GameState.Ready;
-        RankLevel = Post.Staff;
+        RankLevel = FindPostData(Post.Staff);
 
         NextStage();
         if (countdownManager != null)
@@ -91,7 +90,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        Array.Sort(_promotionValues, (a, b) =>
+        Array.Sort(_postDatas, (a, b) =>
         {
             if (a == null) return -1;
             if (b == null) return 1;
@@ -156,23 +155,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void CheckRankUp(int amount)
     {
-        if (_promotionValues.Length == 0) return;
-        PromotionValue data = Array.Find(_promotionValues, (PromotionValue x) => x.PostType == RankLevel);
-        if (data == null)
-        {
-            Debug.LogError("ScoreData Null");
-            return;
-        }
+        if (_postDatas.Length == 0) return;
 
-        if(amount >= data.PromotionScore)
+        if(amount >= RankLevel.PromotionScore)
         {
-            if(RankLevel == Post.President)
+            if(RankLevel.PostType == Post.President)
             {
                 Debug.Log("GameClear");
                 return;
             }
-            int next = ((int)RankLevel + 1) % System.Enum.GetValues(typeof(Post)).Length;
-            RankLevel = (Post)next;
+            int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
+            RankLevel = FindPostData((Post)next);
         }
         else
         {
@@ -197,14 +190,8 @@ public class GameManager : MonoBehaviour
         GameObject newStage = Instantiate(_stagePrefab, _stageParent);
         if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
-            ScoreData data = Array.Find(_scoreDatas, (ScoreData x) => x.Post == RankLevel);
-            if (data == null)
-            {
-                Debug.LogError("ScoreData Null");
-                return;
-            }
             
-            stageCreate.Create(data.BowAmount, RankLevel);
+            stageCreate.Create(RankLevel.BowAmount, RankLevel.PostType);
             
         }
         if (newStage.TryGetComponent(out RectTransform rectTransform))
@@ -257,5 +244,16 @@ public class GameManager : MonoBehaviour
     {
         //Time.timeScale = 0f;
         ChangeState(GameState.GameOver);
+    }
+
+    private PostData FindPostData(Post post)
+    {
+        PostData data = Array.Find(_postDatas, (PostData x) => x.PostType == post);
+        if (data == null)
+        {
+            Debug.LogError("ScoreData Null");
+            return null;
+        }
+        return data;
     }
 }

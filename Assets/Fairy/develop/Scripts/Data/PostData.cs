@@ -1,13 +1,16 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ScoreData")]
-public class ScoreData : ScriptableObject
+[CreateAssetMenu(fileName = "PostData")]
+public class PostData : ScriptableObject
 {
     [Header("役職")]
-    public Post Post;
+    public Post PostType;
 
-    [Header("ゲームオーバースコア（未満）")]
-    public int GameOverScore;
+    [Header("役職名")]
+    public string PostName;
+
+    [Header("昇進スコア")]
+    public int PromotionScore;
 
     [Header("許容値")]
     public float TolerancePosition;
