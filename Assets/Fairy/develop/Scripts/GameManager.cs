@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private InGameUIManager _uiManager;
     [SerializeField] private Vector2 _offScreen;
+    [SerializeField] private float _nextDelay;
     [SerializeField] private GameObject _stagePrefab;
     [SerializeField] private Transform _stageParent;
     [SerializeField] private RectTransform _stampArea;
@@ -79,13 +80,14 @@ public class GameManager : MonoBehaviour
 
         NextStage();
 
+        _uiManager.UpdateTimerUI(ClearTime);
+        _uiManager.UpdatePostUI(RankLevel.PostName);
+        _uiManager.UpdateScoreUI(Score);
+
         if (countdownManager != null)
             await countdownManager.StartCountdownAsync();
 
 
-        _uiManager.UpdateTimerUI(ClearTime);
-        _uiManager.UpdatePostUI(RankLevel.PostName);
-        _uiManager.UpdateScoreUI(Score);
         IsAddTime = false;
         StartGame();
     }
@@ -135,8 +137,8 @@ public class GameManager : MonoBehaviour
         AddScore(scoreAmount + 100);
         CheckRankUp(scoreAmount + 100);
 
-        _stampPointor.enabled = false;
         IsAddTime = false;
+        _stampPointor.IsCreateStamp = false;
 
         NextStage();
         //_showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
@@ -185,7 +187,7 @@ public class GameManager : MonoBehaviour
                 .OnComplete(() =>
                 {
                     Destroy(deleteStage);
-                });
+                }).SetDelay(_nextDelay);
         }
 
         _stampPointor.RemoveStampObject();
@@ -203,9 +205,9 @@ public class GameManager : MonoBehaviour
                 .OnComplete(() =>
                 {
                     _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
-                    _stampPointor.enabled = true;
+                    _stampPointor.IsCreateStamp = true;
                     IsAddTime = true;
-                });
+                }).SetDelay(_nextDelay);
             _stageCreate = rectTransform;
         }
     }
@@ -214,9 +216,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        //Time.timeScale = 1f;
         ChangeState(GameState.Playing);
         IsAddTime = true;
+        _stampPointor.IsCreateStamp = true;
     }
 
     /// <summary>

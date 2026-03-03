@@ -476,6 +476,7 @@ MonoBehaviour:
   _rotationSpeed: 10
   _stampArea: {fileID: 1867076975}
   _inkManager: {fileID: 2129862969}
+  IsCreateStamp: 0
 --- !u!1 &630688750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,11 +1059,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 04f2e4f73be5a9f40aa4ce5337dac0bf, type: 2}
   - {fileID: 11400000, guid: a993d2e2584962e408aa6a39504dd5dc, type: 2}
   - {fileID: 11400000, guid: 0649f338fd63ab44b919cbc667142761, type: 2}
-  _showEvaluation: {fileID: 920184305}
   _stampPointor: {fileID: 610827165}
   _scoreManager: {fileID: 919902127}
   _uiManager: {fileID: 919902129}
   _offScreen: {x: 1500, y: 1000}
+  _nextDelay: 0.5
   _stagePrefab: {fileID: 7815419779221494911, guid: 84d35c155ea1e544b93ad35a4ca1b6a1, type: 3}
   _stageParent: {fileID: 1464334569}
   _stampArea: {fileID: 1867076974}

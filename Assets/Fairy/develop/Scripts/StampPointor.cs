@@ -8,6 +8,7 @@ public class StampPointor : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private HoverDetector _stampArea;
     [SerializeField] private InkManager _inkManager;
+    public bool IsCreateStamp = false;
     public RectTransform ClonedStamp { get; private set; }
     public void Update()
     {
@@ -32,8 +33,7 @@ public class StampPointor : MonoBehaviour
 
     private void CreateStamp(Vector2 localPoint)
     {
-        Debug.Log(_stampArea.IsHover);
-        if (Input.GetMouseButtonUp(0) && _stampArea.IsHover)
+        if (Input.GetMouseButtonUp(0) && _stampArea.IsHover && IsCreateStamp)
         {
             RemoveStampObject();
             GameObject newStamp = Instantiate(_stampPrefab,GameManager.Instance._stageCreate.transform);
