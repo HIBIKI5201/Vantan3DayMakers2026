@@ -10,7 +10,7 @@ public class Fade : MonoBehaviour
     /// <summary>
     /// フェードイン
     /// </summary>
-    public void FadeIn()
+    public void ScreenFadeIn()
     {
         _fadeImage.DOFade(0, _fadeTime);
     }
@@ -18,7 +18,7 @@ public class Fade : MonoBehaviour
     /// <summary>
     /// フェードアウト
     /// </summary>
-    public void FadeOut()
+    public void ScreenFadeOut()
     {
         _fadeImage.DOFade(1, _fadeTime);
     }
