@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 
         CurrentState = GameState.Ready;
         RankLevel = FindPostData(Post.Staff);
+        ClearTime = RankLevel.TimeLimit;
 
         NextStage();
 
@@ -115,6 +116,10 @@ public class GameManager : MonoBehaviour
             ClearTime -= Time.deltaTime;
             GameTimer += Time.deltaTime;
             _uiManager.UpdateTimerUI(ClearTime);
+            if(ClearTime <= 0f)
+            {
+                SceneController.LoadScene(SceneName.Result);//ゲームオーバー
+            }
         }
     }
 
@@ -164,16 +169,17 @@ public class GameManager : MonoBehaviour
         {
             if(RankLevel.PostType == Post.President)
             {
-                Debug.Log("GameClear");
+                SceneController.LoadScene(SceneName.Result);//クリア
                 return;
             }
             int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
             RankLevel = FindPostData((Post)next);
             _uiManager.UpdatePostUI(RankLevel.PostName);
+            ClearTime = RankLevel.TimeLimit;
         }
         else
         {
-            Debug.Log("GameOver");
+            SceneController.LoadScene(SceneName.Result);//ゲームオーバー
         }
         Debug.Log(RankLevel.ToString());
 

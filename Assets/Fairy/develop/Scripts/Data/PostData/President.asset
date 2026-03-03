@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScoreData
   PostType: 5
   PostName: "\u793E\u9577"
-  PromotionScore: 1000
+  PromotionScore: 0
   TolerancePosition: 10
   ToleranceRotation: 10
   PerfectTime: 60
