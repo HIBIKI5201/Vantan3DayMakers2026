@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("PauseGame�Ă΂ꂽ");
 
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         ChangeState(GameState.Paused);
     }
 
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         ChangeState(GameState.GameOver);
     }
 }
