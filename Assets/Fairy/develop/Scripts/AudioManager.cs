@@ -35,6 +35,8 @@ public class AudioManager : MonoBehaviour
             newSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SE")[0];
             sePool.Add(newSource);
         }
+        
+        bgmSource.loop = true;
     }
     private void PlayBGM(AudioClip clip)
     {

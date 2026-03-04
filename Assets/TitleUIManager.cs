@@ -1,10 +1,16 @@
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 
 public class TitleUIManager : TitleUIObjects
 {
-    
+    //Audio
+    public void UpdateAudioUI(GameObject imageObj, bool isOn)
+    {
+        imageObj.GetComponent<Image>().color = isOn? activeColor : inactiveColor;
+    }
+    //Credit
     public void OnPointerEnterCredit()
     {
         creditButton.GetComponent<RectTransform>().DOAnchorPos(endCreditPos, moveCreditDuration).SetEase(Ease.OutQuad);
@@ -25,9 +31,6 @@ public class TitleUIObjects : MonoBehaviour
     protected Vector2 originCreditPos;
     [SerializeField] protected Vector2 endCreditPos;
     [SerializeField] protected float moveCreditDuration;
-
-    void Awake()
-    {
-        originCreditPos = creditButton.GetComponent<RectTransform>().anchoredPosition;
-    }
+    protected Color activeColor = Color.white;
+    protected Color inactiveColor = Color.clear;
 }
