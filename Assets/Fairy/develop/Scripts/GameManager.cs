@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 public enum GameState

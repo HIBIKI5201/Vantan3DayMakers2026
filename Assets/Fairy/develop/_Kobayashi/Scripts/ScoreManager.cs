@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.Windows;
 /// <summary>
 /// スコアの計算
 /// </summary>
