@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class StampPointor : MonoBehaviour
 {
-    [SerializeField] private RectTransform _stampPointer;
     [SerializeField] private StampData _stampData;
     [SerializeField] private GameObject _stampPrefab;
     [SerializeField] private float _rotationSpeed;
@@ -16,19 +15,19 @@ public class StampPointor : MonoBehaviour
 
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _stampPointer.parent as RectTransform,
+            _stampData.MainRect.parent as RectTransform,
             Input.mousePosition,
             null,
             out localPoint
         );
 
-        _stampPointer.localPosition = localPoint;
+        _stampData.MainRect.localPosition = localPoint;
 
         CreateStamp(localPoint);
 
-        Vector3 rotation = _stampPointer.localEulerAngles;
+        Vector3 rotation = _stampData.ImageRect.localEulerAngles;
         rotation.z += Input.mouseScrollDelta.y * _rotationSpeed;
-        _stampPointer.localEulerAngles = rotation;
+        _stampData.ImageRect.localEulerAngles = rotation;
     }
     private void CreateStamp(Vector2 localPoint)
     {
@@ -39,7 +38,7 @@ public class StampPointor : MonoBehaviour
             if(newStamp.TryGetComponent(out StampData stampData))
             {
                 stampData.MainRect.localPosition = localPoint;
-                stampData.ImageRect.eulerAngles = _stampPointer.eulerAngles;
+                stampData.ImageRect.eulerAngles = _stampData.ImageRect.eulerAngles;
                 ClonedStamp = stampData;
 
                 stampData.ChangeAlpha(_inkManager.GetAlpha());

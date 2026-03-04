@@ -39,7 +39,7 @@ public class PostData : ScriptableObject
     public float TimeLimit;
 
     [Header("画像")]
-    public Sprite HandImage;
+    public Sprite[] HandImage;
     public Sprite CharacterImage;
     public Sprite BowImage;
     public Sprite StampImage;

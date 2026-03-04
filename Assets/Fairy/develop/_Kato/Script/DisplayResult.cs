@@ -13,8 +13,8 @@ public class DisplayResult : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _name.text = $"未実装";
-        _post.text = $"{_gameManager.RankLevel.PostName}";
-        _score.text = $"スコア：{_gameManager.Score}";
-        _time.text = $"クリアタイム：{_gameManager.GameTimer}";
+        _post.text = $"{GameManager.RankLevel.PostName}";
+        _score.text = $"スコア：{GameManager.Score}";
+        _time.text = $"クリアタイム：{GameManager.GameTimer}";
     }
 }

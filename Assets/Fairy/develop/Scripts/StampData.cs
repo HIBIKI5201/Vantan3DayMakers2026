@@ -29,4 +29,9 @@ public class StampData : MonoBehaviour
     {
         _name.text = text;
     }
+    public void SetImage(Sprite image)
+    {
+        _stampImage.sprite = image;
+    } 
+    
 }
