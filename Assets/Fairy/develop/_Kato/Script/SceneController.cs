@@ -26,7 +26,8 @@ public class SceneController : MonoBehaviour
     private void Start()
     {
         // シーンに入った瞬間BGM変更
-        //AudioManager.Instance.ChangeBGM(sceneType);
+        Debug.Log($"<color=cyan>[SceneCheck] 現在のシーン: {SceneManager.GetActiveScene().name} / 要求BGM: {sceneType}</color>");
+        AudioManager.Instance.ChangeBGM(sceneType);
     }
 
     public　static void LoadScene(SceneName sceneName)
@@ -54,8 +55,8 @@ public class SceneController : MonoBehaviour
         await SceneManager.LoadSceneAsync(sceneName.ToString());
 
         // シーン切り替え後にBGMを変える
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.ChangeBGM(sceneName);
+        //if (AudioManager.Instance != null)
+        //    AudioManager.Instance.ChangeBGM(sceneName);
 
         // 明転させる (FadeInAsyncを呼ぶのが正解)
         if (fade != null)
