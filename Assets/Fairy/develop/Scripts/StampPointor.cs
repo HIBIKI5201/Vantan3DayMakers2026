@@ -3,26 +3,26 @@ using UnityEngine.UI;
 
 public class StampPointor : MonoBehaviour
 {
-    [SerializeField] private Transform _stampPointer;
+    [SerializeField] private RectTransform _stampPointer;
+    [SerializeField] private StampData _stampData;
     [SerializeField] private GameObject _stampPrefab;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private HoverDetector _stampArea;
     [SerializeField] private InkManager _inkManager;
     public bool IsCreateStamp = false;
-    public RectTransform ClonedStamp { get; private set; }
+    public StampData ClonedStamp { get; private set; }
     public void Update()
     {
-        RectTransform rect = _stampPointer.GetComponent<RectTransform>();
 
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rect.parent as RectTransform,
+            _stampPointer.parent as RectTransform,
             Input.mousePosition,
             null,
             out localPoint
         );
 
-        rect.localPosition = localPoint;
+        _stampPointer.localPosition = localPoint;
 
         CreateStamp(localPoint);
 
@@ -30,24 +30,20 @@ public class StampPointor : MonoBehaviour
         rotation.z += Input.mouseScrollDelta.y * _rotationSpeed;
         _stampPointer.localEulerAngles = rotation;
     }
-
     private void CreateStamp(Vector2 localPoint)
     {
-        if (Input.GetMouseButtonUp(0) && _stampArea.IsHover && IsCreateStamp)
+        if (Input.GetMouseButtonUp(0) && _stampArea.IsHover && IsCreateStamp&& !_inkManager.IsInkEmpty())
         {
             RemoveStampObject();
             GameObject newStamp = Instantiate(_stampPrefab,GameManager.Instance._stageCreate.transform);
-            if (newStamp.TryGetComponent(out RectTransform rectTransform))
+            if(newStamp.TryGetComponent(out StampData stampData))
             {
-                rectTransform.localPosition = localPoint;
-                rectTransform.eulerAngles = _stampPointer.eulerAngles;
-                ClonedStamp = rectTransform;
-            }
-            if(newStamp.TryGetComponent(out Image image))
-            {
-                Color color = image.color;
-                color.a = _inkManager.GetAlpha();
-                image.color = color; ;
+                stampData.MainRect.localPosition = localPoint;
+                stampData.ImageRect.eulerAngles = _stampPointer.eulerAngles;
+                ClonedStamp = stampData;
+
+                stampData.ChangeAlpha(_inkManager.GetAlpha());
+                
             }
             _inkManager.RemoveValue();
             GameManager.Instance.OnStamp();

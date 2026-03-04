@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScoreData
   PostType: 3
   PostName: "\u90E8\u9577"
-  PromotionScore: 400
-  TolerancePosition: 10
-  ToleranceRotation: 10
+  PromotionScore: 4000
+  GameOverScore: 750
+  PerfectAngle: 0
   PerfectTime: 60
+  ToleranceAngle: 30
+  TolerancePosition: 10
+  MaxAngleScore: 500
+  MaxPositionScore: 250
+  MaxTimeScore: 250
   TimeLimit: 120
-  BowAmount: 45
   HandImage: {fileID: 951318417353153214, guid: efd4e83473cb6094698c8bd7f4bffcf5, type: 3}
   CharacterImage: {fileID: 143366867167160952, guid: abb60d1b4304c8d43b6712d753ce4665, type: 3}
   BowImage: {fileID: -3753233037670147207, guid: 2e8d8eff374d7834eb69f8a5a44a20a0, type: 3}
+  StampImage: {fileID: 4584716015814176140, guid: 6ee94968c254afc41a3f283d11849def, type: 3}
