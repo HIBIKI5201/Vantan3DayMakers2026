@@ -114,6 +114,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4864ffe18ebe0434f84606f6262e3be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VolumeSlider
+  masterButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  muteMasterButton: {fileID: 0}
   bgmButtons:
   - {fileID: 0}
   - {fileID: 0}

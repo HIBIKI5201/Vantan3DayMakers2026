@@ -3,6 +3,10 @@ using UnityEngine.UI;
 
 public class VolumeSelector : MonoBehaviour
 {
+    [Header("Master Settings")]
+    [SerializeField] private Button[] masterButtons;
+    [SerializeField] private Button muteMasterButton;
+
     [Header("BGM Settings")]
     [SerializeField] private Button[] bgmButtons;
     [SerializeField] private Button muteBgmButton; // 追加
@@ -18,20 +22,29 @@ public class VolumeSelector : MonoBehaviour
     [Header("Test SE")]
     [SerializeField] private AudioClip testSE; // 確認用に鳴らす音をインスペクターで入れる
 
+    private const string MASTER_KEY = "MASTER_VOL";
     private const string BGM_KEY = "BGM_VOL";
     private const string SE_KEY = "SE_VOL";
 
     void Start()
     {
-        // 保存された音量をロード（初期値は1.0 = 100%）
+        // 保存された音量をロード（初期値は1.0 = 100%） 
+        float m = PlayerPrefs.GetFloat(MASTER_KEY, 1f);
         float b = PlayerPrefs.GetFloat(BGM_KEY, 1f);
         float s = PlayerPrefs.GetFloat(SE_KEY, 1f);
 
         // 初期音量を適用
+        ApplyMasterVolume(m, false);
         ApplyVolume(true, b, false);
         ApplyVolume(false, s, false);
 
         // ボタンクリック時は true にして音が鳴るようにする
+        for (int i = 0; i < masterButtons.Length; i++)
+        {
+            float vol = (i + 1) * 0.2f;
+            masterButtons[i].onClick.AddListener(() => ApplyMasterVolume(vol, true));
+        }
+        muteMasterButton.onClick.AddListener(() => ApplyMasterVolume(0.0001f, true));
         for (int i = 0; i < bgmButtons.Length; i++)
         {
             float vol = (i + 1) * 0.2f;
@@ -61,11 +74,23 @@ public class VolumeSelector : MonoBehaviour
             UpdateButtonVisuals(seButtons, vol);
 
             // playTestSound が true の時だけ音を鳴らす
-            if (playTestSound && vol > 0.01f && testSE != null)
+            if (playTestSound && !isBgm && vol > 0.01f && testSE != null)
             {
-                AudioManager.StopSE();//止める
-                AudioManager.PlaySE(testSE);
+                // 他の汎用SE（スタンプ音など）を止めずに、確認音だけを鳴らし直す
+                AudioManager.PlaySystemSE(testSE);
             }
+        }
+    }
+    void ApplyMasterVolume(float vol, bool playTestSound)
+    {
+        AudioManager.SetMasterVolume(vol);
+        PlayerPrefs.SetFloat(MASTER_KEY, vol);
+        UpdateButtonVisuals(masterButtons, vol);
+
+        // Master変更時もSEで確認
+        if (playTestSound && vol > 0.01f && testSE != null)
+        {
+            AudioManager.PlaySystemSE(testSE);
         }
     }
     void UpdateButtonVisuals(Button[] buttons, float currentVol)

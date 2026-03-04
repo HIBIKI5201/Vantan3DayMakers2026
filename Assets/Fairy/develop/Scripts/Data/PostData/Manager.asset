@@ -20,3 +20,6 @@ MonoBehaviour:
   PerfectTime: 60
   TimeLimit: 120
   BowAmount: 45
+  HandImage: {fileID: 951318417353153214, guid: efd4e83473cb6094698c8bd7f4bffcf5, type: 3}
+  CharacterImage: {fileID: 143366867167160952, guid: abb60d1b4304c8d43b6712d753ce4665, type: 3}
+  BowImage: {fileID: -3753233037670147207, guid: 2e8d8eff374d7834eb69f8a5a44a20a0, type: 3}
