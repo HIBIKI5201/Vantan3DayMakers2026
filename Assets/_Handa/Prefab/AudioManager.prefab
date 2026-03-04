@@ -51,6 +51,7 @@ MonoBehaviour:
   bgmSource: {fileID: 2660049414421136772}
   seSource: {fileID: 2605739884934362314}
   audioMixer: {fileID: 24100000, guid: db199d6482772b542a9ea24c499b9d9f, type: 2}
+  poolSize: 8
 --- !u!82 &7652707195842395036
 AudioSource:
   m_ObjectHideFlags: 0
@@ -160,7 +161,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2929051227335139773, guid: db199d6482772b542a9ea24c499b9d9f, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 81a6dc956c9a83343bb5478e3367d1b9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
