@@ -10,18 +10,14 @@ public enum CursorType
     OnGameStart,
     OnCredit,
     OnAudioSettings,
+    None
 }
 public class TitleCursorController : MonoBehaviour
 {
     CursorType _cursorType;
     CursorType _CursorType{get => _cursorType;set{_cursorType = value;UpdateActiveObj();}}
-    Texture2D centerCursorImage;
-    [SerializeField] Sprite editNameDecoration;
     // [SerializeField] Sprite gameStartPrediction;
-    [SerializeField] Sprite gameStartDecoration;
-    [SerializeField] Sprite creditCursorDecoration;
     // [SerializeField] Sprite audioCursorPrediction;
-    [SerializeField] Sprite audioCursorDecoration;
     [Header("GameObject")]
     [SerializeField] GameObject editNameDecorationObject;
     [SerializeField] GameObject gameStartDecorationObject;
@@ -38,18 +34,15 @@ public class TitleCursorController : MonoBehaviour
     [SerializeField] Vector2 audioCursorDecorationPosDuration;
     private void Awake()
     {
-        centerCursorImage = CreateBlackCursor();
-        Cursor.SetCursor(centerCursorImage, Vector2.zero, CursorMode.Auto); //カーソル画像を変更
+        Cursor.SetCursor(CreateBlackCursor(), Vector2.zero, CursorMode.Auto); //カーソル画像を変更
         
         decorationObjDict = new Dictionary<CursorType, GameObject>()
         {
             { CursorType.OnEditName,       editNameDecorationObject      },
             { CursorType.OnGameStart,      gameStartDecorationObject     },
             { CursorType.OnCredit,         creditCursorDecorationObject  },
-            { CursorType.OnAudioSettings,  audioCursorDecorationObject   },
+            { CursorType.OnAudioSettings,  audioCursorDecorationObject   }
         };
-        //テスト
-        SetCursorType((int)CursorType.OnGameStart);
     }
 
     private void Update()
@@ -75,7 +68,13 @@ public class TitleCursorController : MonoBehaviour
     }
     private void Move(Vector2 posDuration) => _currentDecorationImage.rectTransform.position = (Vector2)Input.mousePosition + posDuration;
     /// <summary> _CursorTypeの変更時に一度だけ呼び出される </summary>
-    private void UpdateActiveObj() => decorationObjDict.ToList().ForEach(kvp => kvp.Value.SetActive(kvp.Key == _cursorType));
+    private void UpdateActiveObj()
+    {
+        decorationObjDict.ToList().ForEach(kvp => kvp.Value.SetActive(kvp.Key == _cursorType));
+        if (_cursorType != CursorType.None){
+            _currentDecorationImage = decorationObjDict[_cursorType].GetComponent<Image>();
+        }
+    }
     
     /// <summary>PointerEnterから呼び出し</summary><param name="cursorTypeIndex"></param>
     public void SetCursorType(int cursorTypeIndex) => _CursorType = (CursorType)cursorTypeIndex;
