@@ -1,26 +1,70 @@
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Sceneのenum
-/// </summary>
-public enum SceneName : byte
+public enum SceneName
 {
     GameTitle,
     InGame,
     Result
 }
-
-public static class SceneController
+public class SceneController : MonoBehaviour
 {
-    public static SceneName CurrentScene { get; private set; }
+    [SerializeField] private SceneName sceneType;
+    [SerializeField] private FadeType fadeType;
 
-    /// <summary>
-    /// Scene切り替え処理
-    /// </summary>
-    /// <param name="scene">Sceneの切り替え先</param>
-    public static void LoadScene(SceneName scene)
+    private static SceneController instance;
+    private Fade fade;
+    private bool isLoading = false;
+
+    private void Awake()
     {
-        CurrentScene = scene;
-        SceneManager.LoadScene($"{scene}");
+        fade = GetComponentInChildren<Fade>();
+        instance = this;
+    }
+
+    private void Start()
+    {
+        // シーンに入った瞬間BGM変更
+        AudioManager.Instance.ChangeBGM(sceneType);
+    }
+
+    public　static void LoadScene(SceneName sceneName)
+    {
+        if (instance == null) return;
+
+        if (instance.isLoading)
+        {
+            Debug.Log("Already Loading");
+            return;
+        }
+
+        instance.LoadSceneInternal(sceneName).Forget();
+    }
+
+    private async UniTask LoadSceneInternal(SceneName sceneName)
+    {
+        isLoading = true;
+
+        // まず暗転させる
+        if (fade != null)
+            await fade.FadeOutAsync(fadeType);
+
+        // シーンを非同期で読み込む
+        await SceneManager.LoadSceneAsync(sceneName.ToString());
+
+        // シーン切り替え後にBGMを変える
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ChangeBGM(sceneName);
+
+        // 明転させる (FadeInAsyncを呼ぶのが正解)
+        if (fade != null)
+            await fade.FadeInAsync();
+
+        isLoading = false;
+    }
+    public void FadeAndLoadSceneAsyncButton(SceneName sceneName)
+    {
+        LoadSceneInternal(sceneName).Forget();
     }
 }
