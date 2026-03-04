@@ -7,6 +7,8 @@ using UnityEngine;
 public class ScoreTextPopup : MonoBehaviour
 {
     [Header("アニメーション詳細設定")]
+    [SerializeField, Tooltip("自分のRect")] private RectTransform _rect;
+    public RectTransform Rect => _rect;
     [SerializeField, Tooltip("アニメーション時間")] private float _duration = 1.5f;
     [SerializeField, Tooltip("上昇量")] private float _upPos = 30f;
 
@@ -16,6 +18,10 @@ public class ScoreTextPopup : MonoBehaviour
     void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
+        if(_rect == null)
+        {
+            _rect = GetComponent<RectTransform>();
+        }
         //UpdateText(1000);
         PlayScoreAnimation();
     }
@@ -27,6 +33,9 @@ public class ScoreTextPopup : MonoBehaviour
 
     private void PlayScoreAnimation()
     {
+        Color textColor = _text.color;
+        textColor.a = 0f;
+        _text.color = textColor;
         Sequence seq = DOTween.Sequence();
         seq.Append(_text.rectTransform.DOAnchorPosY
             (_text.rectTransform.anchoredPosition.y +_upPos,_duration * 0.4f)
@@ -38,5 +47,6 @@ public class ScoreTextPopup : MonoBehaviour
             {
                 Destroy(gameObject);
             });
+        seq.Play();
     }
 }

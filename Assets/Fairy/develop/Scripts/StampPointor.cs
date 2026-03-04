@@ -3,32 +3,31 @@ using UnityEngine.UI;
 
 public class StampPointor : MonoBehaviour
 {
-    [SerializeField] private RectTransform _stampPointer;
     [SerializeField] private StampData _stampData;
     [SerializeField] private GameObject _stampPrefab;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private HoverDetector _stampArea;
     [SerializeField] private InkManager _inkManager;
     public bool IsCreateStamp = false;
-    public RectTransform ClonedStamp { get; private set; }
+    public StampData ClonedStamp { get; private set; }
     public void Update()
     {
 
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _stampPointer.parent as RectTransform,
+            _stampData.MainRect.parent as RectTransform,
             Input.mousePosition,
             null,
             out localPoint
         );
 
-        _stampPointer.localPosition = localPoint;
+        _stampData.MainRect.localPosition = localPoint;
 
         CreateStamp(localPoint);
 
-        Vector3 rotation = _stampPointer.localEulerAngles;
+        Vector3 rotation = _stampData.ImageRect.localEulerAngles;
         rotation.z += Input.mouseScrollDelta.y * _rotationSpeed;
-        _stampPointer.localEulerAngles = rotation;
+        _stampData.ImageRect.localEulerAngles = rotation;
     }
     private void CreateStamp(Vector2 localPoint)
     {
@@ -38,10 +37,9 @@ public class StampPointor : MonoBehaviour
             GameObject newStamp = Instantiate(_stampPrefab,GameManager.Instance._stageCreate.transform);
             if(newStamp.TryGetComponent(out StampData stampData))
             {
-                RectTransform rectTransform = stampData.Rect;
-                rectTransform.localPosition = localPoint;
-                rectTransform.eulerAngles = _stampPointer.eulerAngles;
-                ClonedStamp = rectTransform;
+                stampData.MainRect.localPosition = localPoint;
+                stampData.ImageRect.eulerAngles = _stampData.ImageRect.eulerAngles;
+                ClonedStamp = stampData;
 
                 stampData.ChangeAlpha(_inkManager.GetAlpha());
                 

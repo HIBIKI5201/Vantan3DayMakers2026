@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageCreate : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class StageCreate : MonoBehaviour
     }
     public FrameData[] _frameDatas;
     public GameObject _stampPrefab;
+    public Sprite[] _otherStampImage;
+    public PostImage _postImage;
     public RectTransform SstampFrame {  get; private set; }
     public void Create(float rotation, Post post)
     {
@@ -24,12 +27,17 @@ public class StageCreate : MonoBehaviour
                 GameObject newStamo = Instantiate(_stampPrefab, this.transform);
                 newStamo.transform.position = frameData.MainFrame.position;
                 newStamo.transform.rotation = quaternion;
+                if(newStamo.TryGetComponent(out StampData stampData))
+                {
+                    stampData.SetImage(_otherStampImage[Random.Range(0,_otherStampImage.Length)]);
+                }
             }
             else
             {
                 SstampFrame = frameData.MainFrame;
             }
         }
+        _postImage.ChangePost(post);
     }
     
 }
