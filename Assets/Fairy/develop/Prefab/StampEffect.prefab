@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5890600825212847651}
   - component: {fileID: 6412184037526645422}
   m_Layer: 5
-  m_Name: PromotionEffect
+  m_Name: StampEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

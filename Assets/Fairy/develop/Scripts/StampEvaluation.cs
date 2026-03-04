@@ -13,6 +13,7 @@ public class StampEvaluation : MonoBehaviour
 
     public void ShowEvaluation(GameObject stamp,ScoreLevel promotion)
     {
+        Debug.Log(promotion.ToString());
         if (promotion == ScoreLevel.Keep) return;
 
         GameObject newObject = Instantiate(_evaluationPrefab, stamp.transform);
@@ -20,8 +21,8 @@ public class StampEvaluation : MonoBehaviour
         newObject.transform.position = stamp.transform.position + (Vector3.up * _positionY);
         if(newObject.TryGetComponent(out TextMeshProUGUI text))
         {
-            text.text = promotion ==ScoreLevel.Promotion ? _clearText:_missText;
-            text.color = promotion == ScoreLevel.Promotion ? _clearColor : _missColor;
+            text.text = promotion == ScoreLevel.Perfect ? _clearText : _missText;
+            text.color = promotion == ScoreLevel.Perfect ? _clearColor : _missColor;
         }
     }
 }
