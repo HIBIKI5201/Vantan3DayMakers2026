@@ -10,19 +10,19 @@ public class PostData : ScriptableObject
     public string PostName;
 
     [Header("昇進スコア")]
-    public int PromotionScore;
+    public int PromotionScore;   
+    [Header("失敗スコア")]
+    public int GameOverScore;
     [Header("==========")]
     [Header("目標角度")]
     public float PerfectAngle;
-    [Header("目標位置")]
-    public float PerfectPosition;//多分関数の引数から読み取ることになるだろう
     [Header("目標時間")]
     public float PerfectTime;
     [Header("==========")]
 
     [Header("許容角度")]
     public float ToleranceAngle;
-    [Header("許容位置")]
+    [Header("許容距離差")]
     public float TolerancePosition;
     [Header("==========")]
 
@@ -37,9 +37,6 @@ public class PostData : ScriptableObject
 
     [Header("制限時間")]
     public float TimeLimit;
-
-    [Header("おじぎ角度")]
-    public float BowAmount;
 
     [Header("画像")]
     public Sprite HandImage;

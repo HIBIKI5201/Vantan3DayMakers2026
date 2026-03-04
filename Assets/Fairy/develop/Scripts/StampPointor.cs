@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class StampPointor : MonoBehaviour
 {
-    [SerializeField] private Transform _stampPointer;
+    [SerializeField] private RectTransform _stampPointer;
     [SerializeField] private StampData _stampData;
     [SerializeField] private GameObject _stampPrefab;
     [SerializeField] private float _rotationSpeed;
@@ -13,17 +13,16 @@ public class StampPointor : MonoBehaviour
     public RectTransform ClonedStamp { get; private set; }
     public void Update()
     {
-        RectTransform rect = _stampPointer.GetComponent<RectTransform>();
 
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rect.parent as RectTransform,
+            _stampPointer.parent as RectTransform,
             Input.mousePosition,
             null,
             out localPoint
         );
 
-        rect.localPosition = localPoint;
+        _stampPointer.localPosition = localPoint;
 
         CreateStamp(localPoint);
 
@@ -31,10 +30,9 @@ public class StampPointor : MonoBehaviour
         rotation.z += Input.mouseScrollDelta.y * _rotationSpeed;
         _stampPointer.localEulerAngles = rotation;
     }
-
     private void CreateStamp(Vector2 localPoint)
     {
-        if (Input.GetMouseButtonUp(0) && _stampArea.IsHover && IsCreateStamp)
+        if (Input.GetMouseButtonUp(0) && _stampArea.IsHover && IsCreateStamp&& !_inkManager.IsInkEmpty())
         {
             RemoveStampObject();
             GameObject newStamp = Instantiate(_stampPrefab,GameManager.Instance._stageCreate.transform);
