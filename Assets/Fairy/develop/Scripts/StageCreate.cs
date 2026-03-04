@@ -15,6 +15,7 @@ public class StageCreate : MonoBehaviour
     public GameObject _stampPrefab;
     public Sprite[] _otherStampImage;
     public PostImage _postImage;
+    public RectTransform _aimingImage;
     public RectTransform SstampFrame {  get; private set; }
     public void Create(float rotation, Post post)
     {
@@ -35,6 +36,7 @@ public class StageCreate : MonoBehaviour
             else
             {
                 SstampFrame = frameData.MainFrame;
+                _aimingImage.anchoredPosition = frameData.MainFrame.anchoredPosition;
             }
         }
         _postImage.ChangePost(post);

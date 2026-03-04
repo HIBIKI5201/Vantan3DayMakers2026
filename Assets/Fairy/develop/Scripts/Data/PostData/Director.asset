@@ -33,6 +33,7 @@ MonoBehaviour:
   - {fileID: -1928225091067428632, guid: 77609927348d39442b9750fc461ce7e2, type: 3}
   - {fileID: -77225471797832015, guid: 028f0153641098749845a0f0c2242e51, type: 3}
   - {fileID: 2009049480592415762, guid: efc6bca56f533ad42b937427e343e0fa, type: 3}
-  CharacterImage: {fileID: -7021693309897174534, guid: 3827ee83ff727df44a8fdc3d72e764c7, type: 3}
-  BowImage: {fileID: 9129176628540218085, guid: 76a812bdd768cda40be9b9b20bd192cc, type: 3}
+  CharacterImage: {fileID: 21300000, guid: 3827ee83ff727df44a8fdc3d72e764c7, type: 3}
+  BowImage: {fileID: 21300000, guid: 76a812bdd768cda40be9b9b20bd192cc, type: 3}
   StampImage: {fileID: 21300000, guid: dd3024730bd4bbb45aacf01ea3675b9a, type: 3}
+  ResultPostImage: {fileID: 21300000, guid: 2443016b5a0feca498877cc8af69e9f9, type: 3}

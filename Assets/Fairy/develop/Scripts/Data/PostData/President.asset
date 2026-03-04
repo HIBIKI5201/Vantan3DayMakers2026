@@ -27,6 +27,7 @@ MonoBehaviour:
   HandImage:
   - {fileID: -5884889255108679827, guid: f80df51ceb31c304b9b0321b4c5cc3ad, type: 3}
   - {fileID: 2960936589236226313, guid: 0263eee3e79bcd444ab74d80dd1e8527, type: 3}
-  CharacterImage: {fileID: 6625968800247205515, guid: 444bb761e4d907d479fb5bfc88eeac4d, type: 3}
-  BowImage: {fileID: 3037644976408154817, guid: b0a0b9709caf9324aa86e2f4008627fb, type: 3}
+  CharacterImage: {fileID: 21300000, guid: 444bb761e4d907d479fb5bfc88eeac4d, type: 3}
+  BowImage: {fileID: 21300000, guid: b0a0b9709caf9324aa86e2f4008627fb, type: 3}
   StampImage: {fileID: 21300000, guid: dd3024730bd4bbb45aacf01ea3675b9a, type: 3}
+  ResultPostImage: {fileID: 21300000, guid: 7e5f38e447c292b4fb4bb54c7c966cf9, type: 3}

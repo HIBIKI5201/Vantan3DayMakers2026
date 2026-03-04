@@ -176,10 +176,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30B9\u30B3\u30A2\uFF1A176"
+  m_text: "\u30B9\u30B3\u30A2\uFF1A99999"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
-  m_sharedMaterial: {fileID: -5343553829286092696, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -411,7 +411,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: ReStart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &292895768
@@ -1076,10 +1076,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30BF\u30A4\u30E0\uFF1A123.10"
+  m_text: "\u30BF\u30A4\u30E0\uFF1A99999.99"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
-  m_sharedMaterial: {fileID: -5343553829286092696, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1294,7 +1294,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: ReStart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1315842314
@@ -1410,7 +1410,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 367194ed5acf52d4f977578cc9f0c111, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3588c391bf35dfb499354ed315864b11, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1873,6 +1873,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1155840353}
     - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: _debugPost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: _debugTime
+      value: 99999.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
       propertyPath: _rankImage
       value: 
       objectReference: {fileID: 1337066020}
@@ -1880,6 +1888,18 @@ PrefabInstance:
       propertyPath: _scoreText
       value: 
       objectReference: {fileID: 43081343}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: _debugScore
+      value: 99999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: _postDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: 5896ff815ea6f33448d443fcde9c8be1, type: 2}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: _useDebugScore
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9068031207336050633, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
       propertyPath: m_Name
       value: DisplayResult

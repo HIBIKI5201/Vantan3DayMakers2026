@@ -18,6 +18,7 @@ public class DisplayResult : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private Image _rankImage;
+    [SerializeField] private PostDatabase _postDatabase;
 
     [Header("Rank Settings")]
     [SerializeField] private List<RankImageSetting> _rankSettings = new List<RankImageSetting>();
@@ -25,15 +26,16 @@ public class DisplayResult : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool _useDebugScore = false;
     [SerializeField] private int _debugScore = 700;
+    [SerializeField] private Post _debugPost;
     [SerializeField] private float _debugTime = 123.45f;
     void Start()
     {
         // GameManager.Instance が存在するかチェック
-        if (GameManager.Instance == null)
-        {
-            Debug.LogWarning("GameManagerが見つかりません。リザルトを表示できません。");
-            return;
-        }
+        //if (GameManager.Instance == null)
+        //{
+        //    Debug.LogWarning("GameManagerが見つかりません。リザルトを表示できません。");
+        //    return;
+        //}
         int score;
         float time;
 
@@ -58,7 +60,7 @@ public class DisplayResult : MonoBehaviour
         //_timeText.text = $"タイム：{time:F2}";
 
         // スコアに応じた画像の差し替え
-        SetRankImage(GameManager.Score);
+        SetRankImage(GameManager.RankLevel.PostType);
 
     }
 #if UNITY_EDITOR
@@ -66,30 +68,13 @@ public class DisplayResult : MonoBehaviour
     private void OnValidate()
     {
         // 実行中でなくても、プレビューとして反映させる
-        if (_scoreText != null) _scoreText.text = $"スコア：{_debugScore}";
-        if (_timeText != null) _timeText.text = $"タイム：{_debugTime:F2}";
-        SetRankImage(_debugScore);
+        //if (_scoreText != null) _scoreText.text = $"スコア：{_debugScore}";
+        //if (_timeText != null) _timeText.text = $"タイム：{_debugTime:F2}";
+        //SetRankImage(_debugPost);
     }
 #endif
-    private void SetRankImage(int finalScore)
+    private void SetRankImage(Post post)
     {
-        if (_rankSettings == null || _rankSettings.Count == 0) return;
-
-        // しきい値が高い順に並び替えて、スコアが条件を満たした最初の画像を採用する
-        var target = _rankSettings
-            .OrderByDescending(x => x.threshold)
-            .FirstOrDefault(x => finalScore >= x.threshold);
-
-        if (target.rankSprite != null)
-        {
-            Debug.Log($"<color=yellow>[ResultTest] Score: {finalScore} -> Rank: {target.rankName}</color>");
-            _rankImage.sprite = target.rankSprite;
-            // 画像のサイズを元画像の比率に合わせたい場合は以下を有効に
-            // _rankImage.SetNativeSize(); 
-        }
-        else
-        {
-            Debug.LogError($"[ResultTest] スコア {finalScore} に該当するランク設定がありません！");
-        }
+        _rankImage.sprite = _postDatabase.Get(post).ResultPostImage;
     }
 }
