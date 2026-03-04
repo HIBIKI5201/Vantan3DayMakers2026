@@ -52,7 +52,6 @@ public class TitleCursorController : MonoBehaviour
         {
             case CursorType.OnEditName:
                 posDuration = editNameDecorationPosDuration;
-                // 行う処理、①Updateでのカーソル移動 ②Animation再生 ③CursorTypeの更新 ④_current以外のImageを非アクティブにする
                 break;
             case CursorType.OnGameStart:
                 posDuration = gameStartDecorationPosDuration;
