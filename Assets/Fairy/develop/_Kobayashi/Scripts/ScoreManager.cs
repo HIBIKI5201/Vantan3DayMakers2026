@@ -96,7 +96,7 @@ public class ScoreManager : MonoBehaviour
         }
 
         //時間計算
-        float limitHalfTime = _timeLimit / 2;
+        float limitHalfTime = _timeLimit / 2f;
         if (limitHalfTime <= remainingTime)
         {
             //時間スコア最大
