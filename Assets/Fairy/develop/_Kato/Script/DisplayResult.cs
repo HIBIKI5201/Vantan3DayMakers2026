@@ -10,8 +10,10 @@ public class DisplayResult : MonoBehaviour
     public struct RankImageSetting
     {
         public string rankName;    // デバッグ用の名前（平社員、課長など）
+        public Post post;
         public int threshold;      // この数値「以上」ならこの画像
         public Sprite rankSprite;  // 表示したい画像
+        public Sprite frameSprite;  // 表示する枠組み
     }
 
     [Header("UI References")]
@@ -19,7 +21,8 @@ public class DisplayResult : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private Image _rankImage;
-    [SerializeField] private PostDatabase _postDatabase;
+    [SerializeField] private Image _frameImage;
+    //[SerializeField] private PostDatabase _postDatabase;
 
     [Header("Rank Settings")]
     [SerializeField] private List<RankImageSetting> _rankSettings = new List<RankImageSetting>();
@@ -77,6 +80,13 @@ public class DisplayResult : MonoBehaviour
 #endif
     private void SetRankImage(Post post)
     {
-        _rankImage.sprite = _postDatabase.Get(post).ResultPostImage;
+        foreach (RankImageSetting setting in _rankSettings)
+        {
+            if(setting.post == post)
+            {
+                _rankImage.sprite = setting.rankSprite;
+                _frameImage.sprite = setting.frameSprite;
+            }
+        }
     }
 }
