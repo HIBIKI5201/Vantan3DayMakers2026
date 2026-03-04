@@ -28,7 +28,7 @@ public class InkManager : MonoBehaviour
     public void ChargeInk()
     {
         _inkValue = _maxValue;
-        _pointerStampData.Rect.DOLocalRotate( Vector3.forward *Random.Range(-180f, 180f), 0.2f);
+        _pointerStampData.ImageRect.DOLocalRotate( Vector3.forward *Random.Range(-180f, 180f), 0.2f);
         UpdatePointerAlpha();
     }
     public void RemoveValue()

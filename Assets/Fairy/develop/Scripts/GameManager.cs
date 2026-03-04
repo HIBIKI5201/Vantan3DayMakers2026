@@ -134,21 +134,20 @@ public class GameManager : MonoBehaviour
     }
     public void OnStamp()
     {
-
-        Vector2 sPos = _stampPointor.ClonedStamp.anchoredPosition;
+        Vector2 sPos = _stampPointor.ClonedStamp.ImageRect.anchoredPosition;
         Vector2 aPos = _stampArea.anchoredPosition;
-        float sRot = _stampPointor.ClonedStamp.eulerAngles.z;
+        float sRot = _stampPointor.ClonedStamp.ImageRect.eulerAngles.z;
 
         int scoreAmount = _scoreManager.CalculationScore(sPos, sRot, sPos, ClearTime);
         AddScore(scoreAmount);
         var promotion = CheckRankUp();
         if (promotion == ScoreLevel.Promotion)//昇進した時の処理
         {
-        _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp);
+        _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp.MainRect);
         }
         _stampEvaluation.ShowEvaluation(_stampPointor.ClonedStamp.gameObject, promotion);
 
-        _effectManager.PlayEvaluationEffect(scoreAmount, _stampPointor.ClonedStamp);
+        _effectManager.PlayEvaluationEffect(scoreAmount, _stampPointor.ClonedStamp.MainRect);
 
         IsAddTime = false;
         _stampPointor.IsCreateStamp = false;

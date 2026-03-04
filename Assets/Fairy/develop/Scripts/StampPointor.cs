@@ -10,7 +10,7 @@ public class StampPointor : MonoBehaviour
     [SerializeField] private HoverDetector _stampArea;
     [SerializeField] private InkManager _inkManager;
     public bool IsCreateStamp = false;
-    public RectTransform ClonedStamp { get; private set; }
+    public StampData ClonedStamp { get; private set; }
     public void Update()
     {
 
@@ -38,10 +38,9 @@ public class StampPointor : MonoBehaviour
             GameObject newStamp = Instantiate(_stampPrefab,GameManager.Instance._stageCreate.transform);
             if(newStamp.TryGetComponent(out StampData stampData))
             {
-                RectTransform rectTransform = stampData.Rect;
-                rectTransform.localPosition = localPoint;
-                rectTransform.eulerAngles = _stampPointer.eulerAngles;
-                ClonedStamp = rectTransform;
+                stampData.MainRect.localPosition = localPoint;
+                stampData.ImageRect.eulerAngles = _stampPointer.eulerAngles;
+                ClonedStamp = stampData;
 
                 stampData.ChangeAlpha(_inkManager.GetAlpha());
                 
