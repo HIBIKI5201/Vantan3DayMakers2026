@@ -33,29 +33,20 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        AudioMixerGroup seGroup = audioMixer.FindMatchingGroups("SE")[0];
+        //AudioMixerGroup seGroup = audioMixer.FindMatchingGroups("SE")[0];
 
         // 汎用SE用のプールを生成
         for (int i = 0; i < poolSize; i++)
         {
             AudioSource newSource = gameObject.AddComponent<AudioSource>();
-            newSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SE")[0];
+            var groups = audioMixer.FindMatchingGroups("SE");
+            if (groups.Length > 0) newSource.outputAudioMixerGroup = groups[0];
             sePool.Add(newSource);
         }
         
         bgmSource.loop = true;
     }
-    private void PlayBGM(AudioClip clip)
-    {
-        if (clip == null) return;
 
-        if (bgmSource.clip == clip) return; // 同じ曲なら再生し直さない
-
-        bgmSource.Stop();
-        bgmSource.clip = clip;
-        bgmSource.loop = true;
-        bgmSource.Play();
-    }
     // 他のクラスから AudioManager.PlaySE(クリップ) で呼べるようにする
     public static void PlaySE(AudioClip clip)
     {
@@ -109,23 +100,28 @@ public class AudioManager : MonoBehaviour
         float dB = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f;
         Instance.audioMixer.SetFloat("MasterVol", dB); // Mixer側の名前と合わせる
     }
+    private void PlayBGM(AudioClip clip)
+    {
+        if (clip == null) return;
 
+        if (bgmSource.clip == clip) return; // 同じ曲なら再生し直さない
+
+        bgmSource.Stop();
+        bgmSource.clip = clip;
+        bgmSource.loop = true;
+        bgmSource.Play();
+    }
     public void ChangeBGM(SceneName type)
     {
-        switch (type)
+        AudioClip clip = type switch
         {
-            case SceneName.GameTitle:
-                PlayBGM(titleClip);
-                break;
+            SceneName.GameTitle => titleClip,
+            SceneName.InGame => inGameClip,
+            SceneName.Result => resultClip,
+            _ => null
+        };
 
-            case SceneName.InGame:
-                PlayBGM(inGameClip);
-                break;
-
-            case SceneName.Result:
-                PlayBGM(resultClip);
-                break;
-        }
+        if (clip != null) PlayBGM(clip);
     }
 
     public void ChangeSE(SEClipType type)
