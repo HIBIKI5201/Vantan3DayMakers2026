@@ -524,7 +524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 248, y: -37}
+  m_AnchoredPosition: {x: 241, y: 26}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &390819679
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   _scorePrefab: {fileID: 2778837694136563012, guid: 9ba1120e1d2a2fe4d98f6a9f750859dd, type: 3}
   _pointierRect: {fileID: 172352253534350190}
   _switchPointerAnlge: 30
-  _scorePopupOffset: {x: 60, y: 200}
+  _scorePopupOffset: {x: 130, y: 174.4}
 --- !u!1 &949020278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,7 +1187,7 @@ MonoBehaviour:
   _effectManager: {fileID: 919902131}
   _stampEvaluation: {fileID: 919902130}
   _offScreen: {x: 3000, y: 2000}
-  _nextDelay: 0.3
+  _nextDelay: 0.5
   _stagePrefabs:
   - {fileID: 7815419779221494911, guid: 84d35c155ea1e544b93ad35a4ca1b6a1, type: 3}
   _stageParent: {fileID: 1464334569}

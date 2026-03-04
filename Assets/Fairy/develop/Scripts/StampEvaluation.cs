@@ -20,8 +20,8 @@ public class StampEvaluation : MonoBehaviour
         newObject.transform.position = stamp.transform.position + (Vector3.up * _positionY);
         if(newObject.TryGetComponent(out TextMeshProUGUI text))
         {
-            text.text = promotion ==ScoreLevel.Promotion ? _clearText:_missText;
-            text.color = promotion == ScoreLevel.Promotion ? _clearColor : _missColor;
+            text.text = promotion == ScoreLevel.Perfect ? _clearText : _missText;
+            text.color = promotion == ScoreLevel.Perfect ? _clearColor : _missColor;
         }
     }
 }

@@ -22,7 +22,7 @@ public enum Post
 }
 public enum ScoreLevel
 {
-    Promotion,
+    Perfect,
     Keep,
     GameOver
 }
@@ -153,10 +153,11 @@ public class GameManager : MonoBehaviour
         int scoreAmount = _scoreManager.CalculationScore(sPos, sRot, sPos, TimeLimit);
         AddScore(scoreAmount);
         var promotion = CheckRankUp();
-        if (promotion == ScoreLevel.Promotion)//昇進した時の処理
-        {
-            _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp.MainRect);
-        }
+
+        //円エフェクト　ハンコを押したら無条件で表示
+        _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp.MainRect);
+
+        //円エフェクト　ハンコを押したら無条件で表示
         _stampEvaluation.ShowEvaluation(_stampPointor.ClonedStamp.gameObject, promotion);
 
         _effectManager.PlayEvaluationEffect(scoreAmount, _stampPointor.ClonedStamp.MainRect);
@@ -188,14 +189,15 @@ public class GameManager : MonoBehaviour
             if (RankLevel.PostType == Post.President)
             {
                 SceneController.LoadScene(SceneName.Result);//クリア
-                return ScoreLevel.Promotion;
             }
             int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
             RankLevel = _postDatabase.Get((Post)next);
             _uiManager.UpdatePostUI(RankLevel.PostName);
             _uiManager.ChangePost(RankLevel.PostType);
             TimeLimit = RankLevel.TimeLimit;
-            return ScoreLevel.Promotion;
+
+
+            return ScoreLevel.Perfect;
         }
         else if (Score > RankLevel.GameOverScore)
         {
