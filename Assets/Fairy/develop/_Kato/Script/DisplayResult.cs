@@ -46,19 +46,19 @@ public class DisplayResult : MonoBehaviour
         {
             // 本番モード：GameManagerから取得
             if (GameManager.Instance == null) return;
-            score = GameManager.Instance.Score;
-            time = GameManager.Instance.GameTimer;
+            score = GameManager.Score;
+            time = GameManager.GameTimer;
         }
         // スコアとタイムのテキスト表示 (F2は小数点2桁)
-        _scoreText.text = $"スコア：{GameManager.Instance.Score:F1}";
-        _timeText.text = $"タイム：{GameManager.Instance.GameTimer:F2}";
+        _scoreText.text = $"スコア：{GameManager.Score:F1}";
+        _timeText.text = $"タイム：{GameManager.GameTimer:F2}";
 
         //デバック用
         //_scoreText.text = $"スコア：{score:F1}";
         //_timeText.text = $"タイム：{time:F2}";
 
         // スコアに応じた画像の差し替え
-        SetRankImage(GameManager.Instance.Score);
+        SetRankImage(GameManager.Score);
 
     }
 #if UNITY_EDITOR
