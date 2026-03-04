@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 using System;
+/// <summary>
+/// 未使用
+/// </summary>
 public class ShowEvaluation : MonoBehaviour
 {
     [SerializeField] private GameObject _mainPanel;

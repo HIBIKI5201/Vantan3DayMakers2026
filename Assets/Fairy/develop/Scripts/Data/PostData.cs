@@ -24,4 +24,9 @@ public class PostData : ScriptableObject
 
     [Header("おじぎ角度")]
     public float BowAmount;
+
+    [Header("画像")]
+    public Sprite HandImage;
+    public Sprite CharacterImage;
+    public Sprite BowImage;
 }
