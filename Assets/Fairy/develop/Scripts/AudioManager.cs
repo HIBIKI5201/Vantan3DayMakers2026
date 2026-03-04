@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-
+public enum SEClipType
+{
+    Stamp,
+    Paper
+}
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
@@ -18,6 +22,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip titleClip;
     [SerializeField] private AudioClip inGameClip;
     [SerializeField] private AudioClip resultClip;
+    [Header("SE Clips")]
+    [SerializeField] private AudioClip StampClip;
+    [SerializeField] private AudioClip PaperClip;
 
     private List<AudioSource> sePool = new List<AudioSource>();
     private void Awake()
@@ -117,6 +124,19 @@ public class AudioManager : MonoBehaviour
 
             case SceneName.Result:
                 PlayBGM(resultClip);
+                break;
+        }
+    }
+
+    public void ChangeSE(SEClipType type)
+    {
+        switch (type)
+        {
+            case SEClipType.Stamp:
+                PlaySE(StampClip);
+                break;
+            case SEClipType.Paper:
+                PlaySE(PaperClip);
                 break;
         }
     }
