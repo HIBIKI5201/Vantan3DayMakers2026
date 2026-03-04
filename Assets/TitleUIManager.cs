@@ -16,6 +16,7 @@ public class TitleUIManager : TitleUIObjects
     //GameStart
     public void OnPointerClickGameStart()
     {
+        audioManager.ChangeSE(SEClipType.Stamp);
         if (string.IsNullOrEmpty(DataManager.Instance.UserName)){
             Debug.Log(DataManager.Instance.UserName);
             NoEditNameAlert();
