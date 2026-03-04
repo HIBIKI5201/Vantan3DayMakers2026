@@ -6,7 +6,8 @@ public enum SEClipType
     Stamp,
     Paper,
     Miss,   
-    Ink
+    Ink,
+    Click
 }
 public class AudioManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip PaperClip;
     [SerializeField] private AudioClip MissClip; 
     [SerializeField] private AudioClip InkClip;
+    [SerializeField] private AudioClip ClickClip;
 
     private List<AudioSource> sePool = new List<AudioSource>();
     private void Awake()
@@ -146,6 +148,9 @@ public class AudioManager : MonoBehaviour
                 break;
             case SEClipType.Ink:    
                 PlaySE(InkClip);
+                break;
+            case SEClipType.Click:
+                PlaySE(ClickClip);
                 break;
         }
     }
