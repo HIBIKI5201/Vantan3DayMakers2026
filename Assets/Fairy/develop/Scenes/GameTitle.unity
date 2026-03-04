@@ -375,6 +375,9 @@ MonoBehaviour:
   resultClip: {fileID: 8300000, guid: c50ceb8cd07819142836ac8303b0c8c9, type: 3}
   StampClip: {fileID: 8300000, guid: 2b9106f8f5691d345a57085c07163abf, type: 3}
   PaperClip: {fileID: 8300000, guid: 54006357b9551c44696e8a35fc819d38, type: 3}
+  MissClip: {fileID: 8300000, guid: 65ce9e4333961404b807ad1cc83849ce, type: 3}
+  InkClip: {fileID: 0}
+  ClickClip: {fileID: 8300000, guid: 50d9fc2ec9042544e987722ab3bdca85, type: 3}
 --- !u!1 &86109217
 GameObject:
   m_ObjectHideFlags: 0
