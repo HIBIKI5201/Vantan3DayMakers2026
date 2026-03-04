@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
@@ -13,12 +14,14 @@ public class TitleUIManager : TitleUIObjects
     //Credit
     public void OnPointerEnterCredit()
     {
-        creditButton.GetComponent<RectTransform>().DOAnchorPos(endCreditPos, moveCreditDuration).SetEase(Ease.OutQuad);
+        creditImage.rectTransform.DOKill();
+        creditImage.rectTransform.DOAnchorPos(originCreditPos + moveCreditPosDuration, moveCreditTimeDuration).SetEase(Ease.OutQuad);
     }
 
     public void OnPointerExitCredit()
     {
-        creditButton.GetComponent<RectTransform>().DOAnchorPos(originCreditPos, 0.3f).SetEase(Ease.OutQuad);
+        creditImage.rectTransform.DOKill();
+        creditImage.rectTransform.DOAnchorPos(originCreditPos, 0.3f).SetEase(Ease.OutQuad);
     }
 }
 
@@ -26,11 +29,17 @@ public class TitleUIObjects : MonoBehaviour
 {
     [Header("UI Objects")]
     [SerializeField] protected TextMeshProUGUI countdownText;
-    [SerializeField] protected GameObject creditButton;
+    [SerializeField] protected Image creditImage;
     [Header("パラメータ関連")]
+    [SerializeField] protected Vector2 moveCreditPosDuration;
+    [SerializeField] protected float moveCreditTimeDuration;
     protected Vector2 originCreditPos;
-    [SerializeField] protected Vector2 endCreditPos;
-    [SerializeField] protected float moveCreditDuration;
+    
     protected Color activeColor = Color.white;
-    protected Color inactiveColor = Color.clear;
+    protected Color inactiveColor = Color.clear; //509, -758 : 528, -697
+
+    private void Awake()
+    {
+        originCreditPos = creditImage.rectTransform.anchoredPosition;
+    }
 }
