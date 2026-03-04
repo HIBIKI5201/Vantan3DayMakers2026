@@ -46,7 +46,10 @@ public class AudioManager : MonoBehaviour
         
         bgmSource.loop = true;
     }
-
+    public static void Play(SEClipType type)
+    {
+        if (Instance != null) Instance.ChangeSE(type);
+    }
     // 他のクラスから AudioManager.PlaySE(クリップ) で呼べるようにする
     public static void PlaySE(AudioClip clip)
     {
