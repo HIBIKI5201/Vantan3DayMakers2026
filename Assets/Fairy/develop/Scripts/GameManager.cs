@@ -25,23 +25,12 @@ public enum ScoreLevel
     Keep,
     GameOver
 }
-/// <summary>
-/// �Q�[���S�̂̏�Ԃ��Ǘ�����N���X�B
-/// UI�≉�o�̐���͍s��Ȃ��B
-/// ��ԕω��̓C�x���g�Œʒm����B
-/// </summary>
 public class GameManager : MonoBehaviour
 {
-    // �V���O���g��
     [Header("パラメーター")]
     public static GameManager Instance { get; private set; }
-
-    // �Q�[����ԕύX�ʒm�C�x���g
     public static event Action<GameState> OnGameStateChanged;
-
-    // ���݂̃Q�[�����
     public GameState CurrentState { get; private set; }
-
     public static int Score
     {
         get => _temp;
@@ -123,13 +112,6 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.E))  ポーズ一旦削除
-        //{
-        //    if (CurrentState == GameState.Playing)
-        //        PauseGame();
-        //    else if (CurrentState == GameState.Paused)
-        //        ResumeGame();
-        //}
         if (IsAddTime)
         {
             TimeLimit -= Time.deltaTime;
@@ -171,6 +153,9 @@ public class GameManager : MonoBehaviour
         _stampEvaluation.ShowEvaluation(_stampPointor.ClonedStamp.gameObject, promotion);
 
         _effectManager.PlayScoreEffect(scoreAmount, _stampPointor.ClonedStamp.MainRect);
+
+        // --- 追加：スタンプSEを鳴らす ---
+        AudioManager.Play(SEClipType.Stamp);
 
         IsAddTime = false;
         _stampPointor.IsCreateStamp = false;
@@ -232,6 +217,9 @@ public class GameManager : MonoBehaviour
     }
     public void NextStage(bool skipReset = false)
     {
+        // --- 追加：紙が動くSEを鳴らす ---
+        AudioManager.Play(SEClipType.Paper);
+
         if (_stageCreate != null)
         {
             GameObject deleteStage = _stageCreate.gameObject;
@@ -267,43 +255,11 @@ public class GameManager : MonoBehaviour
             _stageCreate = rectTransform;
         }
     }
-    /// <summary>
-    /// �Q�[���J�n
-    /// </summary>
+
     public void StartGame()
     {
         ChangeState(GameState.Playing);
         IsAddTime = true;
         _stampPointor.IsCreateStamp = true;
     }
-
-    /// <summary>
-    /// �|�[�Y
-    /// </summary>
-    public void PauseGame()
-    {
-        Debug.Log("PauseGame�Ă΂ꂽ");
-
-        //Time.timeScale = 0f;
-        ChangeState(GameState.Paused);
-    }
-
-    /// <summary>
-    /// �ĊJ
-    /// </summary>
-    public void ResumeGame()
-    {
-        //Time.timeScale = 1f;
-        ChangeState(GameState.Playing);
-    }
-
-    /// <summary>
-    /// �Q�[���I�[�o�[
-    /// </summary>
-    public void GameOver()
-    {
-        //Time.timeScale = 0f;
-        ChangeState(GameState.GameOver);
-    }
-
 }
