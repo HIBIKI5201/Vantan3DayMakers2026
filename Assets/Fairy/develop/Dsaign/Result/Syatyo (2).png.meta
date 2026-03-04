@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: c04c4d2250efa664a93dc2ae964bf755
+guid: 7e5f38e447c292b4fb4bb54c7c966cf9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7211794656269410073
-    second: CHARA4_0
+      213: -2560327707363323997
+    second: Syatyo (2)_0
+  - first:
+      213: -4229732184508264225
+    second: Syatyo (2)_1
+  - first:
+      213: 4778316758372538800
+    second: Syatyo (2)_2
+  - first:
+      213: -7223122677843273263
+    second: Syatyo (2)_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +105,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CHARA4_0
+      name: Syatyo (2)_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 12
-        width: 281
-        height: 401
+        x: 49
+        y: 51
+        width: 140
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 91f9ff7b701751460800000000000000
-      internalID: 7211794656269410073
+      spriteID: 3afc40ee383e77cd0800000000000000
+      internalID: -2560327707363323997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Syatyo (2)_1
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 55
+        width: 229
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd0195ffcf8fc45c0800000000000000
+      internalID: -4229732184508264225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Syatyo (2)_2
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 311
+        width: 91
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b9571f66cdff4240800000000000000
+      internalID: 4778316758372538800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Syatyo (2)_3
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 57
+        width: 267
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d9551ab13052cb90800000000000000
+      internalID: -7223122677843273263
       vertices: []
       indices: 
       edges: []
@@ -148,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CHARA4_0: 7211794656269410073
+      Syatyo (2)_0: -2560327707363323997
+      Syatyo (2)_1: -4229732184508264225
+      Syatyo (2)_2: 4778316758372538800
+      Syatyo (2)_3: -7223122677843273263
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

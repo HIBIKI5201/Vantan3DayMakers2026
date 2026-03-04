@@ -43,18 +43,19 @@ public class GameManager : MonoBehaviour
     // ���݂̃Q�[�����
     public GameState CurrentState { get; private set; }
 
-    public static int Score { get; private set; }
-
-    public static PostData RankLevel { get; private set; }
-    private static float _temp;
-    public static float TimeLimit
+    public static int Score
     {
-        get => _temp; set
+        get => _temp;
+        set
         {
             _temp = value;
             Debug.Log("A");
         }
     }
+
+    public static PostData RankLevel { get; private set; }
+    public static float TimeLimit{ get; private set; }
+    private static int _temp;
     public static float GameTimer { get; private set; }
 
     [Header("アタッチ")]
@@ -77,6 +78,12 @@ public class GameManager : MonoBehaviour
 
     private async void Awake()
     {
+
+        CurrentState = GameState.Ready;
+        RankLevel = _postDatabase.Get(Post.Staff);
+        TimeLimit = RankLevel.TimeLimit;
+        GameTimer = 0;
+
         _postDatabase.Initialize();
 
         if (Instance != null && Instance != this)
@@ -92,11 +99,7 @@ public class GameManager : MonoBehaviour
 
         countdownManager = FindFirstObjectByType<CountdownManager>();
 
-        CurrentState = GameState.Ready;
-        RankLevel = _postDatabase.Get(Post.Staff);
-        TimeLimit = RankLevel.TimeLimit;
-        GameTimer = 0;
-
+        
         NextStage();
 
         _uiManager.UpdateTimerUI(TimeLimit);
@@ -111,7 +114,6 @@ public class GameManager : MonoBehaviour
         IsAddTime = false;
         StartGame();
     }
-
     private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.E))  ポーズ一旦削除

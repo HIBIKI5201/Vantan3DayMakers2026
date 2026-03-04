@@ -15,6 +15,7 @@ public class StageCreate : MonoBehaviour
     public GameObject _stampPrefab;
     public Sprite[] _otherStampImage;
     public PostImage _postImage;
+    public RectTransform _aimingImage;
     public RectTransform SstampFrame {  get; private set; }
     public void Create(float rotation, Post post)
     {
@@ -29,12 +30,13 @@ public class StageCreate : MonoBehaviour
                 newStamo.transform.rotation = quaternion;
                 if(newStamo.TryGetComponent(out StampData stampData))
                 {
-                    stampData.SetImage(_otherStampImage[Random.Range(0,_otherStampImage.Length)]);
+                    stampData.SetImage(_otherStampImage[Random.Range(0,_otherStampImage.Length)],false);
                 }
             }
             else
             {
                 SstampFrame = frameData.MainFrame;
+                _aimingImage.anchoredPosition = frameData.MainFrame.anchoredPosition;
             }
         }
         _postImage.ChangePost(post);
