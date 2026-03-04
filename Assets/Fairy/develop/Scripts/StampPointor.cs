@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class StampPointor : MonoBehaviour
 {
     [SerializeField] private Transform _stampPointer;
+    [SerializeField] private StampData _stampData;
     [SerializeField] private GameObject _stampPrefab;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private HoverDetector _stampArea;
@@ -37,17 +38,15 @@ public class StampPointor : MonoBehaviour
         {
             RemoveStampObject();
             GameObject newStamp = Instantiate(_stampPrefab,GameManager.Instance._stageCreate.transform);
-            if (newStamp.TryGetComponent(out RectTransform rectTransform))
+            if(newStamp.TryGetComponent(out StampData stampData))
             {
+                RectTransform rectTransform = stampData.Rect;
                 rectTransform.localPosition = localPoint;
                 rectTransform.eulerAngles = _stampPointer.eulerAngles;
                 ClonedStamp = rectTransform;
-            }
-            if(newStamp.TryGetComponent(out Image image))
-            {
-                Color color = image.color;
-                color.a = _inkManager.GetAlpha();
-                image.color = color; ;
+
+                stampData.ChangeAlpha(_inkManager.GetAlpha());
+                
             }
             _inkManager.RemoveValue();
             GameManager.Instance.OnStamp();

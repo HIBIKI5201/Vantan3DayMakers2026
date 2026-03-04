@@ -3,7 +3,7 @@ using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 public enum GameState
 {
     Ready,
@@ -49,9 +49,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private StampPointor _stampPointor;
     [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private InGameUIManager _uiManager;
+    [SerializeField] private StampEvaluation _stampEvaluation;
     [SerializeField] private Vector2 _offScreen;
     [SerializeField] private float _nextDelay;
-    [SerializeField] private GameObject _stagePrefab;
+    [SerializeField] private GameObject[] _stagePrefabs;
     [SerializeField] private Transform _stageParent;
     [SerializeField] private RectTransform _stampArea;
     private CountdownManager countdownManager;
@@ -135,6 +136,7 @@ public class GameManager : MonoBehaviour
         int scoreAmount = _scoreManager.CalculationScore(sPos, rRot,sPos,aRot,ClearTime);
         AddScore(scoreAmount + 100);
         CheckRankUp(scoreAmount + 100);
+        _stampEvaluation.ShowEvaluation(_stampPointor.ClonedStamp.gameObject, scoreAmount);
 
         IsAddTime = false;
         _stampPointor.IsCreateStamp = false;
@@ -191,7 +193,8 @@ public class GameManager : MonoBehaviour
         }
 
         _stampPointor.RemoveStampObject();
-        GameObject newStage = Instantiate(_stagePrefab, _stageParent);
+        GameObject prefab = _stagePrefabs[Random.Range(0, _stagePrefabs.Length)];
+        GameObject newStage = Instantiate(prefab, _stageParent);
         if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
             
