@@ -7,7 +7,7 @@ public class InGameUIManager : InGameUIObjects
 {
     public void UpdateScoreUI(int amount)
     {
-        ScoreText.text = amount.ToString();
+        ScoreText.text = amount.ToString("N1");
     }
     public void UpdateTimerUI(float amount)
     {
@@ -17,6 +17,12 @@ public class InGameUIManager : InGameUIObjects
     {
         PostText.text = postName;
     }
+    public void ChangePost(Post post)
+    {
+        _handImage.ChangePost(post);
+        _characterImage.ChangePost(post);
+        _bowImage.ChangePost(post);
+    }
 }
 
 public class InGameUIObjects : MonoBehaviour
@@ -24,4 +30,7 @@ public class InGameUIObjects : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI ScoreText;
     [SerializeField] protected TextMeshProUGUI TimerText;
     [SerializeField] protected TextMeshProUGUI PostText;
+    [SerializeField] protected PostImage _handImage;
+    [SerializeField] protected PostImage _characterImage;
+    [SerializeField] protected PostImage _bowImage;
 }
