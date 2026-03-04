@@ -3,7 +3,7 @@ using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 public enum GameState
 {
     Ready,
@@ -49,16 +49,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private StampPointor _stampPointor;
     [SerializeField] private ScoreManager _scoreManager;
     [SerializeField] private InGameUIManager _uiManager;
+    [SerializeField] private EffectManager _effectManager;
+    [SerializeField] private StampEvaluation _stampEvaluation;
     [SerializeField] private Vector2 _offScreen;
     [SerializeField] private float _nextDelay;
-    [SerializeField] private GameObject _stagePrefab;
+    [SerializeField] private GameObject[] _stagePrefabs;
     [SerializeField] private Transform _stageParent;
     [SerializeField] private RectTransform _stampArea;
     private CountdownManager countdownManager;
     //private InGameUIManager _inGameUIManager;
 
     public RectTransform _stageCreate { get; private set; }
-    private bool IsAddTime;
+    private bool IsAddTime = false;
 
     private async void Awake()
     {
@@ -80,6 +82,7 @@ public class GameManager : MonoBehaviour
         CurrentState = GameState.Ready;
         RankLevel = _postDatabase.Get(Post.Staff);
         ClearTime = RankLevel.TimeLimit;
+        GameTimer = 0;
 
         NextStage();
 
@@ -110,7 +113,7 @@ public class GameManager : MonoBehaviour
             ClearTime -= Time.deltaTime;
             GameTimer += Time.deltaTime;
             _uiManager.UpdateTimerUI(ClearTime);
-            if(ClearTime <= 0f)
+            if (ClearTime <= 0f)
             {
                 SceneController.LoadScene(SceneName.Result);//ゲームオーバー
             }
@@ -126,15 +129,22 @@ public class GameManager : MonoBehaviour
     }
     public void OnStamp()
     {
-        IsAddTime = false;
+
         Vector2 sPos = _stampPointor.ClonedStamp.anchoredPosition;
         Vector2 aPos = _stampArea.anchoredPosition;
         float rRot = _stampPointor.ClonedStamp.eulerAngles.z;
         float aRot = _stampArea.eulerAngles.z;
 
-        int scoreAmount = _scoreManager.CalculationScore(sPos, rRot,sPos,aRot,ClearTime);
-        AddScore(scoreAmount + 100);
-        CheckRankUp(scoreAmount + 100);
+        int scoreAmount = _scoreManager.CalculationScore(sPos, rRot, sPos, aRot, ClearTime);
+        AddScore(scoreAmount);
+        bool promotion = CheckRankUp(scoreAmount);
+        if (promotion)//昇進した時の処理
+        {
+        _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp);
+        }
+        _stampEvaluation.ShowEvaluation(_stampPointor.ClonedStamp.gameObject, promotion);
+
+        _effectManager.PlayEvaluationEffect(scoreAmount, _stampPointor.ClonedStamp);
 
         IsAddTime = false;
         _stampPointor.IsCreateStamp = false;
@@ -155,27 +165,28 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 昇進チェック
     /// </summary>
-    void CheckRankUp(int amount)
+    private bool CheckRankUp(int amount)
     {
 
-        if(amount >= RankLevel.PromotionScore)
+        if (amount >= RankLevel.PromotionScore)
         {
-            if(RankLevel.PostType == Post.President)
+            if (RankLevel.PostType == Post.President)
             {
                 SceneController.LoadScene(SceneName.Result);//クリア
-                return;
+                return true;
             }
             int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
             RankLevel = _postDatabase.Get((Post)next);
             _uiManager.UpdatePostUI(RankLevel.PostName);
             _uiManager.ChangePost(RankLevel.PostType);
             ClearTime = RankLevel.TimeLimit;
+            return true;
         }
         else
         {
             SceneController.LoadScene(SceneName.Result);//ゲームオーバー
+            return false;
         }
-        Debug.Log(RankLevel.ToString());
 
     }
     public void NextStage()
@@ -191,12 +202,13 @@ public class GameManager : MonoBehaviour
         }
 
         _stampPointor.RemoveStampObject();
-        GameObject newStage = Instantiate(_stagePrefab, _stageParent);
+        GameObject prefab = _stagePrefabs[Random.Range(0, _stagePrefabs.Length)];
+        GameObject newStage = Instantiate(prefab, _stageParent);
         if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
-            
+
             stageCreate.Create(RankLevel.BowAmount, RankLevel.PostType);
-            
+
         }
         if (newStage.TryGetComponent(out RectTransform rectTransform))
         {
