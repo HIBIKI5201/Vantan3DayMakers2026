@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _stagePrefabs;
     [SerializeField] private Transform _stageParent;
     [SerializeField] private RectTransform _stampArea;
+    [SerializeField] private SceneLoader _sceneLoader;
     private CountdownManager countdownManager;
     //private InGameUIManager _inGameUIManager;
 
@@ -139,7 +140,8 @@ public class GameManager : MonoBehaviour
         if (TimeLimit <= 0f)
         {
             Debug.Log("B");
-            SceneController.LoadScene(SceneName.Result);//ゲームオーバー
+            _sceneLoader.LoadScene();
+            //SceneController.LoadScene(SceneName.Result);//ゲームオーバー
         }
     }
 
@@ -198,7 +200,8 @@ public class GameManager : MonoBehaviour
             {
                 DOVirtual.DelayedCall(_nextDelay, () =>
                 {
-                    SceneController.LoadScene(SceneName.Result);//クリア
+                    _sceneLoader.LoadScene();
+                    //SceneController.LoadScene(SceneName.Result);//クリア
                 });
             }
             else
@@ -220,7 +223,8 @@ public class GameManager : MonoBehaviour
         {
             DOVirtual.DelayedCall(_nextDelay, () =>
             {
-            SceneController.LoadScene(SceneName.Result);//ゲームオーバー
+                _sceneLoader.LoadScene();
+                //SceneController.LoadScene(SceneName.Result);//ゲームオーバー
             });
             return ScoreLevel.GameOver;
         }
