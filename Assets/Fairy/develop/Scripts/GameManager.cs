@@ -11,7 +11,6 @@ public enum GameState
     Paused,
     GameOver
 }
-
 public enum Post
 {
     None,
@@ -20,6 +19,12 @@ public enum Post
     Manager,
     Director,
     President
+}
+public enum ScoreLevel
+{
+    Promotion,
+Keep,
+GameOver
 }
 /// <summary>
 /// �Q�[���S�̂̏�Ԃ��Ǘ�����N���X�B
@@ -132,13 +137,12 @@ public class GameManager : MonoBehaviour
 
         Vector2 sPos = _stampPointor.ClonedStamp.anchoredPosition;
         Vector2 aPos = _stampArea.anchoredPosition;
-        float rRot = _stampPointor.ClonedStamp.eulerAngles.z;
-        float aRot = _stampArea.eulerAngles.z;
+        float sRot = _stampPointor.ClonedStamp.eulerAngles.z;
 
-        int scoreAmount = _scoreManager.CalculationScore(sPos, rRot, sPos, aRot, ClearTime);
+        int scoreAmount = _scoreManager.CalculationScore(sPos, sRot, sPos, ClearTime);
         AddScore(scoreAmount);
-        bool promotion = CheckRankUp(scoreAmount);
-        if (promotion)//昇進した時の処理
+        var promotion = CheckRankUp();
+        if (promotion == ScoreLevel.Promotion)//昇進した時の処理
         {
         _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp);
         }
@@ -165,27 +169,31 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 昇進チェック
     /// </summary>
-    private bool CheckRankUp(int amount)
+    private ScoreLevel CheckRankUp()
     {
 
-        if (amount >= RankLevel.PromotionScore)
+        if (Score>= RankLevel.PromotionScore)
         {
             if (RankLevel.PostType == Post.President)
             {
                 SceneController.LoadScene(SceneName.Result);//クリア
-                return true;
+                return ScoreLevel.Promotion;
             }
             int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
             RankLevel = _postDatabase.Get((Post)next);
             _uiManager.UpdatePostUI(RankLevel.PostName);
             _uiManager.ChangePost(RankLevel.PostType);
             ClearTime = RankLevel.TimeLimit;
-            return true;
+            return ScoreLevel.Promotion;
+        }
+        else if(Score > RankLevel.GameOverScore) 
+        {
+            return ScoreLevel.Keep;
         }
         else
         {
             SceneController.LoadScene(SceneName.Result);//ゲームオーバー
-            return false;
+            return ScoreLevel.GameOver;
         }
 
     }
@@ -207,7 +215,7 @@ public class GameManager : MonoBehaviour
         if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
 
-            stageCreate.Create(RankLevel.BowAmount, RankLevel.PostType);
+            stageCreate.Create(RankLevel.PerfectAngle, RankLevel.PostType);
 
         }
         if (newStage.TryGetComponent(out RectTransform rectTransform))

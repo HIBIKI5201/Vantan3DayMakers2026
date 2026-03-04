@@ -621,7 +621,7 @@ MonoBehaviour:
   _stampPointer: {fileID: 610827162}
   _stampData: {fileID: 610827166}
   _stampPrefab: {fileID: 4124751007862745314, guid: 2af344bcd36456741a8fef0b34732f72, type: 3}
-  _rotationSpeed: 10
+  _rotationSpeed: 5
   _stampArea: {fileID: 1867076975}
   _inkManager: {fileID: 2129862969}
   IsCreateStamp: 0
@@ -1069,8 +1069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fcbcdafe15022e448c8a2d173523ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  _maxScore: 1200
-  _perfectJudgement: 0.2
+  _postDatabase: {fileID: 11400000, guid: 5896ff815ea6f33448d443fcde9c8be1, type: 2}
 --- !u!4 &919902128
 Transform:
   m_ObjectHideFlags: 0
@@ -3317,9 +3316,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InkManager
   _maxAlpha: 1
-  _minAlpha: 0.1
-  _maxValue: 10
-  _removeMount: 5
+  _minAlpha: 0.2
+  _maxValue: 3
+  _removeMount: 1
   _pointerStampData: {fileID: 610827166}
   _inkAreaHover: {fileID: 2129862966}
 --- !u!1660057539 &9223372036854775807

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ public class InkManager : MonoBehaviour
     public void ChargeInk()
     {
         _inkValue = _maxValue;
+        _pointerStampData.Rect.DOLocalRotate( Vector3.forward *Random.Range(-180f, 180f), 0.2f);
         UpdatePointerAlpha();
     }
     public void RemoveValue()
@@ -41,5 +43,9 @@ public class InkManager : MonoBehaviour
     private void UpdatePointerAlpha()
     {
         _pointerStampData.ChangeAlpha(GetAlpha());
+    }
+    public bool IsInkEmpty()
+    {
+        return !(_inkValue > 0);
     }
 }
