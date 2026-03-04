@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScoreData
   PostType: 1
   PostName: "\u793E\u54E1"
-  PromotionScore: 0
+  PromotionScore: 350
   GameOverScore: 500
   PerfectAngle: 90
   PerfectTime: 60
   ToleranceAngle: 10
-  TolerancePosition: 100
+  TolerancePosition: 75
+  _worstPosition: 150
   MaxAngleScore: 500
   MaxPositionScore: 250
   MaxTimeScore: 250

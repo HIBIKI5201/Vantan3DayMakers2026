@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.Windows;
 /// <summary>
 /// スコアの計算
 /// </summary>
@@ -13,6 +16,7 @@ public class ScoreManager : MonoBehaviour
     //評価軸
     [Tooltip("正しい位置")] private Vector2 _correctPosition;
     [Tooltip("正しい角度")] private float _correctRotation;
+    [Tooltip("最低角度")] private float _worstPosition;
     [Tooltip("制限時間")] private float _timeLimit;
 
     [Tooltip("位置の猶予")] private float _gracePeriodPos;
@@ -29,6 +33,8 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
+
+
     }
 
     /// <summary>
@@ -38,82 +44,83 @@ public class ScoreManager : MonoBehaviour
     /// <param name="stampRot">ハンコの角度</param>
     /// <param name="remainingTime">押されたときの余りの時間</param>
     /// <returns></returns>
-    public int CalculationScore(Vector2 stampPos, float stampRot, Vector2 correcPos, float remainingTime)
+    public int CalculationScore(Vector3 stampPos, float stampRot, Vector3 correcPos, float remainingTime)
     {
-        GetPostData();
+        GetPostData(GameManager.RankLevel.PostType);
 
         //todo;ゲーマネから正解の情報を取得
         _correctPosition = correcPos;
         //todo,ゲーマネから正解の情報を取得
-        //(例)
-        //_correctPosition = _gameManager.正解のポジション
-        //_correctRotation = _gameManager.正解の角度
+
         _timeLimit = GameManager.RankLevel.TimeLimit;
 
-        //todo,猶予を現在の状態をみて調整
-        //_gracePeriodPos = ますたーでーた.判定猶予距離
-        //_gracePeriodRot = ますたーでーた.判定猶予角度
-        //
-        //float time = GetPerfectTime(_gameManager.今の役職);
-        //→これもマスターデータから引っ張ってくるかも
-
         float score = 0;
-
+        string resultSt = "==計算結果==" + "\n";
+        string inputSt = "==入力情報==" + "\n";
         //位置計算
-        float distance = Vector2.Distance(stampPos, _correctPosition);
-        if (distance <= _gracePeriodPos )
+        float distance = Vector3.Distance(stampPos, _correctPosition);
+        inputSt += "位置 : " + distance + "\n";
+        if (distance <= _gracePeriodPos)
         {
             //位置スコア最大
             score += _maxPositionScore;
-            Debug.Log("位置 :" + _maxPositionScore);
+            resultSt += "位置　許容 :" + _maxPositionScore + "\n";
         }
         else
         {
-            //どれぐらい離れているかを判定
-            float accuracy = Mathf.Clamp01(1f - (distance / _gracePeriodPos));
-
+            float removeRate = (distance - _gracePeriodPos) / _gracePeriodPos;
+            float removeScore = _maxPositionScore * removeRate;
+            removeRate = Mathf.Clamp01(removeRate);
             //それに応じたスコアを計算
-            score += Mathf.RoundToInt(_maxPositionScore * accuracy);
-            Debug.Log("位置 :" + Mathf.RoundToInt(_maxPositionScore * accuracy));
+            score += Mathf.RoundToInt(_maxPositionScore - removeScore);
+            resultSt += "位置 :" + Mathf.RoundToInt(_maxPositionScore - removeScore) + "\n";
         }
 
         //角度計算
         float angleDiff = Mathf.Abs(_correctRotation - stampRot);
+        inputSt += "角度 : " + angleDiff + "\n";
         if (angleDiff <= _gracePeriodRot)
         {
             //角度スコア最大
             score += _maxRotationScore;
-            Debug.Log("角度 :" + _maxRotationScore);
+            resultSt += "角度  許容:" + _maxRotationScore + "\n";
         }
         else
         {
             //どれぐらい角度が異なるかを計算
-            float accuracy = Mathf.Clamp01(1f - (angleDiff / _gracePeriodRot));
+            float removeRate = (angleDiff - _gracePeriodRot) / _gracePeriodRot;
+            removeRate = Mathf.Clamp01(removeRate);
+            float removeScore = _maxRotationScore * removeRate;
 
             //それに応じたスコアを加算
-            score += Mathf.RoundToInt(_maxRotationScore * accuracy);
-            Debug.Log("角度 :" + Mathf.RoundToInt(_maxRotationScore * accuracy));
+            score += Mathf.RoundToInt(_maxRotationScore -removeScore);
+            resultSt += "角度 :" + Mathf.RoundToInt(_maxRotationScore -removeScore) + "\n";
         }
 
         //時間計算
         float limitHalfTime = _timeLimit / 2f;
+        inputSt += "時間 : " + remainingTime + "\n";
         if (limitHalfTime <= remainingTime)
         {
             //時間スコア最大
             score += _maxTimeScore;
-            Debug.Log("時間 :" +_maxTimeScore);   
+            resultSt += "時間 許容:" + _maxTimeScore + "\n";
         }
         else
         {
             //どれぐらい時間に差があるかを計算
-            float accuracy = Mathf.Clamp01(remainingTime / limitHalfTime);
+            float removeRate = (remainingTime - limitHalfTime) / limitHalfTime;
+            removeRate = Mathf.Clamp01(removeRate);
+            float removeScore = _maxTimeScore * removeRate;
 
             //それに応じたスコアを加算
-            score += Mathf.RoundToInt(_maxTimeScore * accuracy);
-            Debug.Log("時間 :" + Mathf.RoundToInt(_maxTimeScore * accuracy));
+            score += Mathf.RoundToInt(_maxTimeScore - removeScore);
+            resultSt += "時間 :" + Mathf.RoundToInt(_maxTimeScore - removeScore) + "\n";
         }
 
-        Debug.Log("総合 :" + score);
+        resultSt += "総合 :" + score;
+        Debug.Log(inputSt);
+        Debug.Log(resultSt);
         return (int)score;
     }
 
@@ -122,10 +129,8 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     /// <param name="post">現在の役職</param>
     /// <returns></returns>
-    private void GetPostData()
+    private void GetPostData(Post post)
     {
-        PostData postData = GameManager.RankLevel;
-        Post post = postData.PostType;
 
         PostData data = _postDatabase.Get(post);
 
@@ -135,6 +140,7 @@ public class ScoreManager : MonoBehaviour
         _maxRotationScore = data.MaxAngleScore;
         _maxTimeScore = data.MaxTimeScore;
         _correctRotation = data.PerfectAngle;
+        _worstPosition = data._worstPosition;
 
     }
 }

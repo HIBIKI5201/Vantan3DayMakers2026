@@ -14,25 +14,22 @@ public class ScoreTextPopup : MonoBehaviour
     [SerializeField, Tooltip("アニメーション時間")] private float _duration = 1.5f;
     [SerializeField, Tooltip("上昇量")] private float _upPos = 30f;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    public void OnEnable()
     {
-        if(_rect == null)
+        if (_rect == null)
         {
             _rect = GetComponent<RectTransform>();
         }
-        if(_text == null)
+        if (_text == null)
         {
             _text = GetComponent<TextMeshProUGUI>();
         }
         //UpdateText(1000);
         PlayScoreAnimation();
     }
-
     public void UpdateText(int score)
     {
-        _text.text = "+"+ score;
+        _text.text = "+"+ (score/10).ToString("N1");
     }
 
     private async void PlayScoreAnimation()

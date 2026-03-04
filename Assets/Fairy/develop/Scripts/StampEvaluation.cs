@@ -13,6 +13,7 @@ public class StampEvaluation : MonoBehaviour
 
     public void ShowEvaluation(GameObject stamp,ScoreLevel promotion)
     {
+        Debug.Log(promotion.ToString());
         if (promotion == ScoreLevel.Keep) return;
 
         GameObject newObject = Instantiate(_evaluationPrefab, stamp.transform);

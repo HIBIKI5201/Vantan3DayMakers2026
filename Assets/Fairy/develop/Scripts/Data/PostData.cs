@@ -25,7 +25,9 @@ public class PostData : ScriptableObject
     [Header("許容距離差")]
     public float TolerancePosition;
     [Header("==========")]
-
+    [Header("スコアが0になる基準距離")]
+    public float _worstPosition;
+    [Header("==========")]
     [Header("最大角度スコア")]
     public float MaxAngleScore;
     [Header("最大位置スコア")]
