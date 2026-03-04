@@ -48,7 +48,7 @@ public class ScoreManager : MonoBehaviour
         //(例)
         //_correctPosition = _gameManager.正解のポジション
         //_correctRotation = _gameManager.正解の角度
-        _timeLimit = _gameManager.RankLevel.TimeLimit;
+        _timeLimit = GameManager.RankLevel.TimeLimit;
 
         //todo,猶予を現在の状態をみて調整
         //_gracePeriodPos = ますたーでーた.判定猶予距離
@@ -124,7 +124,7 @@ public class ScoreManager : MonoBehaviour
     /// <returns></returns>
     private void GetPostData()
     {
-        PostData postData = _gameManager.RankLevel;
+        PostData postData = GameManager.RankLevel;
         Post post = postData.PostType;
 
         PostData data = _postDatabase.Get(post);

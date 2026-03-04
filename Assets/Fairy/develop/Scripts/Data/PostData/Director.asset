@@ -24,7 +24,15 @@ MonoBehaviour:
   MaxPositionScore: 250
   MaxTimeScore: 250
   TimeLimit: 120
-  HandImage: {fileID: -5846574855866891489, guid: 3a25d36ce7067de4ca8363f84a22fbd6, type: 3}
+  HandImage:
+  - {fileID: -5840239047376468508, guid: 50e3e044702707349b16b8e18a327ca6, type: 3}
+  - {fileID: -8296594519324191277, guid: f847897bbe95cce498ca16303bd8dc99, type: 3}
+  - {fileID: -7862207665131509475, guid: e7f85e39461fbcb49ba3a3399a83bef4, type: 3}
+  - {fileID: -4113621040783267597, guid: 2a9751ead01b01f4eb3646e02b6a9e38, type: 3}
+  - {fileID: -3992144847328738716, guid: f038e711180a4094d925f6ac583b0896, type: 3}
+  - {fileID: -1928225091067428632, guid: 77609927348d39442b9750fc461ce7e2, type: 3}
+  - {fileID: -77225471797832015, guid: 028f0153641098749845a0f0c2242e51, type: 3}
+  - {fileID: 2009049480592415762, guid: efc6bca56f533ad42b937427e343e0fa, type: 3}
   CharacterImage: {fileID: -7021693309897174534, guid: 3827ee83ff727df44a8fdc3d72e764c7, type: 3}
-  BowImage: {fileID: -3753233037670147207, guid: 2e8d8eff374d7834eb69f8a5a44a20a0, type: 3}
-  StampImage: {fileID: 4584716015814176140, guid: 6ee94968c254afc41a3f283d11849def, type: 3}
+  BowImage: {fileID: 9129176628540218085, guid: 76a812bdd768cda40be9b9b20bd192cc, type: 3}
+  StampImage: {fileID: 21300000, guid: dd3024730bd4bbb45aacf01ea3675b9a, type: 3}

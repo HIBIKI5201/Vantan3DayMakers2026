@@ -23,8 +23,8 @@ public enum Post
 public enum ScoreLevel
 {
     Promotion,
-Keep,
-GameOver
+    Keep,
+    GameOver
 }
 /// <summary>
 /// �Q�[���S�̂̏�Ԃ��Ǘ�����N���X�B
@@ -43,11 +43,19 @@ public class GameManager : MonoBehaviour
     // ���݂̃Q�[�����
     public GameState CurrentState { get; private set; }
 
-    public int Score { get; private set; }
+    public static int Score { get; private set; }
 
-    public PostData RankLevel { get; private set; }
-    public float ClearTime { get; private set; }
-    public float GameTimer { get; private set; }
+    public static PostData RankLevel { get; private set; }
+    private static float _temp;
+    public static float TimeLimit
+    {
+        get => _temp; set
+        {
+            _temp = value;
+            Debug.Log("A");
+        }
+    }
+    public static float GameTimer { get; private set; }
 
     [Header("アタッチ")]
     [SerializeField] private PostDatabase _postDatabase;
@@ -73,12 +81,12 @@ public class GameManager : MonoBehaviour
 
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             return;
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         await UniTask.DelayFrame(1);
 
@@ -86,12 +94,12 @@ public class GameManager : MonoBehaviour
 
         CurrentState = GameState.Ready;
         RankLevel = _postDatabase.Get(Post.Staff);
-        ClearTime = RankLevel.TimeLimit;
+        TimeLimit = RankLevel.TimeLimit;
         GameTimer = 0;
 
         NextStage();
 
-        _uiManager.UpdateTimerUI(ClearTime);
+        _uiManager.UpdateTimerUI(TimeLimit);
         _uiManager.UpdatePostUI(RankLevel.PostName);
         _uiManager.UpdateScoreUI(Score);
         _uiManager.ChangePost(RankLevel.PostType);
@@ -115,13 +123,15 @@ public class GameManager : MonoBehaviour
         //}
         if (IsAddTime)
         {
-            ClearTime -= Time.deltaTime;
+            TimeLimit -= Time.deltaTime;
             GameTimer += Time.deltaTime;
-            _uiManager.UpdateTimerUI(ClearTime);
-            if (ClearTime <= 0f)
-            {
-                SceneController.LoadScene(SceneName.Result);//ゲームオーバー
-            }
+            _uiManager?.UpdateTimerUI(TimeLimit);
+
+        }
+        if (TimeLimit <= 0f)
+        {
+            Debug.Log("B");
+            SceneController.LoadScene(SceneName.Result);//ゲームオーバー
         }
     }
 
@@ -138,12 +148,12 @@ public class GameManager : MonoBehaviour
         Vector2 aPos = _stampArea.anchoredPosition;
         float sRot = _stampPointor.ClonedStamp.ImageRect.eulerAngles.z;
 
-        int scoreAmount = _scoreManager.CalculationScore(sPos, sRot, sPos, ClearTime);
+        int scoreAmount = _scoreManager.CalculationScore(sPos, sRot, sPos, TimeLimit);
         AddScore(scoreAmount);
         var promotion = CheckRankUp();
         if (promotion == ScoreLevel.Promotion)//昇進した時の処理
         {
-        _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp.MainRect);
+            _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp.MainRect);
         }
         _stampEvaluation.ShowEvaluation(_stampPointor.ClonedStamp.gameObject, promotion);
 
@@ -171,7 +181,7 @@ public class GameManager : MonoBehaviour
     private ScoreLevel CheckRankUp()
     {
 
-        if (Score>= RankLevel.PromotionScore)
+        if (Score >= RankLevel.PromotionScore)
         {
             if (RankLevel.PostType == Post.President)
             {
@@ -182,10 +192,10 @@ public class GameManager : MonoBehaviour
             RankLevel = _postDatabase.Get((Post)next);
             _uiManager.UpdatePostUI(RankLevel.PostName);
             _uiManager.ChangePost(RankLevel.PostType);
-            ClearTime = RankLevel.TimeLimit;
+            TimeLimit = RankLevel.TimeLimit;
             return ScoreLevel.Promotion;
         }
-        else if(Score > RankLevel.GameOverScore) 
+        else if (Score > RankLevel.GameOverScore)
         {
             return ScoreLevel.Keep;
         }
