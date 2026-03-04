@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreateStamp
   _stampPointer: {fileID: 610827162}
-  _stampData: {fileID: 0}
+  _stampData: {fileID: 610827166}
   _stampPrefab: {fileID: 4124751007862745314, guid: 2af344bcd36456741a8fef0b34732f72, type: 3}
   _rotationSpeed: 10
   _stampArea: {fileID: 1867076975}
@@ -1049,6 +1049,7 @@ GameObject:
   - component: {fileID: 919902127}
   - component: {fileID: 919902129}
   - component: {fileID: 919902130}
+  - component: {fileID: 919902131}
   m_Layer: 0
   m_Name: Sub
   m_TagString: Untagged
@@ -1116,10 +1117,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0e1e782f90c234f83e10b65f890a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StampEvaluation
-  _evaluationPrefab: {fileID: 2411624457201878226, guid: f6568505aa4a92247910c48a14b44433, type: 3}
-  _startY: 43
-  _endY: 60
-  _duration: 150
+  _evaluationPrefab: {fileID: 2617487829929012133, guid: f6568505aa4a92247910c48a14b44433, type: 3}
+  _positionY: 150
+  _missText: "\u30AF\u30D3\uFF01"
+  _missColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
+  _clearText: "\u30B7\u30B4\u30C7\u30AD\uFF01"
+  _clearColor: {r: 0.07006645, g: 1, b: 0, a: 1}
+--- !u!114 &919902131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919902126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea4f565a187a3c4b9ce7f24ada49a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectManager
+  _evaluationPrefab: {fileID: 0}
+  _scorePrefab: {fileID: 0}
+  _promotionPrefab: {fileID: 7852814048025730342, guid: 5cefc2292ff542c4aac6c910a293b8a9, type: 3}
 --- !u!1 &920184303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1270,7 @@ MonoBehaviour:
   _stampPointor: {fileID: 610827165}
   _scoreManager: {fileID: 919902127}
   _uiManager: {fileID: 919902129}
+  _effectManager: {fileID: 919902131}
   _stampEvaluation: {fileID: 919902130}
   _offScreen: {x: 1500, y: 1000}
   _nextDelay: 0.3
