@@ -5353,6 +5353,32 @@ MonoBehaviour:
   creditButton: {fileID: 367771740}
   endCreditPos: {x: 0, y: 0}
   moveCreditDuration: 0
+  centerCursorImage: {fileID: 0}
+  editNameCursorImage: {fileID: 0}
+  gameStartCursorImage: {fileID: 0}
+  creditCursorImage: {fileID: 0}
+  audioCursorImage: {fileID: 0}
+--- !u!114 &1807099714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807099710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc3be6e9861111146948cfc15297e88e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  countdownText: {fileID: 0}
+  creditButton: {fileID: 0}
+  endCreditPos: {x: 0, y: 0}
+  moveCreditDuration: 0
+  centerCursorImage: {fileID: 0}
+  editNameCursorImage: {fileID: 0}
+  gameStartCursorImage: {fileID: 0}
+  creditCursorImage: {fileID: 0}
+  audioCursorImage: {fileID: 0}
 --- !u!1 &1811873079
 GameObject:
   m_ObjectHideFlags: 0
@@ -6311,6 +6337,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4020693255504525242, guid: 5853d3108fe9f164eaa6acc7377b5d31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1807099712}
+    - targetCorrespondingSourceObject: {fileID: 4020693255504525242, guid: 5853d3108fe9f164eaa6acc7377b5d31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1807099714}
   m_SourcePrefab: {fileID: 100100000, guid: 5853d3108fe9f164eaa6acc7377b5d31, type: 3}
 --- !u!82 &7652707195824905050
 AudioSource:
@@ -6323,7 +6352,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 3171772897790192434, guid: db199d6482772b542a9ea24c499b9d9f, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 3676087bf3732c14abcd9fb82c7894a3, type: 3}
+  m_Resource: {fileID: 8300000, guid: 19e9d2efbba5b264f81f415ef5209bbc, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

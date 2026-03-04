@@ -5,10 +5,12 @@ using DG.Tweening;
 
 public class TitleUIManager : TitleUIObjects
 {
+    //Audio
     public void UpdateAudioUI(GameObject imageObj, bool isOn)
     {
         imageObj.GetComponent<Image>().color = isOn? activeColor : inactiveColor;
     }
+    //Credit
     public void OnPointerEnterCredit()
     {
         creditButton.GetComponent<RectTransform>().DOAnchorPos(endCreditPos, moveCreditDuration).SetEase(Ease.OutQuad);
@@ -31,9 +33,4 @@ public class TitleUIObjects : MonoBehaviour
     [SerializeField] protected float moveCreditDuration;
     protected Color activeColor = Color.white;
     protected Color inactiveColor = Color.clear;
-
-    void Awake()
-    {
-        originCreditPos = creditButton.GetComponent<RectTransform>().anchoredPosition;
-    }
 }
