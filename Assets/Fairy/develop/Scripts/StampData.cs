@@ -4,8 +4,11 @@ using UnityEngine.UI;
 
 public class StampData : MonoBehaviour
 {
-    [SerializeField] private RectTransform _rectTransform;
-    public RectTransform Rect => _rectTransform;
+    [SerializeField] private RectTransform _mainRect;
+    public RectTransform MainRect => _mainRect;
+
+    [SerializeField] private RectTransform _imageRect;
+    public RectTransform ImageRect => _imageRect;
     [SerializeField] private Image _stampImage;
     [SerializeField] private TextMeshProUGUI _name;
 
