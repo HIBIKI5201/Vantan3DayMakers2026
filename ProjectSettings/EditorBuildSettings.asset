@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 7ae54482d485f9b43aae4796792d65a6
   - enabled: 1
     path: Assets/Fairy/develop/Scenes/InGame.unity
-    guid: ade9f08b2b78db14fb9fe0d68d500b61
+    guid: decee2957ebc75e4a8b2736f4eff3c0f
   - enabled: 1
     path: Assets/Fairy/develop/_Kato/Scene/Result.unity
     guid: 4574dc3c0e18925428bb1de886313fc7
