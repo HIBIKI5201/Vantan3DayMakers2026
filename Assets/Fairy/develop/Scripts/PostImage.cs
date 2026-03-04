@@ -20,7 +20,7 @@ public class PostImage : MonoBehaviour
         switch (_imageType)
         {
             case ImageType.Hand:
-                _targetImage.sprite = data.HandImage;
+                _targetImage.sprite = data.HandImage[Random.Range(0,data.HandImage.Length)];
                 break;
             case ImageType.Character:
                 _targetImage.sprite = data.CharacterImage;
