@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0ad6ecb1a6f395843a8d0efe17426979
+guid: 5bfe20f4ddfbe6d4daba125ade8e2468
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7299066644926149434
-    second: Oto_Hanko_0
+      213: -6845766056996480303
+    second: Oto_Hanko_Silhouette_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Oto_Hanko_0
+      name: Oto_Hanko_Silhouette_0
       rect:
         serializedVersion: 2
         x: 17
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a33b9b2017e7b4560800000000000000
-      internalID: 7299066644926149434
+      spriteID: 1da5c45aa04fef0a0800000000000000
+      internalID: -6845766056996480303
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Oto_Hanko_0: 7299066644926149434
+      Oto_Hanko_Silhouette_0: -6845766056996480303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
