@@ -276,8 +276,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5C71\u7530\u592A\u90CE"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
-  m_sharedMaterial: {fileID: -5343553829286092696, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3206,7 +3206,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30AF\u30EA\u30C3\u30AF\u3067\u30CF\u30F3\u30B3\u3092\u62BC\u3059\uFF01\uFF01"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
   m_sharedMaterial: {fileID: -5343553829286092696, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3273,7 +3273,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &913795889
@@ -3419,8 +3419,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
-  m_sharedMaterial: {fileID: -5343553829286092696, guid: a088242e607dd8c4e9b11040d071591a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6415,7 +6415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TitleUIManager
   countdownText: {fileID: 0}
   creditImage: {fileID: 383677388}
-  moveCreditPosDuration: {x: 3.8, y: 12.2}
+  moveCreditPosDuration: {x: 0, y: 0}
   moveCreditTimeDuration: 0.5
 --- !u!114 &1807099714
 MonoBehaviour:
