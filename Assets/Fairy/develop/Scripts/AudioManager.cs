@@ -76,4 +76,11 @@ public class AudioManager : MonoBehaviour
         float dB = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f;
         Instance.audioMixer.SetFloat("SEVol", dB);
     }
+    public static void SetMasterVolume(float value)
+    {
+        if (Instance == null || Instance.audioMixer == null) return;
+        // 0.0001f ～ 1f の範囲にクランプしてデシベル変換
+        float dB = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f;
+        Instance.audioMixer.SetFloat("MasterVol", dB); // Mixer側の名前と合わせる
+    }
 }

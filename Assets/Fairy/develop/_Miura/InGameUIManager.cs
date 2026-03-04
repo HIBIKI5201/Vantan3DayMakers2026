@@ -22,6 +22,7 @@ public class InGameUIManager : InGameUIObjects
         _handImage.ChangePost(post);
         _characterImage.ChangePost(post);
         _bowImage.ChangePost(post);
+        _stampImage.ChangePost(post);
     }
 }
 
@@ -33,4 +34,5 @@ public class InGameUIObjects : MonoBehaviour
     [SerializeField] protected PostImage _handImage;
     [SerializeField] protected PostImage _characterImage;
     [SerializeField] protected PostImage _bowImage;
+    [SerializeField] protected PostImage _stampImage;
 }

@@ -1,7 +1,7 @@
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Scene‚Ìenum
+/// Sceneã®enum
 /// </summary>
 public enum SceneName : byte
 {
@@ -15,9 +15,9 @@ public static class SceneController
     public static SceneName CurrentScene { get; private set; }
 
     /// <summary>
-    /// SceneØ‚è‘Ö‚¦ˆ—
+    /// Sceneåˆ‡ã‚Šæ›¿ãˆå‡¦ç†
     /// </summary>
-    /// <param name="scene">Scene‚ÌØ‚è‘Ö‚¦æ</param>
+    /// <param name="scene">Sceneã®åˆ‡ã‚Šæ›¿ãˆå…ˆ</param>
     public static void LoadScene(SceneName scene)
     {
         CurrentScene = scene;
