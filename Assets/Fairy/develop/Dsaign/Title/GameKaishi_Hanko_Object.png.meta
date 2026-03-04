@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0ad6ecb1a6f395843a8d0efe17426979
+guid: f93c1508fcfbda74c9bcfed21a5af361
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7299066644926149434
-    second: Oto_Hanko_0
+      213: -3001448047436406851
+    second: GameKaishi_Hanko_Object_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Oto_Hanko_0
+      name: GameKaishi_Hanko_Object_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 17
-        width: 69
-        height: 70
+        x: 127
+        y: 85
+        width: 602
+        height: 361
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a33b9b2017e7b4560800000000000000
-      internalID: 7299066644926149434
+      spriteID: dbf53c837e6b856d0800000000000000
+      internalID: -3001448047436406851
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Oto_Hanko_0: 7299066644926149434
+      GameKaishi_Hanko_Object_0: -3001448047436406851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
