@@ -13,6 +13,12 @@ public class AudioManager : MonoBehaviour
 
     [Header("Pool Setting")]
     [SerializeField] private int poolSize = 8; // 同時に鳴らせる汎用SEの数
+
+    [Header("BGM Clips")]
+    [SerializeField] private AudioClip titleClip;
+    [SerializeField] private AudioClip inGameClip;
+    [SerializeField] private AudioClip resultClip;
+
     private List<AudioSource> sePool = new List<AudioSource>();
     private void Awake()
     {
@@ -29,6 +35,19 @@ public class AudioManager : MonoBehaviour
             newSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SE")[0];
             sePool.Add(newSource);
         }
+        
+        bgmSource.loop = true;
+    }
+    private void PlayBGM(AudioClip clip)
+    {
+        if (clip == null) return;
+
+        if (bgmSource.clip == clip) return; // 同じ曲なら再生し直さない
+
+        bgmSource.Stop();
+        bgmSource.clip = clip;
+        bgmSource.loop = true;
+        bgmSource.Play();
     }
     // 他のクラスから AudioManager.PlaySE(クリップ) で呼べるようにする
     public static void PlaySE(AudioClip clip)
@@ -44,7 +63,7 @@ public class AudioManager : MonoBehaviour
                 source.Play();
                 return;
             }
-        } // 全て埋まっていたら、一番古いものを上書きするか、諦める（今回は諦める）
+        } 
     }
     public static void PlaySystemSE(AudioClip clip)
     {
@@ -82,5 +101,23 @@ public class AudioManager : MonoBehaviour
         // 0.0001f ～ 1f の範囲にクランプしてデシベル変換
         float dB = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f;
         Instance.audioMixer.SetFloat("MasterVol", dB); // Mixer側の名前と合わせる
+    }
+
+    public void ChangeBGM(SceneName type)
+    {
+        switch (type)
+        {
+            case SceneName.GameTitle:
+                PlayBGM(titleClip);
+                break;
+
+            case SceneName.InGame:
+                PlayBGM(inGameClip);
+                break;
+
+            case SceneName.Result:
+                PlayBGM(resultClip);
+                break;
+        }
     }
 }
