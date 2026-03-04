@@ -7175,8 +7175,8 @@ MonoBehaviour:
   creditCursorDecorationObject: {fileID: 631762631}
   audioCursorDecorationObject: {fileID: 1505443029}
   _currentDecorationImage: {fileID: 1180954129}
-  editNameDecorationPosDuration: {x: 110, y: 110}
-  gameStartDecorationPosDuration: {x: 50, y: 50}
+  editNameDecorationPosDuration: {x: 100, y: 160}
+  gameStartDecorationPosDuration: {x: 60, y: 70}
   creditCursorDecorationPosDuration: {x: 200, y: 0}
   audioCursorDecorationPosDuration: {x: 100, y: 100}
 --- !u!1 &1810704992
@@ -7238,8 +7238,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u624B\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u623B\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7426,7 +7426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -75, y: -125}
+  m_AnchoredPosition: {x: -90, y: -110}
   m_SizeDelta: {x: 74.9, y: 72.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1843567833
