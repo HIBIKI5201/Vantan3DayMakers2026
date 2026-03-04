@@ -26,7 +26,7 @@ public class SceneController : MonoBehaviour
     private void Start()
     {
         // シーンに入った瞬間BGM変更
-        AudioManager.Instance.ChangeBGM(sceneType);
+        //AudioManager.Instance.ChangeBGM(sceneType);
     }
 
     public　static void LoadScene(SceneName sceneName)
