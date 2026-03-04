@@ -5,7 +5,8 @@ public enum ImageType
 {
     Hand,
     Character,
-    Bow
+    Bow,
+    Stamp
 }
 public class PostImage : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class PostImage : MonoBehaviour
                 break;
             case ImageType.Bow:
                 _targetImage.sprite = data.BowImage;
+                break;
+            case ImageType.Stamp:
+                _targetImage.sprite = data.StampImage;
                 break;
         }
     }
