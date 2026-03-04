@@ -385,6 +385,7 @@ GameObject:
   - component: {fileID: 86109221}
   - component: {fileID: 86109220}
   - component: {fileID: 86109219}
+  - component: {fileID: 86109222}
   m_Layer: 8
   m_Name: (IField) PlayerName
   m_TagString: Untagged
@@ -491,7 +492,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 86109222}
+        m_TargetAssemblyTypeName: NameManager, Assembly-CSharp
+        m_MethodName: SetName
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -551,6 +564,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86109217}
   m_CullTransparentMesh: 1
+--- !u!114 &86109222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86109217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4448933287bd964086b8c1d8012fe0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NameManager
 --- !u!1 &89446553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,7 +1514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cad35892ecf364dac083f41c32dcdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fade
-  fadeImage: {fileID: 1091282486}
+  fadeImage: {fileID: 1420528136}
   duration: 0.5
   ease: 7
 --- !u!1 &349362575

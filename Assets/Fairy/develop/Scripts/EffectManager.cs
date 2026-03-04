@@ -2,20 +2,12 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _scorePrefab;
-    [SerializeField] private Vector2 _scorePopupOffset;
+    [SerializeField] private ScorePopupCreate _scorePopupCreate;
     [SerializeField] private GameObject _promotionPrefab;
     
     public void PlayEvaluationEffect(int score,RectTransform stampRect)
     {
-
-        GameObject newScoreEffect = Instantiate(_scorePrefab,stampRect);
-        if(newScoreEffect.TryGetComponent(out ScoreTextPopup scoreTextPopup))
-        {
-            scoreTextPopup.Rect.anchoredPosition = _scorePopupOffset;
-            scoreTextPopup.UpdateText(score);
-        }
-        //データの設定など行う
+        _scorePopupCreate.Create(score, stampRect);
     }
     public void PlayPromotionEffect(RectTransform stampRect)
     {

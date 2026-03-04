@@ -16,6 +16,11 @@ public class PostDatabase : ScriptableObject
 
     public PostData Get(Post post)
     {
+        if(_cache == null)
+        {
+            Initialize();
+        }
+
         if (_cache.TryGetValue(post, out var data))
         {
             return data;
