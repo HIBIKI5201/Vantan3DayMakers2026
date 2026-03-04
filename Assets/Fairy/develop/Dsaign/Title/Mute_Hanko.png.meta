@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ecc9afc0aab8a504aa368d3174b42235
+guid: ac925ee49ab14bd48922a43c55020774
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8389185472497411796
-    second: miura_hanko_mute_0
+      213: -6618367516377367968
+    second: Mute_Hanko_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: miura_hanko_mute_0
+      name: Mute_Hanko_0
       rect:
         serializedVersion: 2
         x: 4
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c299ce4b240a39b80800000000000000
-      internalID: -8389185472497411796
+      spriteID: 06ab7593fc5d624a0800000000000000
+      internalID: -6618367516377367968
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      miura_hanko_mute_0: -8389185472497411796
+      Mute_Hanko_0: -6618367516377367968
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
