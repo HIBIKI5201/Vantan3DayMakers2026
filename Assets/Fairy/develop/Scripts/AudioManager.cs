@@ -4,7 +4,9 @@ using UnityEngine.Audio;
 public enum SEClipType
 {
     Stamp,
-    Paper
+    Paper,
+    Miss,   
+    Ink
 }
 public class AudioManager : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class AudioManager : MonoBehaviour
     [Header("SE Clips")]
     [SerializeField] private AudioClip StampClip;
     [SerializeField] private AudioClip PaperClip;
+    [SerializeField] private AudioClip MissClip; 
+    [SerializeField] private AudioClip InkClip;
 
     private List<AudioSource> sePool = new List<AudioSource>();
     private void Awake()
@@ -136,6 +140,12 @@ public class AudioManager : MonoBehaviour
                 break;
             case SEClipType.Paper:
                 PlaySE(PaperClip);
+                break;
+            case SEClipType.Miss:    
+                PlaySE(MissClip);
+                break;
+            case SEClipType.Ink:    
+                PlaySE(InkClip);
                 break;
         }
     }
