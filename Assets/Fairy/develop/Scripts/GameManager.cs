@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
-using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 public enum GameState
@@ -22,7 +21,7 @@ public enum Post
 }
 public enum ScoreLevel
 {
-    Promotion,
+    Perfect,
     Keep,
     GameOver
 }
@@ -49,7 +48,6 @@ public class GameManager : MonoBehaviour
         set
         {
             _temp = value;
-            Debug.Log("A");
         }
     }
 
@@ -83,6 +81,7 @@ public class GameManager : MonoBehaviour
         RankLevel = _postDatabase.Get(Post.Staff);
         TimeLimit = RankLevel.TimeLimit;
         GameTimer = 0;
+        Score = 0;
 
         _postDatabase.Initialize();
 
@@ -100,15 +99,22 @@ public class GameManager : MonoBehaviour
         countdownManager = FindFirstObjectByType<CountdownManager>();
 
         
-        NextStage();
 
         _uiManager.UpdateTimerUI(TimeLimit);
         _uiManager.UpdatePostUI(RankLevel.PostName);
         _uiManager.UpdateScoreUI(Score);
         _uiManager.ChangePost(RankLevel.PostType);
 
+        NextStage(true);
         if (countdownManager != null)
+        {
+
             await countdownManager.StartCountdownAsync();
+        }
+        else
+        {
+            Debug.LogError("countdowon null");
+        }
 
 
         IsAddTime = false;
@@ -146,20 +152,23 @@ public class GameManager : MonoBehaviour
     }
     public void OnStamp()
     {
-        Vector2 sPos = _stampPointor.ClonedStamp.ImageRect.anchoredPosition;
-        Vector2 aPos = _stampArea.anchoredPosition;
-        float sRot = _stampPointor.ClonedStamp.ImageRect.eulerAngles.z;
+        Vector3 stampPos = _stampPointor.ClonedStamp.transform.position;
+        stampPos.z = 0f;
+        Vector3 areaPos = _stampArea.transform.position;
+        areaPos.z = 0f;
+        float stampRot = _stampPointor.ClonedStamp.ImageRect.eulerAngles.z;
 
-        int scoreAmount = _scoreManager.CalculationScore(sPos, sRot, sPos, TimeLimit);
+        int scoreAmount = _scoreManager.CalculationScore(stampPos, stampRot, areaPos, TimeLimit);
         AddScore(scoreAmount);
-        var promotion = CheckRankUp();
-        if (promotion == ScoreLevel.Promotion)//昇進した時の処理
-        {
-            _effectManager.PlayPromotionEffect(_stampPointor.ClonedStamp.MainRect);
-        }
+        var promotion = CheckRankUp(scoreAmount);
+
+        //円エフェクト　ハンコを押したら無条件で表示
+        _effectManager.PlayStampEffect(_stampPointor.ClonedStamp.MainRect);
+
+
         _stampEvaluation.ShowEvaluation(_stampPointor.ClonedStamp.gameObject, promotion);
 
-        _effectManager.PlayEvaluationEffect(scoreAmount, _stampPointor.ClonedStamp.MainRect);
+        _effectManager.PlayScoreEffect(scoreAmount, _stampPointor.ClonedStamp.MainRect);
 
         IsAddTime = false;
         _stampPointor.IsCreateStamp = false;
@@ -180,35 +189,44 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 昇進チェック
     /// </summary>
-    private ScoreLevel CheckRankUp()
+    private ScoreLevel CheckRankUp(int scoreAdd)
     {
 
         if (Score >= RankLevel.PromotionScore)
         {
             if (RankLevel.PostType == Post.President)
             {
-                SceneController.LoadScene(SceneName.Result);//クリア
-                return ScoreLevel.Promotion;
+                DOVirtual.DelayedCall(_nextDelay, () =>
+                {
+                    SceneController.LoadScene(SceneName.Result);//クリア
+                });
             }
-            int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
-            RankLevel = _postDatabase.Get((Post)next);
-            _uiManager.UpdatePostUI(RankLevel.PostName);
-            _uiManager.ChangePost(RankLevel.PostType);
-            TimeLimit = RankLevel.TimeLimit;
-            return ScoreLevel.Promotion;
+            else
+            {
+                int next = ((int)RankLevel.PostType + 1) % System.Enum.GetValues(typeof(Post)).Length;
+                RankLevel = _postDatabase.Get((Post)next);
+                _uiManager.UpdatePostUI(RankLevel.PostName);
+                _uiManager.ChangePost(RankLevel.PostType);
+                TimeLimit = RankLevel.TimeLimit;
+            }
+
+            return ScoreLevel.Perfect;
         }
-        else if (Score > RankLevel.GameOverScore)
+        else if (scoreAdd > RankLevel.GameOverScore)
         {
             return ScoreLevel.Keep;
         }
         else
         {
+            DOVirtual.DelayedCall(_nextDelay, () =>
+            {
             SceneController.LoadScene(SceneName.Result);//ゲームオーバー
+            });
             return ScoreLevel.GameOver;
         }
 
     }
-    public void NextStage()
+    public void NextStage(bool skipReset = false)
     {
         if (_stageCreate != null)
         {
@@ -235,9 +253,12 @@ public class GameManager : MonoBehaviour
             rectTransform.DOAnchorPosX(0, 1f)
                 .OnComplete(() =>
                 {
-                    _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
-                    _stampPointor.IsCreateStamp = true;
-                    IsAddTime = true;
+                        _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
+                    if (!skipReset)
+                    {
+                        _stampPointor.IsCreateStamp = true;
+                        IsAddTime = true;
+                    }
                 }).SetDelay(_nextDelay);
             _stageCreate = rectTransform;
         }

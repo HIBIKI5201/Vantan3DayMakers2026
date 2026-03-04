@@ -153,5 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreTextPopup
   _rect: {fileID: 3779198523229085254}
+  _text: {fileID: 632951401128049795}
   _duration: 1.5
   _upPos: 30

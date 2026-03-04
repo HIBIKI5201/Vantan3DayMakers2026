@@ -9,7 +9,6 @@ public class ScorePopupCreate : MonoBehaviour
 
     public void Create(int score, RectTransform stampRect)
     {
-
         GameObject newScoreEffect = Instantiate(_scorePrefab, stampRect);
         if (newScoreEffect.TryGetComponent(out ScoreTextPopup scoreTextPopup))
         {
