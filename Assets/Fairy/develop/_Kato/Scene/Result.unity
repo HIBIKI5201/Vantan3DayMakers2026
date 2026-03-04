@@ -1707,6 +1707,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ResultStamp
       objectReference: {fileID: 0}
+    - target: {fileID: 9091492954746460310, guid: 191edce76eb38184a9d8cd586f150d44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1715,6 +1719,11 @@ PrefabInstance:
 --- !u!224 &1434741278 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3497323858192248873, guid: 191edce76eb38184a9d8cd586f150d44, type: 3}
+  m_PrefabInstance: {fileID: 1434741277}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1434741279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9091492954746460310, guid: 191edce76eb38184a9d8cd586f150d44, type: 3}
   m_PrefabInstance: {fileID: 1434741277}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1598180257
@@ -2294,6 +2303,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2043373032}
     - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: _stampObj
+      value: 
+      objectReference: {fileID: 1434741279}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
       propertyPath: _timeText
       value: 
       objectReference: {fileID: 1155840353}
@@ -2329,6 +2342,22 @@ PrefabInstance:
       propertyPath: _useDebugScore
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: _buttonActiveSec
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: _buttons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: '_buttons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1609906959}
+    - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
+      propertyPath: '_buttons.Array.data[1]'
+      value: 
+      objectReference: {fileID: 554208814}
     - target: {fileID: 2899650590480701344, guid: ae9b28179ad955b41a9c662de3212877, type: 3}
       propertyPath: _rankSettings.Array.data[0].post
       value: 5
