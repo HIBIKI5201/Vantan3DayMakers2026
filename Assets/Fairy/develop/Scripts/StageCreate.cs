@@ -30,7 +30,7 @@ public class StageCreate : MonoBehaviour
                 newStamo.transform.rotation = quaternion;
                 if(newStamo.TryGetComponent(out StampData stampData))
                 {
-                    stampData.SetImage(_otherStampImage[Random.Range(0,_otherStampImage.Length)]);
+                    stampData.SetImage(_otherStampImage[Random.Range(0,_otherStampImage.Length)],false);
                 }
             }
             else

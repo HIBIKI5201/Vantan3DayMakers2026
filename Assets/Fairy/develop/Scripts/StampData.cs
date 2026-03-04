@@ -29,9 +29,10 @@ public class StampData : MonoBehaviour
     {
         _name.text = text;
     }
-    public void SetImage(Sprite image)
+    public void SetImage(Sprite image,bool isTextView)
     {
         _stampImage.sprite = image;
+        _name.enabled = isTextView;
     } 
     
 }
