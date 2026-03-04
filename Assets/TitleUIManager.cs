@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
@@ -6,56 +5,63 @@ using Image = UnityEngine.UI.Image;
 
 public class TitleUIManager : TitleUIObjects
 {
+    Sequence _alertSeq;
+
     //Audio
     public void UpdateAudioUI(GameObject imageObj, bool isOn)
     {
-        imageObj.GetComponent<Image>().color = isOn? activeColor : inactiveColor;
+        imageObj.GetComponent<Image>().color = isOn ? activeColor : inactiveColor;
     }
+
     //GameStart
     public void OnPointerClickGameStart()
     {
-        if (string.IsNullOrEmpty(DataManager.Instance.UserName))
-        {
+        if (string.IsNullOrEmpty(DataManager.Instance.UserName)){
+            Debug.Log(DataManager.Instance.UserName);
             NoEditNameAlert();
         }
-        else
-        {
-            sceneLoader.LoadScene();
-        }
+        else{
+            sceneLoader.LoadScene();}
     }
-    //SpeechBubble(NoEditNameAlert)
+
+    //SpeechBubble
     void NoEditNameAlert()
     {
-        Sequence seq = DOTween.Sequence();
-        seq.Append(speechBubbleImage.rectTransform.DOScale(1, speechBubbleFadeinScaleDuration).SetEase(Ease.OutQuad));
-        seq.Append(speechBubbleText.DOFade(1, speechBubbleFadeInTextDuration));
-        seq.AppendCallback(() => SpeechMove(true));
-        seq.AppendCallback(() => SpeechMove(false));
-        seq.AppendInterval(speechBubbleIntervalDuration);
-        seq.AppendCallback(() =>
-        {
-            speechBubbleImage.rectTransform.DOKill();
-            speechBubbleText.rectTransform.DOKill();
-        });
-        seq.Append(speechBubbleImage.rectTransform.DOScale(0, speechBubbleFadeOutScaleDuration).SetEase(Ease.OutQuad));
-        seq.Join(speechBubbleImage.rectTransform.DOAnchorPos(originSpeechbubblePos + speechBubblePosDuration, speechBubbleFadeOutScaleDuration).SetEase(Ease.OutQuad));
+        if (_alertSeq.IsActive()) return; //TWeen再生中は返す
+        _alertSeq = DOTween.Sequence();
+        _alertSeq
+            .Append(speechBubbleImage.rectTransform.DOScale(1, speechBubbleFadeinScaleDuration).SetEase(Ease.OutQuad))
+            .Append(speechBubbleText.DOFade(1, speechBubbleFadeInTextDuration))
+            .AppendCallback(() => { SpeechMove(speechBubbleImage.rectTransform, originSpeechbubbleImagePos, true); SpeechMove(speechBubbleText.rectTransform, originSpeechbubbleTextPos, false); })
+            .AppendInterval(speechBubbleIntervalDuration)
+            .AppendCallback(() => speechBubbleImage.rectTransform.DOKill())
+            .Append(speechBubbleImage.rectTransform.DOScale(0, speechBubbleFadeOutScaleDuration).SetEase(Ease.OutQuad))
+            .Join(speechBubbleImage.rectTransform.DOAnchorPos(originSpeechbubbleImagePos + speechBubblePosDuration, speechBubbleFadeOutScaleDuration).SetEase(Ease.OutQuad))
+            .OnComplete(() =>
+            {
+                speechBubbleText.rectTransform.DOKill();
+                speechBubbleText.alpha = 0;
+                speechBubbleImage.rectTransform.anchoredPosition = originSpeechbubbleImagePos;
+                speechBubbleText.rectTransform.anchoredPosition = originSpeechbubbleTextPos;
+            });
     }
-    void SpeechMove(bool isImage)
+
+    void SpeechMove(RectTransform rect, Vector2 originPos, bool isImage)
     {
-        float moveRange = isImage? bubbleImageMoveRange : bubbleTextMoveRange;
-        // ランダムな方向に移動
-        Vector2 randomPos = originSpeechbubblePos + new Vector2(
-            UnityEngine.Random.Range(-moveRange, moveRange),
-            UnityEngine.Random.Range(-moveRange, moveRange)
+        float moveRange = isImage ? bubbleImageMoveRange : bubbleTextMoveRange;
+        float minDuration = isImage ? bubbleImageMinDuration : bubbleTextMinDuration;
+        float maxDuration = isImage ? bubbleImageMaxDuration : bubbleTextMaxDuration;
+
+        Vector2 randomPos = originPos + new Vector2(
+            Random.Range(-moveRange, moveRange),
+            Random.Range(-moveRange, moveRange)
         );
-        float minDuration =  isImage? bubbleImageMinDuration : bubbleTextMinDuration, 
-              maxDuration = isImage? bubbleImageMaxDuration : bubbleTextMaxDuration;
-        float duration = UnityEngine.Random.Range(minDuration, maxDuration);
-        var rectTransform = isImage? speechBubbleImage.rectTransform : speechBubbleText.rectTransform;
-        rectTransform.DOAnchorPos(randomPos, duration)
+
+        rect.DOAnchorPos(randomPos, Random.Range(minDuration, maxDuration))
             .SetEase(Ease.InOutSine)
-            .OnComplete(() => SpeechMove(isImage)); // 完了したら再度ランダムに移動
+            .OnComplete(() => SpeechMove(rect, originPos, isImage));
     }
+
     //Credit
     public void OnPointerEnterCredit()
     {
@@ -68,27 +74,20 @@ public class TitleUIManager : TitleUIObjects
         creditImage.rectTransform.DOKill();
         creditImage.rectTransform.DOAnchorPos(originCreditPos, 0.3f).SetEase(Ease.OutQuad);
     }
-    /// <summary> いちいちこんなことしないで、ぱっとクレジットを出してしまうのもあり </summary>
-    public void OnPointerClickActiveCredit()
+
+    void SetCreditActive(bool isActive)
     {
         creditImage.rectTransform.DOKill();
-        creditClickArea_A.gameObject.SetActive(false);
-        creditClickArea_B.gameObject.SetActive(true);
-        creditCanvas.sortingOrder = 5;
-        creditImage.rectTransform.anchoredPosition = new Vector2(0, 0);
-        creditImage.rectTransform.localRotation = Quaternion.Euler(0, 0, 0);
+        creditClickArea_A.gameObject.SetActive(!isActive);
+        creditClickArea_B.gameObject.SetActive(isActive);
+        creditCanvas.sortingOrder = isActive ? 5 : 1;
+        creditImage.rectTransform.anchoredPosition = isActive ? Vector2.zero : originCreditPos;
+        creditImage.rectTransform.localRotation = Quaternion.Euler(0, 0, isActive ? 0 : -17.5f);
         audioManager.ChangeSE(SEClipType.Paper);
     }
-    public void OnPointerClickInActiveCredit()
-    {
-        creditImage.rectTransform.DOKill();
-        creditClickArea_A.gameObject.SetActive(true);
-        creditClickArea_B.gameObject.SetActive(false);
-        creditCanvas.sortingOrder = 1;
-        creditImage.rectTransform.anchoredPosition = originCreditPos;
-        creditImage.rectTransform.localRotation = Quaternion.Euler(0, 0, -17.5f);
-        audioManager.ChangeSE(SEClipType.Paper);
-    }
+
+    public void OnPointerClickActiveCredit()   => SetCreditActive(true);
+    public void OnPointerClickInActiveCredit() => SetCreditActive(false);
 }
 
 public class TitleUIObjects : MonoBehaviour
@@ -101,7 +100,6 @@ public class TitleUIObjects : MonoBehaviour
     protected Canvas creditCanvas;
     protected Image creditClickArea_A;
     protected Image creditClickArea_B;
-    [Header("")]
     [Header("パラメータ関連")]
     [SerializeField] protected Vector2 moveCreditPosDuration;
     [SerializeField] protected float moveCreditTimeDuration;
@@ -113,32 +111,33 @@ public class TitleUIObjects : MonoBehaviour
     [SerializeField] protected float speechBubbleIntervalDuration;
     [SerializeField] protected float speechBubbleFadeOutScaleDuration;
     [SerializeField] protected Vector2 speechBubblePosDuration;
-    
     [SerializeField] protected float bubbleImageMoveRange = 20f;
     [SerializeField] protected float bubbleImageMinDuration = 0.8f;
     [SerializeField] protected float bubbleImageMaxDuration = 1.5f;
     [SerializeField] protected float bubbleTextMoveRange = 2f;
     [SerializeField] protected float bubbleTextMinDuration = 0.5f;
     [SerializeField] protected float bubbleTextMaxDuration = 1f;
-    protected Vector2 originSpeechbubblePos;
+    protected Vector2 originSpeechbubbleImagePos;
+    protected Vector2 originSpeechbubbleTextPos;
     [Header("SceneLoader")]
     [SerializeField] protected SceneLoader sceneLoader;
-    [Header("AudioManager.cs")] 
+    [Header("AudioManager")]
     [SerializeField] protected AudioManager audioManager;
     protected Vector2 originCreditPos;
     protected Color activeColor = Color.white;
-    protected Color inactiveColor = Color.clear; //509, -758 : 528, -697
+    protected Color inactiveColor = Color.clear;
 
-    private void Awake()
+    void Awake()
     {
-        creditCanvas = creditImage.transform.parent.GetComponent<Canvas>();
+        creditCanvas      = creditImage.transform.parent.GetComponent<Canvas>();
         creditClickArea_A = creditImage.transform.GetChild(0).GetComponent<Image>();
         creditClickArea_B = creditImage.transform.GetChild(1).GetComponent<Image>();
         creditClickArea_B.gameObject.SetActive(false);
-        hand_CloseImage.alphaHitTestMinimumThreshold = 0.1f; //alphaが0.1以上の部分しかRaycastが反応しない
-        speechBubbleImage.rectTransform.localScale = Vector3.zero;
-        speechBubbleText.color = Color.clear;
-        originSpeechbubblePos = speechBubbleImage.rectTransform.anchoredPosition;
-        originCreditPos = creditImage.rectTransform.anchoredPosition;
+        hand_CloseImage.alphaHitTestMinimumThreshold = 0.1f;
+        speechBubbleImage.rectTransform.localScale   = Vector3.zero;
+        speechBubbleText.color                       = Color.clear;
+        originSpeechbubbleImagePos = speechBubbleImage.rectTransform.anchoredPosition;
+        originSpeechbubbleTextPos  = speechBubbleText.rectTransform.anchoredPosition;
+        originCreditPos            = creditImage.rectTransform.anchoredPosition;
     }
 }

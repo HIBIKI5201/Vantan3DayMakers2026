@@ -494,8 +494,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: NameManager, Assembly-CSharp
+      - m_Target: {fileID: 2080692073}
+        m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
         m_MethodName: SetName
         m_Mode: 0
         m_Arguments:
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 89446555}
   - component: {fileID: 89446557}
   m_Layer: 7
-  m_Name: (I)ClickToStamp
+  m_Name: (I)GameStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1250,7 +1250,7 @@ GameObject:
   - component: {fileID: 311195501}
   - component: {fileID: 311195500}
   m_Layer: 5
-  m_Name: (C)ClickToStamp
+  m_Name: (C)GameStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1285,10 +1285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2504,7 +2504,6 @@ GameObject:
   - component: {fileID: 462145205}
   - component: {fileID: 462145207}
   - component: {fileID: 462145206}
-  - component: {fileID: 462145208}
   m_Layer: 5
   m_Name: (I)SpeechBubble
   m_TagString: Untagged
@@ -2570,21 +2569,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462145204}
   m_CullTransparentMesh: 1
---- !u!114 &462145208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 462145204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d0640112c4251499eec9436df60b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BubbleMove
-  moveRange: 20
-  minDuration: 0.8
-  maxDuration: 1.5
 --- !u!1 &511022377
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,10 +2722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -3187,10 +3171,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -3918,7 +3902,6 @@ GameObject:
   - component: {fileID: 1078289318}
   - component: {fileID: 1078289320}
   - component: {fileID: 1078289319}
-  - component: {fileID: 1078289321}
   m_Layer: 5
   m_Name: (T)Alert
   m_TagString: Untagged
@@ -4045,21 +4028,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078289317}
   m_CullTransparentMesh: 1
---- !u!114 &1078289321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078289317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d0640112c4251499eec9436df60b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BubbleMove
-  moveRange: 2
-  minDuration: 0.5
-  maxDuration: 1
 --- !u!1 &1100134183
 GameObject:
   m_ObjectHideFlags: 0
@@ -4149,10 +4117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -6612,10 +6580,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -7103,6 +7071,12 @@ MonoBehaviour:
   speechBubbleIntervalDuration: 5
   speechBubbleFadeOutScaleDuration: 0.5
   speechBubblePosDuration: {x: 86, y: 235}
+  bubbleImageMoveRange: 20
+  bubbleImageMinDuration: 0.8
+  bubbleImageMaxDuration: 1.5
+  bubbleTextMoveRange: 2
+  bubbleTextMinDuration: 0.5
+  bubbleTextMaxDuration: 1
   sceneLoader: {fileID: 2087218841}
   audioManager: {fileID: 58384584}
 --- !u!114 &1807099714
@@ -7822,10 +7796,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -8034,7 +8008,7 @@ GameObject:
   - component: {fileID: 2080692072}
   - component: {fileID: 2080692073}
   m_Layer: 0
-  m_Name: ==NameManager==
+  m_Name: ==DataManager==
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
