@@ -37,9 +37,9 @@ public class ScoreTextPopup : MonoBehaviour
         textColor.a = 1f;
         _text.color = textColor;
         Sequence seq = DOTween.Sequence();
-        seq.Append(_text.rectTransform.DOAnchorPosY
-            (_text.rectTransform.anchoredPosition.y +_upPos,_duration * 0.4f)
-                .SetEase(Ease.OutSine));
+        //seq.Append(_text.rectTransform.DOAnchorPosY
+        //    (_text.rectTransform.anchoredPosition.y +_upPos,_duration * 0.4f)
+        //        .SetEase(Ease.OutSine));
         seq.AppendInterval(_duration / 2f);
         seq.Append(_text.DOFade(0f, _duration/2f * 0.3f)
                 .SetEase(Ease.OutQuad));

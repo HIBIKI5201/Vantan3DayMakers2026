@@ -524,7 +524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 161.30023, y: -54.36003}
+  m_AnchoredPosition: {x: 248, y: -37}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &390819679
@@ -1004,6 +1004,7 @@ GameObject:
   - component: {fileID: 919902129}
   - component: {fileID: 919902130}
   - component: {fileID: 919902131}
+  - component: {fileID: 919902132}
   m_Layer: 0
   m_Name: Sub
   m_TagString: Untagged
@@ -1087,9 +1088,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea4f565a187a3c4b9ce7f24ada49a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EffectManager
-  _scorePrefab: {fileID: 2778837694136563012, guid: 9ba1120e1d2a2fe4d98f6a9f750859dd, type: 3}
-  _scorePopupOffset: {x: 170, y: -40}
+  _scorePopupCreate: {fileID: 919902132}
   _promotionPrefab: {fileID: 7852814048025730342, guid: 5cefc2292ff542c4aac6c910a293b8a9, type: 3}
+--- !u!114 &919902132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919902126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b556056ca1336454592647f2055848ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScorePopupCreate
+  _scorePrefab: {fileID: 2778837694136563012, guid: 9ba1120e1d2a2fe4d98f6a9f750859dd, type: 3}
+  _pointierRect: {fileID: 172352253534350190}
+  _switchPointerAnlge: 30
+  _scorePopupOffset: {x: 60, y: 200}
 --- !u!1 &949020278
 GameObject:
   m_ObjectHideFlags: 0

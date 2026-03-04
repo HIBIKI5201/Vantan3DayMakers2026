@@ -17,6 +17,7 @@ public class DisplayResult : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _timeText;
+    [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private Image _rankImage;
     [SerializeField] private PostDatabase _postDatabase;
 
@@ -54,6 +55,7 @@ public class DisplayResult : MonoBehaviour
         // スコアとタイムのテキスト表示 (F2は小数点2桁)
         _scoreText.text = $"スコア：{GameManager.Score:F1}";
         _timeText.text = $"タイム：{GameManager.GameTimer:F2}";
+        _nameText.text = $"{NameManager.UserName}殿";
 
         //デバック用
         //_scoreText.text = $"スコア：{score:F1}";
