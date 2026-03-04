@@ -546,7 +546,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339268282}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6162f0971a3e05842a3adecff72f593a, type: 3}
   m_Name: 
@@ -559,12 +559,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339268282}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0bb88dc853ce214a88b576be556e25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneController
-  sceneType: 2
+  sceneType: 1
   fadeType: 3
 --- !u!1 &390819677
 GameObject:
@@ -797,8 +797,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5236\u9650\u6642\u9593"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1510,8 +1510,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30B9\u30B3\u30A2"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1649,8 +1649,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2007,8 +2007,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1000.0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2611,8 +2611,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5E73\u793E\u54E1"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2861,8 +2861,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

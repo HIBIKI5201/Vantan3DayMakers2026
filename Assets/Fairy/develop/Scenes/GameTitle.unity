@@ -276,8 +276,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5C71\u7530\u592A\u90CE"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e174a7bb77c5408478e2caee1a545ce7, type: 2}
+  m_sharedMaterial: {fileID: 3783504338501860384, guid: e174a7bb77c5408478e2caee1a545ce7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -370,10 +370,10 @@ MonoBehaviour:
   seSource: {fileID: 5739177435458594661}
   audioMixer: {fileID: 24100000, guid: db199d6482772b542a9ea24c499b9d9f, type: 2}
   poolSize: 8
-  titleClip: {fileID: 0}
-  inGameClip: {fileID: 0}
-  resultClip: {fileID: 0}
-  StampClip: {fileID: 0}
+  titleClip: {fileID: 8300000, guid: 0e53c68df6a9ed74094f81770780b8d1, type: 3}
+  inGameClip: {fileID: 8300000, guid: bd981b94bf868f4418078cc52347b7c9, type: 3}
+  resultClip: {fileID: 8300000, guid: c50ceb8cd07819142836ac8303b0c8c9, type: 3}
+  StampClip: {fileID: 8300000, guid: 2b9106f8f5691d345a57085c07163abf, type: 3}
   PaperClip: {fileID: 8300000, guid: 54006357b9551c44696e8a35fc819d38, type: 3}
 --- !u!1 &86109217
 GameObject:
@@ -3784,8 +3784,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e174a7bb77c5408478e2caee1a545ce7, type: 2}
+  m_sharedMaterial: {fileID: 3783504338501860384, guid: e174a7bb77c5408478e2caee1a545ce7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4026,8 +4026,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6C0F\u540D\u304C\u7A7A\u6B04\u3060\u305E\u2026\u2026"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e174a7bb77c5408478e2caee1a545ce7, type: 2}
+  m_sharedMaterial: {fileID: 3783504338501860384, guid: e174a7bb77c5408478e2caee1a545ce7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7235,8 +7235,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u624B\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u623B\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
-  m_sharedMaterial: {fileID: 4993054059082328241, guid: 7e659e7d228cd46449c116c844b1932e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8176,8 +8176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0bb88dc853ce214a88b576be556e25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneController
-  sceneType: 1
-  fadeType: 0
+  sceneType: 0
+  fadeType: 2
 --- !u!114 &2087218843
 MonoBehaviour:
   m_ObjectHideFlags: 0
