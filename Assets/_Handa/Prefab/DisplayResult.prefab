@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9068031207336050633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2810957040764724884}
+  - component: {fileID: 2899650590480701344}
+  m_Layer: 0
+  m_Name: DisplayResult
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2810957040764724884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068031207336050633}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 923.25854, y: 830.8312, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2899650590480701344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068031207336050633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c81f6aec6e0fca47aeb9ee0a0a1f39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DisplayResult
+  _scoreText: {fileID: 0}
+  _timeText: {fileID: 0}
+  _rankImage: {fileID: 0}
+  _rankSettings:
+  - rankName: "\u793E\u9577"
+    threshold: 1000
+    rankSprite: {fileID: 21300000, guid: 7e5f38e447c292b4fb4bb54c7c966cf9, type: 3}
+  - rankName: "\u5C02\u52D9"
+    threshold: 700
+    rankSprite: {fileID: 21300000, guid: 2443016b5a0feca498877cc8af69e9f9, type: 3}
+  - rankName: "\u90E8\u9577"
+    threshold: 400
+    rankSprite: {fileID: 21300000, guid: c24ce30591873b848b78daa2a5166b2c, type: 3}
+  - rankName: "\u8AB2\u9577"
+    threshold: 100
+    rankSprite: {fileID: 21300000, guid: 367194ed5acf52d4f977578cc9f0c111, type: 3}
+  - rankName: "\u5E73\u793E\u54E1"
+    threshold: 0
+    rankSprite: {fileID: 21300000, guid: 3588c391bf35dfb499354ed315864b11, type: 3}
+  _useDebugScore: 1
+  _debugScore: 176
+  _debugTime: 123.1

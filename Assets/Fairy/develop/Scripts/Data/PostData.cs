@@ -43,4 +43,5 @@ public class PostData : ScriptableObject
     public Sprite CharacterImage;
     public Sprite BowImage;
     public Sprite StampImage;
+    public Sprite ResultPostImage;
 }

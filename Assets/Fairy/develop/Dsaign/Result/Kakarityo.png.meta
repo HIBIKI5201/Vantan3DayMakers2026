@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: c04c4d2250efa664a93dc2ae964bf755
+guid: 9d16df188a054c341ae91a27026b618e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7211794656269410073
-    second: CHARA4_0
+      213: 3765760770081489824
+    second: Kakarityo_0
+  - first:
+      213: -4985621514006938499
+    second: Kakarityo_1
+  - first:
+      213: -1501590357133249674
+    second: Kakarityo_2
+  - first:
+      213: 7502451346889844312
+    second: Kakarityo_3
+  - first:
+      213: -387047314125801912
+    second: Kakarityo_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +108,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CHARA4_0
+      name: Kakarityo_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 12
-        width: 281
-        height: 401
+        x: 71
+        y: 43
+        width: 110
+        height: 283
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 91f9ff7b701751460800000000000000
-      internalID: 7211794656269410073
+      spriteID: 0a30fc1f77ba24430800000000000000
+      internalID: 3765760770081489824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kakarityo_1
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 49
+        width: 188
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7c3211e5a38fcab0800000000000000
+      internalID: -4985621514006938499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kakarityo_2
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 188
+        width: 164
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 673bbe4a687492be0800000000000000
+      internalID: -1501590357133249674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kakarityo_3
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 41
+        width: 278
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 856250410cf0e1860800000000000000
+      internalID: 7502451346889844312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kakarityo_4
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 55
+        width: 81
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 846334ab48ee0aaf0800000000000000
+      internalID: -387047314125801912
       vertices: []
       indices: 
       edges: []
@@ -148,7 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CHARA4_0: 7211794656269410073
+      Kakarityo_0: 3765760770081489824
+      Kakarityo_1: -4985621514006938499
+      Kakarityo_2: -1501590357133249674
+      Kakarityo_3: 7502451346889844312
+      Kakarityo_4: -387047314125801912
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

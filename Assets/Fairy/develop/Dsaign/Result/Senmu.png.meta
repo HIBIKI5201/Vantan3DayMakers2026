@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: c04c4d2250efa664a93dc2ae964bf755
+guid: 2443016b5a0feca498877cc8af69e9f9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7211794656269410073
-    second: CHARA4_0
+      213: 6946739494894447085
+    second: Senmu_0
+  - first:
+      213: -88500647884212853
+    second: Senmu_1
+  - first:
+      213: -475881722670364820
+    second: Senmu_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +102,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CHARA4_0
+      name: Senmu_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 12
-        width: 281
-        height: 401
+        x: 7
+        y: 75
+        width: 326
+        height: 308
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 91f9ff7b701751460800000000000000
-      internalID: 7211794656269410073
+      spriteID: de92c54e3c6c76060800000000000000
+      internalID: 6946739494894447085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Senmu_1
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 100
+        width: 164
+        height: 226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b853870312595cef0800000000000000
+      internalID: -88500647884212853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Senmu_2
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 18
+        width: 308
+        height: 328
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c67c12538145569f0800000000000000
+      internalID: -475881722670364820
       vertices: []
       indices: 
       edges: []
@@ -148,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CHARA4_0: 7211794656269410073
+      Senmu_0: 6946739494894447085
+      Senmu_1: -88500647884212853
+      Senmu_2: -475881722670364820
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
