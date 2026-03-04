@@ -23,7 +23,7 @@ MonoBehaviour:
   MaxAngleScore: 500
   MaxPositionScore: 250
   MaxTimeScore: 250
-  TimeLimit: 120
+  TimeLimit: 30
   HandImage:
   - {fileID: -5884889255108679827, guid: f80df51ceb31c304b9b0321b4c5cc3ad, type: 3}
   - {fileID: 2960936589236226313, guid: 0263eee3e79bcd444ab74d80dd1e8527, type: 3}
