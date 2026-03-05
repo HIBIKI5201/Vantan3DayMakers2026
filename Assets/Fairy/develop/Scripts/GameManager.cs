@@ -124,13 +124,8 @@ public class GameManager : MonoBehaviour
         if (TimeLimit <= 0f)
         {
             Debug.Log("B");
-
-            _effectManager.PlayGameOverEffect();
-            DOVirtual.DelayedCall(_resultWait, () =>
-            {
-                _sceneLoader.LoadScene();
-                //SceneController.LoadScene(SceneName.Result);//ゲームオーバー
-            });
+            _sceneLoader.LoadScene(2);
+            //SceneController.LoadScene(SceneName.Result);//ゲームオーバー
         }
     }
 
@@ -191,14 +186,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private ScoreLevel CheckRankUp(int scoreAdd)
     {
-
         if (Score >= RankLevel.PromotionScore)
         {
             if (RankLevel.PostType == Post.President)
             {
                 DOVirtual.DelayedCall(_resultWait, () =>
                 {
-                    _sceneLoader.LoadScene();
+                    _sceneLoader.LoadScene(2);
                     //SceneController.LoadScene(SceneName.Result);//クリア
                 });
             }
@@ -222,7 +216,7 @@ public class GameManager : MonoBehaviour
             _effectManager.PlayGameOverEffect();
             DOVirtual.DelayedCall(_resultWait, () =>
             {
-                _sceneLoader.LoadScene();
+                _sceneLoader.LoadScene(2);
                 //SceneController.LoadScene(SceneName.Result);//ゲームオーバー
             });
             return ScoreLevel.GameOver;
