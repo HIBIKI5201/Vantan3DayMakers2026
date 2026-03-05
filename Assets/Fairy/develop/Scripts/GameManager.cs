@@ -23,7 +23,8 @@ public enum ScoreLevel
 {
     Perfect,
     Keep,
-    GameOver
+    GameOver,
+    Clear
 }
 public class GameManager : MonoBehaviour
 {
@@ -164,10 +165,6 @@ public class GameManager : MonoBehaviour
         IsAddTime = false;
         _stampPointor.IsCreateStamp = false;
 
-        if(RankLevel.PostType == Post.President)
-        {
-            promotion = ScoreLevel.GameOver;
-        }
         NextStage(promotion);
         //_showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
     }
@@ -195,6 +192,7 @@ public class GameManager : MonoBehaviour
                     _sceneLoader.LoadScene(2);
                     //SceneController.LoadScene(SceneName.Result);//クリア
                 });
+                return ScoreLevel.Clear;
             }
             else
             {
@@ -239,33 +237,34 @@ public class GameManager : MonoBehaviour
         }
 
         _stampPointor.RemoveStampObject();
-        if (score != ScoreLevel.GameOver)
+
+        if (score == ScoreLevel.GameOver || score == ScoreLevel.Clear) return;
+
+        GameObject prefab = _stagePrefabs[Random.Range(0, _stagePrefabs.Length)];
+        GameObject newStage = Instantiate(prefab, _stageParent);
+        if (newStage.TryGetComponent(out StageCreate stageCreate))
         {
-            GameObject prefab = _stagePrefabs[Random.Range(0, _stagePrefabs.Length)];
-            GameObject newStage = Instantiate(prefab, _stageParent);
-            if (newStage.TryGetComponent(out StageCreate stageCreate))
-            {
 
-                stageCreate.Create(RankLevel.PerfectAngle, RankLevel.PostType);
+            stageCreate.Create(RankLevel.PerfectAngle, RankLevel.PostType);
 
-            }
-            if (newStage.TryGetComponent(out RectTransform rectTransform))
-            {
-                rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0, 0);
-                rectTransform.DOAnchorPosX(0, 1f)
-                    .OnComplete(() =>
-                    {
-                        _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
-                        TimeLimit = RankLevel.TimeLimit;
-                        if (!skipReset)
-                        {
-                            _stampPointor.IsCreateStamp = true;
-                            IsAddTime = true;
-                        }
-                    }).SetDelay(_nextDelay);
-                _stageCreate = rectTransform;
-            }
         }
+        if (newStage.TryGetComponent(out RectTransform rectTransform))
+        {
+            rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0, 0);
+            rectTransform.DOAnchorPosX(0, 1f)
+                .OnComplete(() =>
+                {
+                    _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
+                    TimeLimit = RankLevel.TimeLimit;
+                    if (!skipReset)
+                    {
+                        _stampPointor.IsCreateStamp = true;
+                        IsAddTime = true;
+                    }
+                }).SetDelay(_nextDelay);
+            _stageCreate = rectTransform;
+        }
+
     }
 
     public void StartGame()
