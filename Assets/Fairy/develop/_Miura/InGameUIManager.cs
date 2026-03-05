@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,11 @@ public class InGameUIManager : InGameUIObjects
     {
         PostText.text = postName;
     }
+    public void UpdatePromotionScoreUI(int score,PostData postData)
+    {
+        PromotionScoreText.text = (postData.PromotionScore/10f).ToString("N1");
+        _promotionSlider.SetData(score, postData);
+    }
     public void ChangePost(Post post)
     {
         _handImage.ChangePost(post);
@@ -28,9 +34,11 @@ public class InGameUIManager : InGameUIObjects
 public class InGameUIObjects : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI ScoreText;
+    [SerializeField] protected TextMeshProUGUI PromotionScoreText;
     [SerializeField] protected TextMeshProUGUI TimerText;
     [SerializeField] protected TextMeshProUGUI PostText;
     [SerializeField] protected PostImage _handImage;
     [SerializeField] protected PostImage _characterImage;
     [SerializeField] protected PostImage _stampImage;
+    [SerializeField] protected PromotionSlider _promotionSlider;
 }
