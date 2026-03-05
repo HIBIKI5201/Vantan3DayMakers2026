@@ -1,11 +1,18 @@
+using System;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Image = UnityEngine.UI.Image;
+using Random = UnityEngine.Random;
 
 public class TitleUIManager : TitleUIObjects
 {
     Sequence _alertSeq;
+
+    private void Start()
+    {
+        fadePrefab.GetComponent<Fade>().FadeIn();
+    }
 
     //Audio
     public void UpdateAudioUI(GameObject imageObj, bool isOn)
@@ -16,13 +23,13 @@ public class TitleUIManager : TitleUIObjects
     //GameStart
     public void OnPointerClickGameStart()
     {
-        audioManager.ChangeSE(SEClipType.Stamp);
+        AudioManager.Instance.ChangeSE(SEClipType.Stamp);
         if (string.IsNullOrEmpty(DataManager.Instance.UserName)){
-            Debug.Log(DataManager.Instance.UserName);
             NoEditNameAlert();
         }
         else{
-            sceneLoader.LoadScene();}
+            fadePrefab.GetComponent<Fade>().FadeOut();
+            sceneLoader.LoadScene(1);}
     }
 
     //SpeechBubble
@@ -84,7 +91,7 @@ public class TitleUIManager : TitleUIObjects
         creditCanvas.sortingOrder = isActive ? 5 : 1;
         creditImage.rectTransform.anchoredPosition = isActive ? Vector2.zero : originCreditPos;
         creditImage.rectTransform.localRotation = Quaternion.Euler(0, 0, isActive ? 0 : -17.5f);
-        audioManager.ChangeSE(SEClipType.Paper);
+        AudioManager.Instance.ChangeSE(SEClipType.Paper);
     }
 
     public void OnPointerClickActiveCredit()   => SetCreditActive(true);
@@ -122,8 +129,8 @@ public class TitleUIObjects : MonoBehaviour
     protected Vector2 originSpeechbubbleTextPos;
     [Header("SceneLoader")]
     [SerializeField] protected SceneLoader sceneLoader;
-    [Header("AudioManager")]
-    [SerializeField] protected AudioManager audioManager;
+    [Header("FadePrefab")]
+    [SerializeField] protected GameObject fadePrefab;
     protected Vector2 originCreditPos;
     protected Color activeColor = Color.white;
     protected Color inactiveColor = Color.clear;

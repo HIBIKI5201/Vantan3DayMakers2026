@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         if (TimeLimit <= 0f)
         {
             Debug.Log("B");
-            _sceneLoader.LoadScene();
+            _sceneLoader.LoadScene(2);
             //SceneController.LoadScene(SceneName.Result);//ゲームオーバー
         }
     }
@@ -178,14 +178,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private ScoreLevel CheckRankUp(int scoreAdd)
     {
-
         if (Score >= RankLevel.PromotionScore)
         {
             if (RankLevel.PostType == Post.President)
             {
                 DOVirtual.DelayedCall(_nextDelay, () =>
                 {
-                    _sceneLoader.LoadScene();
+                    _sceneLoader.LoadScene(2);
                     //SceneController.LoadScene(SceneName.Result);//クリア
                 });
             }
@@ -208,7 +207,7 @@ public class GameManager : MonoBehaviour
         {
             DOVirtual.DelayedCall(_nextDelay, () =>
             {
-                _sceneLoader.LoadScene();
+                _sceneLoader.LoadScene(2);
                 //SceneController.LoadScene(SceneName.Result);//ゲームオーバー
             });
             return ScoreLevel.GameOver;
