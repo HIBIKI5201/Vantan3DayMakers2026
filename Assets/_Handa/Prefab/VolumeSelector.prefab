@@ -135,6 +135,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   muteSeButton: {fileID: 0}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  testSE: {fileID: 8300000, guid: 81a6dc956c9a83343bb5478e3367d1b9, type: 3}
+  testSE: {fileID: 8300000, guid: e36381dbaf68aba478881a21bbde1754, type: 3}
+  titleUIManager: {fileID: 0}
