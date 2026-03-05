@@ -27,13 +27,16 @@ public class Fade : MonoBehaviour
     }
 
     /// <summary>
-    /// Clear → Black
+    /// Clear → Black。SceneLoad
     /// </summary>
-    public void FadeOut()
+    public void FadeOut(int sceneType)
     {
         _fade.color = Color.clear;
         _fade.raycastTarget = true;
         _fade.DOFade(1f, _duration)
-            .OnComplete(() => _fade.raycastTarget = false);
+            .OnComplete(() =>
+            {
+                SceneLoader.Instance.LoadScene(sceneType);
+            });
     }
 }
