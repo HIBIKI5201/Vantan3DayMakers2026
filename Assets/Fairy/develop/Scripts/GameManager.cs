@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     }
 
     public static PostData RankLevel { get; private set; }
-    public static float TimeLimit{ get; private set; }
+    public static float TimeLimit { get; private set; }
     private static int _temp;
     public static float GameTimer { get; private set; }
 
@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private StampEvaluation _stampEvaluation;
     [SerializeField] private Vector2 _offScreen;
     [SerializeField] private float _nextDelay;
+    [SerializeField] private float _resultWait;
     [SerializeField] private GameObject[] _stagePrefabs;
     [SerializeField] private Transform _stageParent;
     [SerializeField] private RectTransform _stampArea;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     private async void Awake()
     {
+        _postDatabase.Initialize();
 
         CurrentState = GameState.Ready;
         RankLevel = _postDatabase.Get(Post.Staff);
@@ -73,7 +75,6 @@ public class GameManager : MonoBehaviour
         GameTimer = 0;
         Score = 0;
 
-        _postDatabase.Initialize();
 
         if (Instance != null && Instance != this)
         {
@@ -88,14 +89,15 @@ public class GameManager : MonoBehaviour
 
         countdownManager = FindFirstObjectByType<CountdownManager>();
 
-        
+
 
         _uiManager.UpdateTimerUI(TimeLimit);
         _uiManager.UpdatePostUI(RankLevel.PostName);
         _uiManager.UpdateScoreUI(Score);
         _uiManager.ChangePost(RankLevel.PostType);
+        _uiManager.UpdatePromotionScoreUI(Score, RankLevel);
 
-        NextStage(true);
+        NextStage(ScoreLevel.Keep, true);
         if (countdownManager != null)
         {
 
@@ -154,13 +156,19 @@ public class GameManager : MonoBehaviour
 
         _effectManager.PlayScoreEffect(scoreAmount, _stampPointor.ClonedStamp.MainRect);
 
+        _uiManager.UpdatePromotionScoreUI(Score, RankLevel);
+
         // --- 追加：スタンプSEを鳴らす ---
         AudioManager.Play(SEClipType.Stamp);
 
         IsAddTime = false;
         _stampPointor.IsCreateStamp = false;
 
-        NextStage();
+        if(RankLevel.PostType == Post.President)
+        {
+            promotion = ScoreLevel.GameOver;
+        }
+        NextStage(promotion);
         //_showEvaluation.ShowWindow(RankLevel, ClearTime, scoreAmount);
     }
     /// <summary>
@@ -182,7 +190,7 @@ public class GameManager : MonoBehaviour
         {
             if (RankLevel.PostType == Post.President)
             {
-                DOVirtual.DelayedCall(_nextDelay, () =>
+                DOVirtual.DelayedCall(_resultWait, () =>
                 {
                     _sceneLoader.LoadScene(2);
                     //SceneController.LoadScene(SceneName.Result);//クリア
@@ -194,7 +202,7 @@ public class GameManager : MonoBehaviour
                 RankLevel = _postDatabase.Get((Post)next);
                 _uiManager.UpdatePostUI(RankLevel.PostName);
                 _uiManager.ChangePost(RankLevel.PostType);
-                TimeLimit = RankLevel.TimeLimit;
+                _effectManager.PlayPromotionEffect();
             }
 
             return ScoreLevel.Perfect;
@@ -205,7 +213,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            DOVirtual.DelayedCall(_nextDelay, () =>
+            _effectManager.PlayGameOverEffect();
+            DOVirtual.DelayedCall(_resultWait, () =>
             {
                 _sceneLoader.LoadScene(2);
                 //SceneController.LoadScene(SceneName.Result);//ゲームオーバー
@@ -214,7 +223,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    public void NextStage(bool skipReset = false)
+    public void NextStage(ScoreLevel score, bool skipReset = false)
     {
         // --- 追加：紙が動くSEを鳴らす ---
         AudioManager.Play(SEClipType.Paper);
@@ -230,28 +239,32 @@ public class GameManager : MonoBehaviour
         }
 
         _stampPointor.RemoveStampObject();
-        GameObject prefab = _stagePrefabs[Random.Range(0, _stagePrefabs.Length)];
-        GameObject newStage = Instantiate(prefab, _stageParent);
-        if (newStage.TryGetComponent(out StageCreate stageCreate))
+        if (score != ScoreLevel.GameOver)
         {
+            GameObject prefab = _stagePrefabs[Random.Range(0, _stagePrefabs.Length)];
+            GameObject newStage = Instantiate(prefab, _stageParent);
+            if (newStage.TryGetComponent(out StageCreate stageCreate))
+            {
 
-            stageCreate.Create(RankLevel.PerfectAngle, RankLevel.PostType);
+                stageCreate.Create(RankLevel.PerfectAngle, RankLevel.PostType);
 
-        }
-        if (newStage.TryGetComponent(out RectTransform rectTransform))
-        {
-            rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0, 0);
-            rectTransform.DOAnchorPosX(0, 1f)
-                .OnComplete(() =>
-                {
-                        _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
-                    if (!skipReset)
+            }
+            if (newStage.TryGetComponent(out RectTransform rectTransform))
+            {
+                rectTransform.anchoredPosition = new Vector3(-_offScreen.x, 0, 0);
+                rectTransform.DOAnchorPosX(0, 1f)
+                    .OnComplete(() =>
                     {
-                        _stampPointor.IsCreateStamp = true;
-                        IsAddTime = true;
-                    }
-                }).SetDelay(_nextDelay);
-            _stageCreate = rectTransform;
+                        _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
+                        TimeLimit = RankLevel.TimeLimit;
+                        if (!skipReset)
+                        {
+                            _stampPointor.IsCreateStamp = true;
+                            IsAddTime = true;
+                        }
+                    }).SetDelay(_nextDelay);
+                _stageCreate = rectTransform;
+            }
         }
     }
 

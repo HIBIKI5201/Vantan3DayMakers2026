@@ -29,6 +29,10 @@ public class ResultStampEffect : MonoBehaviour
 
         seq.AppendInterval(_animationInterval);
         seq.Append(_stamp.rectTransform.DOScale(_firstScale, _duration).SetEase(_scaleEase));
-        seq.Join(_stamp.DOFade(1f, _duration).SetEase(_fadeEase));
+        seq.Join(_stamp.DOFade(1f, _duration * 0.8f).SetEase(_fadeEase))
+            .OnComplete(() =>
+            {
+                AudioManager.Play(SEClipType.Stamp);
+            });
     }
 }
