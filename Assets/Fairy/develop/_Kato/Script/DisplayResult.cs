@@ -72,7 +72,7 @@ public class DisplayResult : MonoBehaviour
         _nameText.text = $"{DataManager.Instance.UserName}殿";
 
 
-        StartCoroutine(AnimationScore(GameManager.Score));
+        StartCoroutine(AnimationScore(GameManager.Score/10));
 
 
         //デバック用
