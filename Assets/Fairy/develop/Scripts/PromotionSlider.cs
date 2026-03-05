@@ -7,28 +7,40 @@ public class PromotionSlider : MonoBehaviour
 {
 
     [SerializeField] private Image[] PromotionSliderImage;
-    [SerializeField] private ImageSliderColor[] PromotionSliderColor;
 
     [SerializeField] private float doFade = 0.3f;
     public void SetData(int score, PostData postData)
     {
-        for(int i = 0; i < PromotionSliderImage.Length; i++)
+        int segmentCount = PromotionSliderImage.Length;
+        float totalFill = (float)score / postData.PromotionScore;
+        totalFill = Mathf.Clamp01(totalFill);
+
+        float perSegment = 1f / segmentCount;
+
+        for (int i = 0; i < segmentCount; i++)
         {
             Image image = PromotionSliderImage[i];
 
-            //FillAmount調整
-            float fillAmount = (float)score / postData.PromotionScore;
-            if(fillAmount >= (float)i + 1 / PromotionSliderImage.Length)
+            float segmentStart = i * perSegment;
+            float segmentEnd = (i + 1) * perSegment;
+
+            float fill;
+
+            if (totalFill >= segmentEnd)
             {
-                image.DOFillAmount(1, doFade);
+                fill = 1f;
+            }
+            else if (totalFill <= segmentStart)
+            {
+                fill = 0f;
             }
             else
             {
-                image.DOFillAmount(fillAmount, doFade);
+                // 部分的に埋める
+                fill = (totalFill - segmentStart) / perSegment;
             }
 
-            //色調整
-            PromotionSliderColor[i].UpdateColor(image.fillAmount);
+            image.DOFillAmount(fill, doFade);
         }
     }
 }
