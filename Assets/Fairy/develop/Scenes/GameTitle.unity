@@ -1534,6 +1534,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318574772}
   m_CullTransparentMesh: 1
+--- !u!1 &326375635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8149372493387991890, guid: 976eb88a9c67eba4f812b57eeea26343, type: 3}
+  m_PrefabInstance: {fileID: 868930598245216574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330054250
 GameObject:
   m_ObjectHideFlags: 0
@@ -7101,7 +7106,7 @@ MonoBehaviour:
   bubbleTextMinDuration: 0.5
   bubbleTextMaxDuration: 1
   sceneLoader: {fileID: 2087218841}
-  fadePrefab: {fileID: 0}
+  fadePrefab: {fileID: 326375635}
 --- !u!114 &1807099714
 MonoBehaviour:
   m_ObjectHideFlags: 0

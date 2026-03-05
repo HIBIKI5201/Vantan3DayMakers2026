@@ -10,22 +10,30 @@ public class Fade : MonoBehaviour
 
     private void Awake()
     {
-        _fade = GetComponentInChildren<Image>();
+        _fade = GetComponent<Image>();
         _fade.color = Color.clear;
         _fade.raycastTarget = false;
     }
 
+    /// <summary>
+    /// Black → Clear
+    /// </summary>
     public void FadeIn()
     {
         _fade.color = Color.black;
-        _fade.raycastTarget = false;
-        _fade.DOFade(0f, _duration);
+        _fade.raycastTarget = true;
+        _fade.DOFade(0f, _duration)
+            .OnComplete(() => _fade.raycastTarget = false);
     }
 
+    /// <summary>
+    /// Clear → Black
+    /// </summary>
     public void FadeOut()
     {
         _fade.color = Color.clear;
         _fade.raycastTarget = true;
-        _fade.DOFade(1f, _duration);
+        _fade.DOFade(1f, _duration)
+            .OnComplete(() => _fade.raycastTarget = false);
     }
 }
