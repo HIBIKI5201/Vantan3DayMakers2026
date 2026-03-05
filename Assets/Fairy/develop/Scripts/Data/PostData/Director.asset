@@ -16,7 +16,7 @@ MonoBehaviour:
   PostName: "\u5C02\u52D9"
   PromotionScore: 10000
   GameOverScore: 750
-  PerfectAngle: 60
+  PerfectAngle: 15
   PerfectTime: 60
   ToleranceAngle: 20
   TolerancePosition: 100
