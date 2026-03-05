@@ -1661,6 +1661,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EffectManager
   _scorePopupCreate: {fileID: 919902132}
   _promotionPrefab: {fileID: 7852814048025730342, guid: 5cefc2292ff542c4aac6c910a293b8a9, type: 3}
+  _gameOverStampPrefab: {fileID: 5037804676988915270, guid: 79043b557b01b6a4881e8af77b558522, type: 3}
+  _mainCanvas: {fileID: 151238477}
   _promotionInfoAnimation: {fileID: 919902134}
 --- !u!114 &919902132
 MonoBehaviour:
@@ -1804,6 +1806,7 @@ MonoBehaviour:
   _stampEvaluation: {fileID: 919902130}
   _offScreen: {x: 3000, y: 2000}
   _nextDelay: 0.5
+  _resultWait: 5
   _stagePrefabs:
   - {fileID: 7815419779221494911, guid: 84d35c155ea1e544b93ad35a4ca1b6a1, type: 3}
   _stageParent: {fileID: 1464334569}

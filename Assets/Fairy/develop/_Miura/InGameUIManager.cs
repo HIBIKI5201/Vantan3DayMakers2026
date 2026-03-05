@@ -5,7 +5,7 @@ public class InGameUIManager : InGameUIObjects
 {
     public void UpdateScoreUI(int amount)
     {
-        ScoreText.text = (amount/10).ToString("N1");
+        ScoreText.text = (amount/10f).ToString("N1");
     }
     public void UpdateTimerUI(float amount)
     {

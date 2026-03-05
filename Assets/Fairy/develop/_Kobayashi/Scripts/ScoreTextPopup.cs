@@ -29,7 +29,7 @@ public class ScoreTextPopup : MonoBehaviour
     }
     public void UpdateText(int score)
     {
-        _text.text = "+"+ (score/10).ToString("N1");
+        _text.text = "+"+ (score/10f).ToString("N1");
     }
 
     private async void PlayScoreAnimation()
