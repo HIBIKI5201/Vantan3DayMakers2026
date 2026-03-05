@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
+using TMPro.Examples;
 using UnityEngine;
 using Random = UnityEngine.Random;
 public enum GameState
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     private async void Awake()
     {
+        _postDatabase.Initialize();
 
         CurrentState = GameState.Ready;
         RankLevel = _postDatabase.Get(Post.Staff);
@@ -73,7 +75,6 @@ public class GameManager : MonoBehaviour
         GameTimer = 0;
         Score = 0;
 
-        _postDatabase.Initialize();
 
         if (Instance != null && Instance != this)
         {
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
         _uiManager.UpdatePostUI(RankLevel.PostName);
         _uiManager.UpdateScoreUI(Score);
         _uiManager.ChangePost(RankLevel.PostType);
+        _uiManager.UpdatePromotionScoreUI(Score, RankLevel);
 
         NextStage(true);
         if (countdownManager != null)
@@ -154,6 +156,8 @@ public class GameManager : MonoBehaviour
 
         _effectManager.PlayScoreEffect(scoreAmount, _stampPointor.ClonedStamp.MainRect);
 
+        _uiManager.UpdatePromotionScoreUI(Score, RankLevel);
+
         // --- 追加：スタンプSEを鳴らす ---
         AudioManager.Play(SEClipType.Stamp);
 
@@ -195,7 +199,6 @@ public class GameManager : MonoBehaviour
                 RankLevel = _postDatabase.Get((Post)next);
                 _uiManager.UpdatePostUI(RankLevel.PostName);
                 _uiManager.ChangePost(RankLevel.PostType);
-                TimeLimit = RankLevel.TimeLimit;
             }
 
             return ScoreLevel.Perfect;
@@ -246,6 +249,7 @@ public class GameManager : MonoBehaviour
                 .OnComplete(() =>
                 {
                         _stampArea.anchoredPosition = stageCreate.SstampFrame.anchoredPosition;
+                    TimeLimit = RankLevel.TimeLimit;
                     if (!skipReset)
                     {
                         _stampPointor.IsCreateStamp = true;
