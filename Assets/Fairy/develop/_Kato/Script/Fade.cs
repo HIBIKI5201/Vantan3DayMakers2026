@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using Cysharp.Threading.Tasks;
 
 public class Fade : MonoBehaviour
 {
@@ -11,8 +10,12 @@ public class Fade : MonoBehaviour
     private void Awake()
     {
         _fade = GetComponent<Image>();
-        _fade.color = Color.clear;
-        _fade.raycastTarget = false;
+        if (_fade != null)
+        {
+
+            _fade.color = Color.clear;
+            _fade.raycastTarget = false;
+        }
     }
 
     /// <summary>
