@@ -19,7 +19,6 @@ public class Fade : MonoBehaviour
     }
 
     /// <summary>
-    /// Black → Clear
     /// </summary>
     public void FadeIn()
     {

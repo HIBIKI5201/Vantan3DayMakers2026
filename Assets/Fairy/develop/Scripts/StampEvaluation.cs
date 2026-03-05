@@ -14,7 +14,7 @@ public class StampEvaluation : MonoBehaviour
     public void ShowEvaluation(GameObject stamp,ScoreLevel promotion)
     {
         Debug.Log(promotion.ToString());
-        if (promotion == ScoreLevel.Keep) return;
+        if (promotion == ScoreLevel.Keep || promotion == ScoreLevel.Clear) return;
 
         GameObject newObject = Instantiate(_evaluationPrefab, stamp.transform);
         newObject.transform.rotation = Quaternion.identity;
