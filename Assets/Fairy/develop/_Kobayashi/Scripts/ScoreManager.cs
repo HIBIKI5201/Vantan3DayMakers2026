@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 /// <summary>
 /// スコアの計算
 /// </summary>
@@ -28,8 +30,32 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
-
-
+        string st = ""; 
+        for(int i = 0; i < 200; i++)
+        {
+            float distance = i;
+            st += $"距離{distance} スコア";
+            if (distance <= _gracePeriodPos)
+            {
+                //位置スコア最大
+                st += _maxPositionScore +"\n";
+                //score += _maxPositionScore;
+                //resultSt += "位置　許容 :" + _maxPositionScore + "\n";
+            }
+            else
+            {
+                //float removeRate = (distance - _gracePeriodPos) / _gracePeriodPos;
+                ////float removeScore = _maxPositionScore * removeRate;
+                //float removeRate = (distance - _gracePeriodPos) / _gracePeriodPos;
+                //removeRate = Mathf.Clamp01(removeRate);
+                float removeScore = Mathf.Lerp  (0,_maxPositionScore,(distance/_gracePeriodPos));
+                //それに応じたスコアを計算
+                //score += Mathf.RoundToInt(_maxPositionScore - removeScore);
+                st += Mathf.RoundToInt(_maxPositionScore - removeScore) + "\n";
+                //resultSt += "位置 :" + Mathf.RoundToInt(_maxPositionScore - removeScore) + "\n";
+            }
+        }
+        Debug.Log(st);
     }
 
     /// <summary>

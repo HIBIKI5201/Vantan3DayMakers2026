@@ -14,7 +14,7 @@ public class StampData : MonoBehaviour
 
     public void Start()
     {
-        SetName(DataManager.Instance.UserName[0].ToString());
+        SetName(DataManager.Instance?.UserName[0].ToString()?? "名");
     }
     public void ChangeAlpha(float alpha)
     {

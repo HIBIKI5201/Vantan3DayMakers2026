@@ -20,7 +20,7 @@ MonoBehaviour:
   PerfectTime: 60
   ToleranceAngle: 10
   TolerancePosition: 75
-  _worstPosition: 150
+  _worstPosition: 110
   MaxAngleScore: 500
   MaxPositionScore: 250
   MaxTimeScore: 250
