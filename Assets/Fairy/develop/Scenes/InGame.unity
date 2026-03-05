@@ -1573,6 +1573,7 @@ GameObject:
   - component: {fileID: 919902131}
   - component: {fileID: 919902132}
   - component: {fileID: 919902133}
+  - component: {fileID: 919902134}
   m_Layer: 0
   m_Name: Sub
   m_TagString: Untagged
@@ -1660,6 +1661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EffectManager
   _scorePopupCreate: {fileID: 919902132}
   _promotionPrefab: {fileID: 7852814048025730342, guid: 5cefc2292ff542c4aac6c910a293b8a9, type: 3}
+  _promotionInfoAnimation: {fileID: 919902134}
 --- !u!114 &919902132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1700,6 +1702,26 @@ MonoBehaviour:
   - {fileID: 359966178}
   - {fileID: 189023751}
   - {fileID: 711933482}
+--- !u!114 &919902134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919902126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126ac8c7e6264c744bad0a462e0cd374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PromotionInfoAnimation
+  _image: {fileID: 1248310176}
+  _text: {fileID: 1984445276}
+  _imageMaxScale: 0.3
+  _imageMinScale: 0.1
+  _textMaxScale: 1.1
+  _textMinScale: 0.3
+  _duration: 0.5
+  _ease: 15
 --- !u!1 &949020278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,7 +1927,7 @@ RectTransform:
   m_GameObject: {fileID: 1248310175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.32544973, y: 0.32544973, z: 0.32544973}
+  m_LocalScale: {x: 0.34612, y: 0.34612, z: 0.34612}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1827015903}
@@ -3606,8 +3628,8 @@ RectTransform:
   m_GameObject: {fileID: 1984445273}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1451066, y: 1.1451066, z: 1.1451066}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1827015903}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

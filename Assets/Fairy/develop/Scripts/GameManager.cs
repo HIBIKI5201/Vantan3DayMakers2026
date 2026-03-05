@@ -199,6 +199,7 @@ public class GameManager : MonoBehaviour
                 RankLevel = _postDatabase.Get((Post)next);
                 _uiManager.UpdatePostUI(RankLevel.PostName);
                 _uiManager.ChangePost(RankLevel.PostType);
+                _effectManager.PlayPromotionEffect();
             }
 
             return ScoreLevel.Perfect;

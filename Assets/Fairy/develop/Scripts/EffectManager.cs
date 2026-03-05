@@ -4,7 +4,7 @@ public class EffectManager : MonoBehaviour
 {
     [SerializeField] private ScorePopupCreate _scorePopupCreate;
     [SerializeField] private GameObject _promotionPrefab;
-    
+    [SerializeField] private PromotionInfoAnimation _promotionInfoAnimation;
     public void PlayScoreEffect(int score,RectTransform stampRect)
     {
         _scorePopupCreate.Create(score, stampRect);
@@ -13,5 +13,9 @@ public class EffectManager : MonoBehaviour
     {
         GameObject newEvalutionEffect = Instantiate(_promotionPrefab,stampRect);
         newEvalutionEffect.transform.localPosition = Vector3.zero;
+    }
+    public void PlayPromotionEffect()
+    {
+        _promotionInfoAnimation.PlayAnimation();
     }
 }
