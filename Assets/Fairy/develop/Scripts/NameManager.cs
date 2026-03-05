@@ -7,6 +7,7 @@ public class NameManager : MonoBehaviour
     void Start()
     {
         _dataManager = FindAnyObjectByType<DataManager>();
+        SetName("");
     }
      public void SetName(string name)
     {
