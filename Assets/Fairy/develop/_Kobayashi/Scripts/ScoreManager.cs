@@ -30,30 +30,30 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
+
+        GetPostData(Post.Staff);
         string st = ""; 
         for(int i = 0; i < 200; i++)
         {
             float distance = i;
             st += $"距離{distance} スコア";
+            float score;
             if (distance <= _gracePeriodPos)
             {
-                //位置スコア最大
-                st += _maxPositionScore +"\n";
-                //score += _maxPositionScore;
-                //resultSt += "位置　許容 :" + _maxPositionScore + "\n";
+                score = _maxPositionScore;
+            }
+            else if (distance >= _worstPosition)
+            {
+                score = 0f;
             }
             else
             {
-                //float removeRate = (distance - _gracePeriodPos) / _gracePeriodPos;
-                ////float removeScore = _maxPositionScore * removeRate;
-                //float removeRate = (distance - _gracePeriodPos) / _gracePeriodPos;
-                //removeRate = Mathf.Clamp01(removeRate);
-                float removeScore = Mathf.Lerp  (0,_maxPositionScore,(distance/_gracePeriodPos));
-                //それに応じたスコアを計算
-                //score += Mathf.RoundToInt(_maxPositionScore - removeScore);
-                st += Mathf.RoundToInt(_maxPositionScore - removeScore) + "\n";
-                //resultSt += "位置 :" + Mathf.RoundToInt(_maxPositionScore - removeScore) + "\n";
+                float t = (distance - _gracePeriodPos) /
+                          (_worstPosition - _gracePeriodPos);
+
+                score = Mathf.Lerp(_maxPositionScore, 0f, t);
             }
+            st += Mathf.RoundToInt(score) + "\n";
         }
         Debug.Log(st);
     }
@@ -81,21 +81,26 @@ public class ScoreManager : MonoBehaviour
         //位置計算
         float distance = Vector3.Distance(stampPos, _correctPosition);
         inputSt += "位置 : " + distance + "\n";
+        float posScore = 0;
         if (distance <= _gracePeriodPos)
         {
-            //位置スコア最大
-            score += _maxPositionScore;
-            resultSt += "位置　許容 :" + _maxPositionScore + "\n";
+            posScore = _maxPositionScore;
+            resultSt += "位置　許容 :" + posScore + "\n";
+        }
+        else if (distance >= _worstPosition)
+        {
+            posScore = 0f;
+            resultSt += "位置　最低 :" + posScore + "\n";
         }
         else
         {
-            float removeRate = (distance - _gracePeriodPos) / _gracePeriodPos;
-            float removeScore = _maxPositionScore * removeRate;
-            removeRate = Mathf.Clamp01(removeRate);
-            //それに応じたスコアを計算
-            score += Mathf.RoundToInt(_maxPositionScore - removeScore);
-            resultSt += "位置 :" + Mathf.RoundToInt(_maxPositionScore - removeScore) + "\n";
+            float t = (distance - _gracePeriodPos) /
+                      (_worstPosition - _gracePeriodPos);
+
+            posScore = Mathf.Lerp(_maxPositionScore, 0f, t);
+            resultSt += "位置 :" + posScore + "\n";
         }
+        score += posScore;
 
         //角度計算
         float angleDiff = Mathf.Abs(_correctRotation - stampRot);
