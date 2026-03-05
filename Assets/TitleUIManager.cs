@@ -28,8 +28,7 @@ public class TitleUIManager : TitleUIObjects
             NoEditNameAlert();
         }
         else{
-            fadePrefab.GetComponent<Fade>().FadeOut();
-            sceneLoader.LoadScene(1);}
+            fadePrefab.GetComponent<Fade>().FadeOut(1);}
     }
 
     //SpeechBubble
